@@ -40,4 +40,5 @@ class Admin extends BaseController
         session()->destroy();
         return redirect()->to('/admin/login');
     }
+   
 }

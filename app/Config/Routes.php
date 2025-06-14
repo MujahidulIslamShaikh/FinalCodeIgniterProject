@@ -14,7 +14,7 @@ $routes->get('/', 'Form::index');
 $routes->post('/submit-form', 'Form::submit');
 
 $routes->get('/user_list', 'Form::list');   
-
+  
 $routes->get('delete-user/(:num)', 'Form::delete_user/$1');
 
 $routes->get('/edit-user/(:num)','Form::edit_user/$1');
@@ -25,6 +25,9 @@ $routes->get('/signup-user','Auth::signup_user');
 $routes->post('/signup-user','Auth::dosignup_user');
 
 $routes->get('/login-user','Auth::login_user'); 
+$routes->get('/Noor','Auth::loginuserlist');
+
+
 
 $routes->post('/login-user','Auth::dologin_user');
 $routes->get('/logout-user','Auth::logout');

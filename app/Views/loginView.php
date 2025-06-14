@@ -31,8 +31,16 @@
             <?php if (session()->getFlashdata('success')): ?>
                 <p style="color:green;"><?= session()->getFlashdata('success') ?></p>
             <?php endif; ?>
-            
+
         </form>
+
+        <div>
+            <a href="/Noor">
+
+                <button>Login User List</button>
+            </a>
+        </div>
+
     </div>
 </body>
 

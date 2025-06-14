@@ -5,11 +5,17 @@ namespace App\Controllers;
 
 use App\Models\SignupModel;
 
+
 class Auth extends BaseController
 {
     public function signup_user()
     {
         return view('/signupView');
+    }
+    public function loginuserlist()
+    {
+        $model = new SignupModel(); 
+        return view('/LoginUserListView', [ 'Login_user_list' => $model->findAll()]);
     }
     public function dosignup_user()
     {

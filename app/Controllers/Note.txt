@@ -1,0 +1,48 @@
+CREATE TABLE signup (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    pass VARCHAR(255) NOT NULL
+);
+
+ALTER TABLE signup
+ADD COLUMN username VARCHAR(255) NOT NULL AFTER id;
+
+
+ALTER TABLE signup ADD role VARCHAR(20) DEFAULT 'user';
+
+ALTER TABLE signup ADD reset_token VARCHAR(255) NULL;
+======================================================== file upload ==============
+CREATE TABLE products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    image VARCHAR(255)
+);
+
+<?php foreach ($products as $prod): ?>
+    <h3><?= $prod['name'] ?></h3>
+    <img src="/uploads/<?= $prod['image'] ?>" width="200">
+<?php endforeach; ?>
+
+================ admin ======================
+
+CREATE TABLE admin (
+    username VARCHAR(100) NOT NULL UNIQUE,
+    pass VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+INSERT INTO admin (username, pass) VALUES ('Admin@123', '123456');
+
+=============================
+
+CREATE TABLE images (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    imgName VARCHAR(255) NOT NULL,
+    image_name VARCHAR(255) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+
+

@@ -7,10 +7,9 @@
     <title>Main</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .topbar {
-            background: #f8f9fa;
-            padding: 10px 20px;
-            margin-bottom: 20px;
+        .content {
+            /* flex: 1; */
+            /* padding: 20px; */
         }
     </style>
 </head>
@@ -40,17 +39,13 @@
     </nav>
 
     <div class="content">
-        <div class="topbar">
-            <h5>Welcome, Admin</h5>
-        </div>
         <?= $this->renderSection('contentIndex') ?>
     </div>
 
 
 
-    
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 
 </body>

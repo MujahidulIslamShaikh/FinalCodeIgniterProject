@@ -1,34 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
+<?= $this->extend('/index') ?>
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<script src="https://cdn.tailwindcss.com"></script>
 
-</head>
+<?= $this->section('contentIndex') ?>
+<style>
+	.custom-form {
+		background-color: #fff;
+		border-radius: 10px;
+		padding: 30px;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	}
+</style>
 
-<body>
-
-	<form class="max-w-sm mx-auto" action="/update-user/<?= $user['id'] ?>" method="post">
-		<div class="mb-5">
-			<label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your username</label>
-			<input type="text" name="username" id="username" value="<?= esc($user['name']) ?>" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" required />
+<div class="container mt-5">
+	<div class="row justify-content-center">
+		<div class="col-md-6">
+			<form class="custom-form" action="/update-user/<?= $user['id'] ?>" method="post">
+				<div class="mb-3">
+					<label for="username" class="form-label">Your Username</label>
+					<input type="text" name="username" id="username" value="<?= esc($user['name']) ?>" class="form-control" required>
+				</div>
+				<div class="mb-3">
+					<label for="role" class="form-label">Your Role</label>
+					<input type="text" name="role" id="role" value="<?= esc($user['role']) ?>" class="form-control" required>
+				</div>
+				<div class="mb-3">
+					<label for="cont_num" class="form-label">Your Contact Number</label>
+					<input type="number" name="cont_num" id="cont_num" value="<?= esc($user['cont_num']) ?>" class="form-control" required>
+				</div>
+				<button type="submit" class="btn btn-primary w-100">Submit</button>
+			</form>
 		</div>
-		<div class="mb-5">
-			<label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
-			<input type="text" name="role" id="role" value="<?= esc($user['role']) ?>" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-		</div>
-		<div class="mb-5">
-			<label for="cont_num" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
-			<input type="number" name="cont_num" id="cont_num" value="<?= esc($user['cont_num']) ?>" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-		</div>
-		<button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-	</form>
+	</div>
+</div>
 
 
 
-</body>
-
-</html>
+<?= $this->endSection() ?>

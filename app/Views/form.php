@@ -1,4 +1,6 @@
 <?= $this->extend('/index') ?>
+
+
 <?= $this->section('contentIndex') ?>
 
 <style>
@@ -111,6 +113,6 @@
     });
   </script>
 
-
-
 <?= $this->endSection() ?>
+
+

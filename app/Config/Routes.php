@@ -36,14 +36,14 @@ $routes->get('/logout-user','Auth::logout');
 $routes->get('forgot', 'Auth::forgot');
 $routes->post('forgot', 'Auth::handleForgot');
 $routes->get('reset-password/(:segment)', 'Auth::resetForm/$1');
-$routes->post('reset-password/(:segment)', 'Auth::resetPassword/$1');
+$routes->post('reset-password/(:segment)', 'Auth::resetP    assword/$1');
 
 $routes->get('send-email', 'Auth::testEmail');
 
 $routes->get('/admin/upload-file','UploadController::uploadMethod');
 $routes->post('/admin/upload-file','UploadController::saveFileMethod');
 $routes->get('/display-file','UploadController::ShowFileDataMethod');
-
+//==========================================
 $routes->get('/admin/dashboard','Admin::dashboard');
 $routes->get('/admin/login','Admin::login');
 $routes->post('/admin/login','Admin::checkLogin');

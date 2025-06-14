@@ -15,7 +15,14 @@ class Form extends BaseController
         if (!session()->get('user')) {
             return redirect()->to('/login-user');
         }
-        return view('form');
+        return view('index');
+    }
+    public function formreturn()
+    {
+        if (!session()->get('user')) {
+            return redirect()->to('/login-user');
+        }
+        return view('/form');
     }
 
     public function submit()

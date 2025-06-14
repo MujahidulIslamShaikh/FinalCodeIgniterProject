@@ -10,6 +10,7 @@ use CodeIgniter\Router\RouteCollection;
 
 
 $routes->get('/', 'Form::index');
+$routes->get('/form', 'Form::formreturn');
 
 $routes->post('/submit-form', 'Form::submit');
 

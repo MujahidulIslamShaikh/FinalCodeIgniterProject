@@ -27,14 +27,14 @@
 <!-- Product Form -->
 <form id="CreateProductForm">
     <div class="mb-3">
-        <select class="form-control" name="BrandId" id="brandSelect" required>
+        <select class="form-control form-control-sm" name="BrandId" id="brandSelect" required>
             <option value="">Select Brand</option>
         </select>
         <a href="#" data-bs-toggle="modal" data-bs-target="#brandModal">+ New Brand</a>
     </div>
 
     <div class="mb-3">
-        <select class="form-control" name="CateId" id="categorySelect" required>
+        <select class="form-control form-control-sm" name="CateId" id="categorySelect" required>
             <option value="">Select Category</option>
         </select>
         <a href="#" data-bs-toggle="modal" data-bs-target="#categoryModal">+ New Category</a>
@@ -42,12 +42,12 @@
 
     <div class="mb-3">
         <label>Name</label>
-        <input type="text" class="form-control" name="ProdName" required>
+        <input type="text" class="form-control form-control-sm" name="ProdName" required>
     </div>
 
     <div class="mb-3">
         <label>Details</label>
-        <input type="text" class="form-control" name="details" required>
+        <input type="text" class="form-control form-control-sm" name="details" required>
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>

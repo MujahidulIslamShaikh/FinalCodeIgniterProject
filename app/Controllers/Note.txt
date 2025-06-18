@@ -52,11 +52,25 @@ CREATE TABLE productApiTable (
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
-================== product_categories table 
+
+mujhe is table me  ye update karna hai     
+
+   BrandId INT NOT NULL,
+    FOREIGN KEY (BrandId) REFERENCES product_brands(BrandId)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+================== product_categories table & product_brand table ============
 
 CREATE TABLE product_categories (
     CateId INT AUTO_INCREMENT PRIMARY KEY,
     CateName VARCHAR(255) NOT NULL UNIQUE
+);
+
+
+
+CREATE TABLE product_brands (
+    BrandId INT AUTO_INCREMENT PRIMARY KEY,
+    BrandName VARCHAR(255) NOT NULL UNIQUE
 );
 
 

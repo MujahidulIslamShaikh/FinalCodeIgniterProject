@@ -105,6 +105,15 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
 });
 
 
+$routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
+    $routes->get('brand', 'ProdBrandApiController::index');         // List
+    $routes->get('brand/(:num)', 'ProdBrandApiController::show/$1'); // Single
+    $routes->post('brand', 'ProdBrandApiController::create');        // Create
+    $routes->put('brand/(:num)', 'ProdBrandApiController::update/$1'); // Update
+    $routes->delete('brand/(:num)', 'ProdBrandApiController::delete/$1'); // Delete
+});
+
+
 
 
 

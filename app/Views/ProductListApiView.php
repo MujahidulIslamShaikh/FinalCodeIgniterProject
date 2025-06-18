@@ -1,6 +1,7 @@
-<?= $this->extend('/admin/dashboard') ?>
-<?= $this->section('content') ?>
 
+
+<?= $this->extend('/index') ?>
+<?= $this->section('contentIndex') ?>
 
 
 <style>
@@ -18,6 +19,7 @@
 </style>
 
 <div class="container mt-5">
+    <a href="/CreateProductView">Create Product</a>
     <h3 class="mb-4 text-center">Product List</h3>
     <div class="table-responsive">
         <table class="table table-bordered" id="productTable">
@@ -25,18 +27,17 @@
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Role</th>
+                    <th>Product Details</th>
                     <th>Contact Number</th>
-
                 </tr>
             </thead>
             <tbody>
                 <!-- API data will be inserted here -->
-
             </tbody>
         </table>
     </div>
 </div>
+
 <script>
     async function loadUsers() {
         try {
@@ -51,6 +52,7 @@
             <tr>
               <td>${prod.Prodid}</td>
               <td>${prod.ProdName}</td>
+              <td>${prod.details}</td>
             </tr>
           `;
                 tbody.innerHTML += row;

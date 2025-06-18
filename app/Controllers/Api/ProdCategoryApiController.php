@@ -3,28 +3,38 @@
 // app/Controllers/Api/UserApiController.php
 namespace App\Controllers\Api;
 
-use App\Models\ProductApiModel;
+use App\Models\ProdCateModel;
 use CodeIgniter\RESTful\ResourceController;
 
-class ProductApiController extends ResourceController
+class ProdCategoryApiController extends ResourceController
 {
-    protected $modelName = ProductApiModel::class;
+    protected $modelName = ProdCateModel::class;
     protected $format    = 'json';
     protected $model;
     
     public function __construct()
     {
-        $this->model = new ProductApiModel();
+        $this->model = new ProdCateModel();
     }
 
     public function productView(){
         return view('/ProductListApiView');
     }
 
-    public function index() // GET /api/users
+    public function index() // GET /api/category
     {
         return $this->respond($this->model->findAll());
     }
+
+    public function create() // POST /api/category
+    {
+        $data = $this->request->getJSON(true);
+        if ($this->model->insert($data)) {
+            return $this->respondCreated(['message' => 'Category created successfully']);
+        }
+        return $this->failValidationErrors($this->model->errors());
+    }
+
 
     // public function show($id = null) // GET /api/users/{id}
     // {
@@ -32,15 +42,7 @@ class ProductApiController extends ResourceController
     //     return $data ? $this->respond($data) : $this->failNotFound("User not found");
     // }
 
-    public function create() // POST /api/users
-    {
-        $data = $this->request->getJSON(true);
-        if ($this->model->insert($data)) {
-            return $this->respondCreated(['message' => 'User created successfully']);
-        }
-        return $this->failValidationErrors($this->model->errors());
-    }
-
+    
     // public function update($id = null) // PUT /api/users/{id}
     // {
     //     $data = $this->request->getJSON(true);

@@ -26,6 +26,10 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/product_list">Product List</a></li>
+
+                    <li class="nav-item"><a class="nav-link" href="/CreateProductView">Create Product</a></li>
+
                     <li class="nav-item"><a class="nav-link" href="/user_list_api">user_list_api</a></li>
                     <li class="nav-item"><a class="nav-link" href="/form">Form</a></li>
                     <li class="nav-item"><a class="nav-link" href="/admin/dashboard">Dashboard</a></li>

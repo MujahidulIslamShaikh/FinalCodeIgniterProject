@@ -48,6 +48,8 @@
         <a href="/admin/upload-file">Uploads Product</a>
         <a href="/admin/prod-action">Product Actions</a>
         <a href="/admin/mult-image-upload">Multiple Image Upload</a>
+        <a href="/admin/product_list">Add Product</a>
+        <!-- <a href="/admin/product_list">Create Product</a> -->
     </div>
     <div class="content">
         <div class="topbar">

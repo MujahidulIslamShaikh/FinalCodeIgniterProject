@@ -75,11 +75,17 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
     $routes->delete('users/(:num)', 'UserApiController::delete/$1'); // Delete
 });
 
+$routes->get('/CreateProductView', 'GeneralController::CreateProductView');
+
+$routes->group('/', ['namespace' => 'App\Controllers\Api'], function($routes) {
+    $routes->get('product_list','ProductApiController::productView');
+});  
+
 // $routes->get('/admin/product', 'ProductApiController::productView', ['namespace' => 'App\Controllers\Api']);
 // ===================== OR ===============
-$routes->group('admin', ['namespace' => 'App\Controllers\Api'], function($routes) {
-    $routes->get('product', 'ProductApiController::productView');
-});
+// $routes->group('admin', ['namespace' => 'App\Controllers\Api'], function($routes) {
+//     $routes->get('product_list', 'ProductApiController::productView');
+// });
 
 
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
@@ -90,7 +96,13 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
     $routes->delete('product/(:num)', 'ProductApiController::delete/$1'); // Delete
 });
 
-
+$routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
+    $routes->get('category', 'ProdCategoryApiController::index');         // List
+    $routes->get('category/(:num)', 'ProdCategoryApiController::show/$1'); // Single
+    $routes->post('category', 'ProdCategoryApiController::create');        // Create
+    $routes->put('category/(:num)', 'ProdCategoryApiController::update/$1'); // Update
+    $routes->delete('category/(:num)', 'ProdCategoryApiController::delete/$1'); // Delete
+});
 
 
 

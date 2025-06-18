@@ -6,12 +6,38 @@
 
 
 
+
 <!-- =========================== User List from API ========================== -->
 
 <div class="container mt-4">
-    <a href="/form" class="btn btn-secondary mb-3">Back to Registration Form</a>
+    <!-- <a href="/form" class="btn btn-secondary mb-3">Back to Registration Form</a> -->
+    <button class="btn btn-secondary mb-3" data-bs-toggle="modal" data-bs-target="#createUserModal">
+        Create User by Popup
+    </button>
+
 
     <h2 class="mb-4">User List from API</h2>
+
+    <!-- Bootstrap Modal for Creating User -->
+    <div class="modal fade" id="createUserModal" tabindex="-1">
+        <div class="modal-dialog">
+            <form id="createUserForm" class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="name" class="form-control mb-2" placeholder="Name" required>
+                    <input type="text" id="role" class="form-control mb-2" placeholder="Role" required>
+                    <input type="text" id="cont_num" class="form-control mb-2" placeholder="Contact Number" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- ==================================================================== -->
     <table class="table table-bordered" id="userTable">
         <thead class="table-dark">
             <tr>
@@ -30,6 +56,44 @@
 </div>
 
 <script>
+    document.getElementById('createUserForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const data = {
+            name: document.getElementById('name').value,
+            role: document.getElementById('role').value,
+            cont_num: document.getElementById('cont_num').value
+        };
+
+        try {
+            const res = await fetch('/api/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await res.json();
+
+            if (res.ok) {
+                alert('User created successfully!');
+                bootstrap.Modal.getInstance(document.getElementById('createUserModal')).hide();
+                document.getElementById('createUserForm').reset();
+                loadUsers(); // refresh list
+            } else {
+                alert(result.message || 'Failed to create user');
+            }
+        } catch (err) {
+            console.error('Error:', err);
+            alert('Something went wrong');
+        }
+    });
+
+
+
+
+
     async function loadUsers() {
         try {
             const res = await fetch('/api/users');

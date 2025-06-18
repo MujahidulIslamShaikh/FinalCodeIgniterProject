@@ -1,147 +1,99 @@
-<!-- product_form.php -->
-
-<!-- Popup to Create Category Modal -->
-<div class="modal fade" id="categoryModal" tabindex="-1" aria-hidden="true">
+<!-- Category Modal -->
+<div class="modal fade" id="categoryModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Create Category</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-body">
-                <?= view('partials/prod_Cate_From') ?> <!-- yahi doosri file ka code load ho raha -->
-            </div>
-        </div>  
+            <div class="modal-body"><?= view('partials/prod_Cate_From') ?></div>
+        </div>
     </div>
 </div>
-<!-- Popup to Create Brand Modal -->
-<div class="modal fade" id="brandModal" tabindex="-1" aria-hidden="true">
+
+<!-- Brand Modal -->
+<div class="modal fade" id="brandModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Create Brand</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-body">
-                <?= view('partials/prod_Brand_From') ?> <!-- yahi doosri file ka code load ho raha -->
-            </div>
-        </div>  
+            <div class="modal-body"><?= view('partials/prod_Brand_From') ?></div>
+        </div>
     </div>
 </div>
-<!-- ============================== Product Form ===================== -->
+
+<!-- Product Form -->
 <form id="CreateProductForm">
     <div class="mb-3">
         <select class="form-control" name="BrandId" id="brandSelect" required>
             <option value="">Select Brand</option>
         </select>
-        <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#brandModal">Create New Brand</a>
+        <a href="#" data-bs-toggle="modal" data-bs-target="#brandModal">+ New Brand</a>
     </div>
 
     <div class="mb-3">
-    <select class="form-control" name="CateId" id="categorySelect" required>
-        <option value="">Select Category</option>
-    </select>
+        <select class="form-control" name="CateId" id="categorySelect" required>
+            <option value="">Select Category</option>
+        </select>
+        <a href="#" data-bs-toggle="modal" data-bs-target="#categoryModal">+ New Category</a>
     </div>
 
-    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#categoryModal">Create New Category</a>
     <div class="mb-3">
         <label>Name</label>
         <input type="text" class="form-control" name="ProdName" required>
     </div>
+
     <div class="mb-3">
         <label>Details</label>
         <input type="text" class="form-control" name="details" required>
     </div>
+
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
 <script>
-    document.getElementById('CreateProductForm').addEventListener('submit', async function(e) {
-        e.preventDefault(); // form reload na ho
+    const fillSelect = async (url, selectId, valueKey, labelKey) => {
+        try {
+            const res = await fetch(url);
+            const data = await res.json();
+            if (Array.isArray(data)) {
+                const select = document.getElementById(selectId);
+                data.forEach(item => {
+                    const opt = new Option(item[labelKey], item[valueKey]);
+                    select.appendChild(opt);
+                });
+            }
+        } catch (e) {
+            console.error(`Failed to load ${selectId}`, e);
+        }
+    };
 
-        const formData = new FormData(e.target);
-        const data = Object.fromEntries(formData.entries());
-        // const form = e.target;
-        //   const data = {
-        //     name: form.name.value,
-        //     role: form.role.value,
-        //     cont_num: form.cont_num.value
-        //   };
+    document.addEventListener('DOMContentLoaded', () => {
+        fillSelect('/api/brand', 'brandSelect', 'BrandId', 'BrandName');
+        fillSelect('/api/category', 'categorySelect', 'CateId', 'CateName');
+    });
 
+    document.getElementById('CreateProductForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const data = Object.fromEntries(new FormData(e.target).entries());
 
         try {
-            const response = await fetch('/api/product', {
+            const res = await fetch('/api/product', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data)
             });
-
-            const result = await response.json();
-
-            if (response.ok) {
-                alert(result.message || 'Product created successfully!');
-                e.target.reset(); // clear form
-            } else {
-                const errorMessages = result.messages ?
-                    Object.values(result.messages).join('\n') :
-                    result.message || 'Failed to create product';
-
-                alert(errorMessages);
-            }
-
-
+            const result = await res.json();
+            alert(res.ok ? result.message || 'Product created!' : Object.values(result.messages || {
+                error: result.message
+            }).join('\n'));
+            if (res.ok) e.target.reset();
         } catch (err) {
-            console.error('Error:', err);
-            alert('Something went wrong');
+            alert('Error: ' + err.message);
         }
     });
-// ========== Category List By API   =========================
-    document.addEventListener('DOMContentLoaded', async () => {
-        const select = document.getElementById('categorySelect');
-
-        try {
-            const response = await fetch('/api/category');
-            const categories = await response.json();
-
-            if (Array.isArray(categories)) {    
-                categories.forEach(cat => {
-                    const option = document.createElement('option');
-                    option.value = cat.CateId; // DB field
-                    option.textContent = cat.CateName; // DB field
-                    select.appendChild(option);
-                });
-            } else {
-                console.error('Invalid category format', categories);
-            }
-        } catch (err) {
-            console.error('Failed to fetch categories:', err);
-        }
-    });
-
-    // ========== Brand List By API   =========================
-    document.addEventListener('DOMContentLoaded', async () => {
-        const select = document.getElementById('brandSelect');
-
-        try {
-            const response = await fetch('/api/brand');
-            const brands = await response.json();
-
-            if (Array.isArray(brands)) {
-                brands.forEach(brand => {
-                    const option = document.createElement('option');
-                    option.value = brand.BrandId; // DB field
-                    option.textContent = brand.BrandName; // DB field
-                    select.appendChild(option);
-                });
-            } else {
-                console.error('Invalid category format', brands);
-            }
-        } catch (err) {
-            console.error('Failed to fetch brands:', err);
-        }
-    });
-
-
 </script>

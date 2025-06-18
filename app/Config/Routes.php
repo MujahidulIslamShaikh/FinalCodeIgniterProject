@@ -15,6 +15,7 @@ $routes->get('/form', 'Form::formreturn');
 $routes->post('/submit-form', 'Form::submit');
 
 $routes->get('/user_list', 'Form::list');   
+$routes->get('/user_list_api', 'Form::listApi');   
   
 $routes->get('delete-user/(:num)', 'Form::delete_user/$1');
 

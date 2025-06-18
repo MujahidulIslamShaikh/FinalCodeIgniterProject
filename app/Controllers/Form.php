@@ -17,6 +17,10 @@ class Form extends BaseController
         }
         return view('index');
     }
+    public function listApi()
+    {
+        return view('user_list_api');
+    }
     public function formreturn()
     {
         if (!session()->get('user')) {

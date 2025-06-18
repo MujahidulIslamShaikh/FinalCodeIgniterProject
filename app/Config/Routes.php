@@ -75,6 +75,21 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
     $routes->delete('users/(:num)', 'UserApiController::delete/$1'); // Delete
 });
 
+// $routes->get('/admin/product', 'ProductApiController::productView', ['namespace' => 'App\Controllers\Api']);
+// ===================== OR ===============
+$routes->group('admin', ['namespace' => 'App\Controllers\Api'], function($routes) {
+    $routes->get('product', 'ProductApiController::productView');
+});
+
+
+$routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
+    $routes->get('product', 'ProductApiController::index');         // List
+    $routes->get('product/(:num)', 'ProductApiController::show/$1'); // Single
+    $routes->post('product', 'ProductApiController::create');        // Create
+    $routes->put('product/(:num)', 'ProductApiController::update/$1'); // Update
+    $routes->delete('product/(:num)', 'ProductApiController::delete/$1'); // Delete
+});
+
 
 
 

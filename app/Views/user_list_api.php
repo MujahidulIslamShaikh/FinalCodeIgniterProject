@@ -7,7 +7,10 @@
 
 
 <!-- =========================== User List from API ========================== -->
+
 <div class="container mt-4">
+    <a href="/form" class="btn btn-secondary mb-3">Back to Registration Form</a>
+
     <h2 class="mb-4">User List from API</h2>
     <table class="table table-bordered" id="userTable">
         <thead class="table-dark">
@@ -55,6 +58,27 @@
         }
     }
     loadUsers(); // Call on page load
+    async function deleteUser(id) {
+        if (!confirm("Are you sure you want to delete this user?")) return;
+
+        try {
+            const response = await fetch(`/api/users/${id}`, {
+                method: 'DELETE'
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                alert(result.message || 'Deleted successfully');
+                // Optionally: refresh or redirect
+                window.location.reload(); // or window.location.href = '/user-list';
+            } else {
+                alert(result.message || 'Delete failed');
+            }
+        } catch (err) {
+            alert("Error: " + err.message);
+        }
+    }
 </script>
 
 

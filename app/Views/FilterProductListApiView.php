@@ -50,9 +50,9 @@
 </div>
 
 <script>
-    async function loadProducts() {
+    async function loadProducts(categoryId = '') {
         try {
-            const res = await fetch('/api/product');
+            const res = await fetch('/api/product' + (categoryId ? `?category=${categoryId}` : '') );
             const products = await res.json();
 
             const tbody = document.querySelector('#productTable tbody');
@@ -74,6 +74,12 @@
             console.error('Failed to load users:', err);
         }
     }
+    
+  // Dropdown filter
+  document.getElementById('categoryFilter').addEventListener('change', function () {
+    loadProducts(this.value);
+  });
+
     loadProducts();
 </script>
 

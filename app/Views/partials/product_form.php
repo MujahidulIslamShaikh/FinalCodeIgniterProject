@@ -1,31 +1,33 @@
+
 <!-- Category Modal -->
 <div class="modal fade" id="categoryModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Create Category</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body"><?= view('partials/prod_Cate_From') ?></div>
-        </div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create Category</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <?= view('partials/prod_Cate_From.php') ?>
     </div>
+  </div>
 </div>
 
 <!-- Brand Modal -->
 <div class="modal fade" id="brandModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Create Brand</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body"><?= view('partials/prod_Brand_From') ?></div>
-        </div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create Brand</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <?= view('partials/prod_Brand_From.php') ?>
     </div>
+  </div>
 </div>
 
+
 <!-- Product Form -->
-<form id="CreateProductForm">
+<form id="CreateProductForm">  
     <div class="mb-3">
         <select class="form-control form-control-sm" name="BrandId" id="brandSelect" required>
             <option value="">Select Brand</option>

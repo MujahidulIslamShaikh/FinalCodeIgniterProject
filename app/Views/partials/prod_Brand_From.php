@@ -7,6 +7,7 @@
   <button type="submit" class="btn btn-primary">Create Brand</button>
 </form>
 
+
 <script>
   document.getElementById('CreateBrandForm').addEventListener('submit', async function(e) {
     e.preventDefault();

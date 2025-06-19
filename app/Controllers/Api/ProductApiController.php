@@ -3,6 +3,7 @@
 // app/Controllers/Api/UserApiController.php
 namespace App\Controllers\Api;
 
+use App\Models\ProdCateModel;
 use App\Models\ProductApiModel;
 use CodeIgniter\RESTful\ResourceController;
 
@@ -11,19 +12,33 @@ class ProductApiController extends ResourceController
     protected $modelName = ProductApiModel::class;
     protected $format    = 'json';
     protected $model;
-    
+    protected $cateModel;
+
     public function __construct()
     {
         $this->model = new ProductApiModel();
+        $this->cateModel = new ProdCateModel();
     }
 
-    public function productView(){
+    public function productView()  
+    {
         return view('/ProductListApiView');
+    }
+    public function FilterProductView()
+    {
+        $data['categories'] = $this->cateModel->findAll();
+        return view('/FilterProductListApiView', $data);
     }
 
     public function index() // GET /api/users
     {
-        return $this->respond($this->model->findAll());
+        // $products = $this->model->findAll(); 
+        $products = $this->model
+            ->select('productapitable.*, product_categories.CateName as category, product_brands.BrandName as brand')
+            ->join('product_categories', 'product_categories.CateId = productapitable.CateId')
+            ->join('product_brands', 'product_brands.BrandId = productapitable.BrandId')
+            ->findAll();
+        return $this->respond($products);
     }
 
     // public function show($id = null) // GET /api/users/{id}

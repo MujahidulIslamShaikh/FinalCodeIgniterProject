@@ -26,7 +26,8 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="/product_list">Product List</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/FilterProductListApiView">Filter Product List</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/ProductListApiView">Product List</a></li>
 
                     <li class="nav-item"><a class="nav-link" href="/CreateProductView">Create Product</a></li>
 

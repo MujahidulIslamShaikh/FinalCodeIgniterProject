@@ -21,7 +21,14 @@
 
 <div class="container mt-5">
     <a href="/CreateProductView">Create Product</a>
-
+    <form class="mb-3">
+        <select id="categoryFilter" class="form-select w-25 d-inline-block">
+            <option value="">All Categories</option>
+            <?php foreach ($categories as $cat): ?>
+                <option value="<?= esc($cat['CateId']) ?>"><?= esc($cat['CateName']) ?></option>
+            <?php endforeach; ?>
+        </select>
+    </form>
 
     <h3 class="mb-4 text-center">Product List</h3>
     <div class="table-responsive">

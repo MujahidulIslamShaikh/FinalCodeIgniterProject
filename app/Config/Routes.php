@@ -29,7 +29,7 @@ $routes->post('/signup-user','Auth::dosignup_user');
 $routes->get('/login-user','Auth::login_user'); 
 $routes->get('/Noor','Auth::loginuserlist');
 
-
+  
 
 $routes->post('/login-user','Auth::dologin_user');
 $routes->get('/logout-user','Auth::logout');
@@ -78,7 +78,8 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
 $routes->get('/CreateProductView', 'GeneralController::CreateProductView');
 
 $routes->group('/', ['namespace' => 'App\Controllers\Api'], function($routes) {
-    $routes->get('product_list','ProductApiController::productView');
+    $routes->get('ProductListApiView','ProductApiController::productView');
+    $routes->get('FilterProductListApiView','ProductApiController::FilterProductView');
 });  
 
 // $routes->get('/admin/product', 'ProductApiController::productView', ['namespace' => 'App\Controllers\Api']);

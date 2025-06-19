@@ -6,6 +6,7 @@ namespace App\Controllers\Api;
 use App\Models\ProdCateModel;
 use App\Models\ProductApiModel;
 use CodeIgniter\RESTful\ResourceController;
+use PhpParser\Node\Expr\FuncCall;
 
 class ProductApiController extends ResourceController
 {
@@ -24,12 +25,20 @@ class ProductApiController extends ResourceController
     {
         return view('/ProductListApiView');
     }
+
     public function FilterProductView()
     {
         $data['categories'] = $this->cateModel->findAll();
         return view('/FilterProductListApiView', $data);
     }
-    public function FilterProdByCate()
+    public function ProductTest() 
+    {
+        $data = $this->model->findAll();
+        return $this->respond($data);
+    }
+
+
+    public function FilterProdByCate()   // important ============
     {
         $categoryId = $this->request->getGet('category');
 
@@ -40,22 +49,47 @@ class ProductApiController extends ResourceController
 
         if (!empty($categoryId)) {
             $builder->where('productapitable.CateId', $categoryId);
-        }   
-
+        }
         return $this->respond($builder->findAll());
     }
-
-
-    public function index() // GET /api/product 
+ 
+    public function FilterProdByBrand()   // important ============
     {
-        // $products = $this->model->findAll(); 
-        $products = $this->model
+        $brandId = $this->request->getGet('prodBrand');
+
+        $builder = $this->model
             ->select('productapitable.*, product_categories.CateName as category, product_brands.BrandName as brand')
             ->join('product_categories', 'product_categories.CateId = productapitable.CateId')
-            ->join('product_brands', 'product_brands.BrandId = productapitable.BrandId')
-            ->findAll();
+            ->join('product_brands', 'product_brands.BrandId = productapitable.BrandId');
+
+        if (!empty($brandId)) {
+            $builder->where('productapitable.BrandId', $brandId);
+        }
+        return $this->respond($builder->findAll());
+    }
+ 
+    public function index() // GET /api/product 
+    {
+        $products = $this->model->findAll(); 
+        // $products = $this->model
+        //     ->select('productapitable.*, product_categories.CateName as category, product_brands.BrandName as brand')
+        //     ->join('product_categories', 'product_categories.CateId = productapitable.CateId')
+        //     ->join('product_brands', 'product_brands.BrandId = productapitable.BrandId')
+        //     ->findAll();
         return $this->respond($products);
     }
+
+       public function SearchFilterProdCate()
+    {
+        // $products = $this->model->findAll();
+        // $products = $this->model
+        //     ->select('productapitable.*, product_categories.CateName as category, product_brands.BrandName as brand')
+        //     ->join('product_categories', 'product_categories.CateId = productapitable.CateId')
+        //     ->join('product_brands', 'product_brands.BrandId
+        
+        // return $this->respond($products);
+    }
+
 
     // public function show($id = null) // GET /api/users/{id}
     // {
@@ -72,21 +106,45 @@ class ProductApiController extends ResourceController
         return $this->failValidationErrors($this->model->errors());
     }
 
-    // public function update($id = null) // PUT /api/users/{id}
-    // {
-    //     $data = $this->request->getJSON(true);
-    //     if ($this->model->update($id, $data)) {
-    //         return $this->respond(['message' => 'User updated successfully']);
-    //     }
-    //     return $this->failValidationErrors($this->model->errors());
-    // }
+    public function update($id = null) // PUT /api/product/{id}
+    {
+        $data = $this->request->getJSON(true);
+        if ($this->model->update($id, $data)) {
+            return $this->respond(['message' => 'User updated successfully']);
+        }
+        return $this->failValidationErrors($this->model->errors());
+    }
 
-    // public function delete($id = null) // DELETE /api/users/{id}
+    public function delete($id = null) // DELETE /api/product/{id}
+    {
+        if ($this->model->delete($id)) {
+            return $this->respondDeleted(['message' => 'User deleted']);
+        }
+        return $this->failNotFound('User not found');
+    }
+
+        // public function FilterProdByCate()
     // {
-    //     if ($this->model->delete($id)) {
-    //         return $this->respondDeleted(['message' => 'User deleted']);
+    //     $categoryId = $this->request->getGet('category');
+    //     $search     = $this->request->getGet('search');
+
+    //     $builder = $this->model
+    //         ->select('productapitable.*, product_categories.CateName as category, product_brands.BrandName as brand')
+    //         ->join('product_categories', 'product_categories.CateId = productapitable.CateId')
+    //         ->join('product_brands', 'product_brands.BrandId = productapitable.BrandId');
+
+    //     if (!empty($categoryId)) {
+    //         $builder->where('productapitable.CateId', $categoryId);
     //     }
-    //     return $this->failNotFound('User not found');
+
+    //     if (!empty($search)) {
+    //         $builder->groupStart()
+    //             ->like('productapitable.ProdName', $search)
+    //             ->orLike('productapitable.details', $search)
+    //             ->groupEnd();
+    //     }
+
+    //     return $this->respond($builder->findAll());
     // }
 
 

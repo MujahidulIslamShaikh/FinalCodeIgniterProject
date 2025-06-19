@@ -37,7 +37,7 @@ $routes->get('/logout-user','Auth::logout');
 $routes->get('forgot', 'Auth::forgot');
 $routes->post('forgot', 'Auth::handleForgot');
 $routes->get('reset-password/(:segment)', 'Auth::resetForm/$1');
-$routes->post('reset-password/(:segment)', 'Auth::resetP    assword/$1');
+$routes->post('reset-password/(:segment)', 'Auth::resetPassword/$1');
 
 $routes->get('send-email', 'Auth::testEmail');
 
@@ -90,13 +90,16 @@ $routes->group('/', ['namespace' => 'App\Controllers\Api'], function($routes) {
 
 
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
-    $routes->get('product', 'ProductApiController::index');     
-    $routes->get('FilterProdCate', 'ProductApiController::FilterProdByCate');  // List
+    $routes->get('product', 'ProductApiController::index');     // List
+    $routes->get('FilterProdByCate', 'ProductApiController::FilterProdByCate');     // List
+    $routes->get('FilterProdByBrand', 'ProductApiController::FilterProdByBrand');     // List
+    $routes->get('ProductTest', 'ProductApiController::ProductTest');     // List
     $routes->get('product/(:num)', 'ProductApiController::show/$1'); // Single
     $routes->post('product', 'ProductApiController::create');        // Create
     $routes->put('product/(:num)', 'ProductApiController::update/$1'); // Update
     $routes->delete('product/(:num)', 'ProductApiController::delete/$1'); // Delete
 });
+
 
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
     $routes->get('category', 'ProdCategoryApiController::index');         // List

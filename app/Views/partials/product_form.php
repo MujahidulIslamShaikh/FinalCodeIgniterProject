@@ -1,16 +1,4 @@
 
-<!-- Category Modal -->
-<div class="modal fade" id="categoryModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Create Category</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <?= view('partials/prod_Cate_From.php') ?>
-    </div>
-  </div>
-</div>
 
 <!-- Brand Modal -->
 <div class="modal fade" id="brandModal">
@@ -25,18 +13,31 @@
   </div>
 </div>
 
+<!-- Category Modal -->
+<div class="modal fade" id="categoryModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create Category</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <?= view('partials/prod_Cate_From.php') ?>
+    </div>
+  </div>
+</div>
+
 
 <!-- Product Form -->
 <form id="CreateProductForm">  
     <div class="mb-3">
-        <select class="form-control form-control-sm" name="BrandId" id="brandSelect" required>
+        <select class="form-control border-success form-control-sm" name="BrandId" id="brandSelect" required>
             <option value="">Select Brand</option>
         </select>
         <a href="#" data-bs-toggle="modal" data-bs-target="#brandModal">+ New Brand</a>
     </div>
 
     <div class="mb-3">
-        <select class="form-control form-control-sm" name="CateId" id="categorySelect" required>
+        <select class="form-control border-success form-control-sm" name="CateId" id="categorySelect" required>
             <option value="">Select Category</option>
         </select>
         <a href="#" data-bs-toggle="modal" data-bs-target="#categoryModal">+ New Category</a>
@@ -44,12 +45,12 @@
 
     <div class="mb-3">
         <label>Name</label>
-        <input type="text" class="form-control form-control-sm" name="ProdName" required>
+        <input type="text" class="form-control border-success form-control-sm" name="ProdName" required>
     </div>
 
     <div class="mb-3">
         <label>Details</label>
-        <input type="text" class="form-control form-control-sm" name="details" required>
+        <input type="text" class="form-control border-success form-control-sm" name="details" required>
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
@@ -93,7 +94,11 @@
             alert(res.ok ? result.message || 'Product created!' : Object.values(result.messages || {
                 error: result.message
             }).join('\n'));
-            if (res.ok) e.target.reset();
+            if (res.ok)
+            {
+                e.target.reset();
+                window.location.href = "/FilterProductListApiView";
+            } 
         } catch (err) {
             alert('Error: ' + err.message);
         }

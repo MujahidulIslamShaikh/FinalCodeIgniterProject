@@ -116,46 +116,48 @@
 	});
 	// ============= Edit user form =====================
 	function openEditModal(id, name, role, cont_num) {
-  document.getElementById('edit_id').value = id;
-  document.getElementById('edit_name').value = name;
-  document.getElementById('edit_role').value = role;
-  document.getElementById('edit_cont_num').value = cont_num;
+		document.getElementById('edit_id').value = id;
+		document.getElementById('edit_name').value = name;
+		document.getElementById('edit_role').value = role;
+		document.getElementById('edit_cont_num').value = cont_num;
 
-  const modal = new bootstrap.Modal(document.getElementById('editUserModal'));
-  modal.show();
-}
-document.getElementById('editUserForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
+		const modal = new bootstrap.Modal(document.getElementById('editUserModal'));
+		modal.show();
+	}
+	document.getElementById('editUserForm').addEventListener('submit', async function(e) {
+		e.preventDefault();
 
-  const id = document.getElementById('edit_id').value;
+		const id = document.getElementById('edit_id').value;
 
-  const data = {
-    name: document.getElementById('edit_name').value,
-    role: document.getElementById('edit_role').value,
-    cont_num: document.getElementById('edit_cont_num').value
-  };
+		const data = {
+			name: document.getElementById('edit_name').value,
+			role: document.getElementById('edit_role').value,
+			cont_num: document.getElementById('edit_cont_num').value
+		};
 
-  try {
-    const res = await fetch(`/api/users/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
+		try {
+			const res = await fetch(`/api/users/${id}`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data)
+			});
 
-    const result = await res.json();
+			const result = await res.json();
 
-    if (res.ok) {
-      alert('User updated successfully!');
-      bootstrap.Modal.getInstance(document.getElementById('editUserModal')).hide();
-      loadUsers(); // Refresh table
-    } else {
-      alert(result.message || 'Update failed');
-    }
-  } catch (err) {
-    console.error('Error:', err);
-    alert('Something went wrong');
-  }
-});
+			if (res.ok) {
+				alert('User updated successfully!');
+				bootstrap.Modal.getInstance(document.getElementById('editUserModal')).hide();
+				loadUsers(); // Refresh table
+			} else {
+				alert(result.message || 'Update failed');
+			}
+		} catch (err) {
+			console.error('Error:', err);
+			alert('Something went wrong');
+		}
+	});
 
 
 

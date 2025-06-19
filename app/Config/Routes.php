@@ -90,7 +90,8 @@ $routes->group('/', ['namespace' => 'App\Controllers\Api'], function($routes) {
 
 
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
-    $routes->get('product', 'ProductApiController::index');         // List
+    $routes->get('product', 'ProductApiController::index');     
+    $routes->get('FilterProdCate', 'ProductApiController::FilterProdByCate');  // List
     $routes->get('product/(:num)', 'ProductApiController::show/$1'); // Single
     $routes->post('product', 'ProductApiController::create');        // Create
     $routes->put('product/(:num)', 'ProductApiController::update/$1'); // Update

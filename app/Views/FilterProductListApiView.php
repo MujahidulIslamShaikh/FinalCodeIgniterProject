@@ -52,7 +52,7 @@
 <script>
     async function loadProducts(categoryId = '') {
         try {
-            const res = await fetch('/api/product' + (categoryId ? `?category=${categoryId}` : '') );
+            const res = await fetch('/api/FilterProdCate' + (categoryId ? `?category=${categoryId}` : '') );
             const products = await res.json();
 
             const tbody = document.querySelector('#productTable tbody');
@@ -71,7 +71,7 @@
                 tbody.innerHTML += row;
             });
         } catch (err) {
-            console.error('Failed to load users:', err);
+            console.error('Failed to load users:', err);a
         }
     }
     

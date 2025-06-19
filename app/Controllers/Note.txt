@@ -72,5 +72,16 @@ CREATE TABLE product_brands (
     BrandId INT AUTO_INCREMENT PRIMARY KEY,
     BrandName VARCHAR(255) NOT NULL UNIQUE
 );
+============================ productapitable ==================
+CREATE TABLE productapitable (
+  Prodid INT AUTO_INCREMENT PRIMARY KEY,
+  ProdName VARCHAR(255) NOT NULL,
+  details TEXT NOT NULL,
+  CateId INT NOT NULL,
+  BrandId INT NOT NULL,
+  FOREIGN KEY (CateId) REFERENCES product_categories(CateId) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (BrandId) REFERENCES product_brands(BrandId) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 
 

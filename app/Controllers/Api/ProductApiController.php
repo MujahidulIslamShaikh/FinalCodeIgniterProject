@@ -20,7 +20,7 @@ class ProductApiController extends ResourceController
         $this->cateModel = new ProdCateModel();
     }
 
-    public function productView()  
+    public function productView()
     {
         return view('/ProductListApiView');
     }
@@ -29,8 +29,24 @@ class ProductApiController extends ResourceController
         $data['categories'] = $this->cateModel->findAll();
         return view('/FilterProductListApiView', $data);
     }
+    public function FilterProdByCate()
+    {
+        $categoryId = $this->request->getGet('category');
 
-    public function index() // GET /api/users
+        $builder = $this->model
+            ->select('productapitable.*, product_categories.CateName as category, product_brands.BrandName as brand')
+            ->join('product_categories', 'product_categories.CateId = productapitable.CateId')
+            ->join('product_brands', 'product_brands.BrandId = productapitable.BrandId');
+
+        if (!empty($categoryId)) {
+            $builder->where('productapitable.CateId', $categoryId);
+        }   
+
+        return $this->respond($builder->findAll());
+    }
+
+
+    public function index() // GET /api/product 
     {
         // $products = $this->model->findAll(); 
         $products = $this->model

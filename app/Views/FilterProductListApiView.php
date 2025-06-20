@@ -46,7 +46,7 @@
 
         <a href="/CreateProductView">Create Product</a>
     </div>
-<input type="search" class="form-control" id="SearchProductTableInput">
+    <input type="search" class="form-control" id="SearchProductTableInput">
     <h3 class="mb-4 text-center">Product List</h3>
     <div class="table-responsive">
         <table class="table table-bordered" id="productTable">
@@ -72,9 +72,10 @@
 
 
 <script>
-    async function loadProducts(categoryId = '') {
+    // async function loadProducts(categoryId = '') {
+    async function loadProducts(search = '') {
         try {
-            const res = await fetch('/api/FilterProdByCate' + (categoryId ? `?category=${categoryId}` : ''));
+            const res = await fetch('/api/product/searchByProductName' + (search ? `?search=${search}` : ''));
             const products = await res.json();
 
             const tbody = document.querySelector('#productTable tbody');
@@ -105,14 +106,14 @@
 
     // Dropdown filter
     document.getElementById('categoryFilter').addEventListener('change', function() {
-        loadProducts(this.value);
+        // loadProducts(this.value);
     });
-   document.getElementById("SearchProductTableInput").addEventListener('input', function() {
-        const keyword = this.value.trim();
-        console.log(keyword);
-        // loadProducts(keyword);
 
-   });
+    document.getElementById("SearchProductTableInput").addEventListener('input', function() {
+        const keyword = this.value.trim();
+        loadProducts(keyword);
+
+    });
 
     loadProducts();
 
@@ -139,7 +140,6 @@
             alert("Error: " + err.message);
         }
     }
-  
 </script>
 
 

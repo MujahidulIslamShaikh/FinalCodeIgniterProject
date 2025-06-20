@@ -38,7 +38,7 @@ class ProductApiController extends ResourceController
     }
 
 
-    public function FilterProdByCate()   // important ============
+    public function FilterProdByCate()   // important ======================
     {
         $categoryId = $this->request->getGet('category');
 
@@ -51,10 +51,10 @@ class ProductApiController extends ResourceController
             $builder->where('productapitable.CateId', $categoryId);
         }
         return $this->respond($builder->findAll());
-    }  
-    
+    }
 
-    public function FilterProdByBrand()   // important ============
+
+    public function FilterProdByBrand()   // important =======================
     {
         $brandId = $this->request->getGet('prodBrand');
 
@@ -68,6 +68,23 @@ class ProductApiController extends ResourceController
         }
         return $this->respond($builder->findAll());
     }
+    public function searchByProductName()    // important ==========================================
+    {
+        $searchTerm = $this->request->getGet('search');
+
+        $builder = $this->model
+            ->select('productapitable.*, product_categories.CateName as category, product_brands.BrandName as brand')
+            ->join('product_categories', 'product_categories.CateId = productapitable.CateId')
+            ->join('product_brands', 'product_brands.BrandId = productapitable.BrandId');
+
+        if (!empty($searchTerm)) {
+            $builder->like('productapitable.ProdName', $searchTerm);
+        }
+
+        return $this->respond($builder->findAll());
+    }
+
+
 
     public function index() // GET /api/product 
     {
@@ -158,26 +175,26 @@ class ProductApiController extends ResourceController
     // }
 
     //////////////  aisa ek sath bhi bana sakte ////////////////////
-//     public function FilterProdByCate()
-// {
-//     $categoryId = $this->request->getGet('category');
-//     $searchTerm = $this->request->getGet('search');
+    //     public function FilterProdByCate()
+    // {
+    //     $categoryId = $this->request->getGet('category');
+    //     $searchTerm = $this->request->getGet('search');
 
-//     $builder = $this->model
-//         ->select('productapitable.*, product_categories.CateName as category, product_brands.BrandName as brand')
-//         ->join('product_categories', 'product_categories.CateId = productapitable.CateId')
-//         ->join('product_brands', 'product_brands.BrandId = productapitable.BrandId');
+    //     $builder = $this->model
+    //         ->select('productapitable.*, product_categories.CateName as category, product_brands.BrandName as brand')
+    //         ->join('product_categories', 'product_categories.CateId = productapitable.CateId')
+    //         ->join('product_brands', 'product_brands.BrandId = productapitable.BrandId');
 
-//     if (!empty($categoryId)) {
-//         $builder->where('productapitable.CateId', $categoryId);
-//     }
+    //     if (!empty($categoryId)) {
+    //         $builder->where('productapitable.CateId', $categoryId);
+    //     }
 
-//     if (!empty($searchTerm)) {
-//         $builder->like('productapitable.ProdName', $searchTerm);
-//     }
+    //     if (!empty($searchTerm)) {
+    //         $builder->like('productapitable.ProdName', $searchTerm);
+    //     }
 
-//     return $this->respond($builder->findAll());
-// }
+    //     return $this->respond($builder->findAll());
+    // }
 
 
 }

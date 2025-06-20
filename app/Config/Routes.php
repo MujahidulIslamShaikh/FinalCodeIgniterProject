@@ -102,6 +102,7 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
     $routes->post('product', 'ProductApiController::create');        // Create
     $routes->put('product/(:num)', 'ProductApiController::update/$1'); // Update
     $routes->delete('product/(:num)', 'ProductApiController::delete/$1'); // Delete
+    $routes->get('product/searchByProductName', 'ProductApiController::searchByProductName'); // searchByProductName
 });   
 
 

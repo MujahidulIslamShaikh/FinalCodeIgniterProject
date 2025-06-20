@@ -22,7 +22,8 @@
     </div>
 </div>
 <!-- ============= Category Modaal ===========  -->
- <?= view('/category/CateModaal'); ?>
+<?= view('/category/CateModaal'); ?>
+<?= view('/category/updateModal'); ?>
 
 <script>
     async function loadProducts() {
@@ -38,6 +39,9 @@
             <tr>
               <td>${cate.CateId}</td>
               <td>${cate.CateName}</td>
+              <td>
+                <button onclick="openCategoryEditModal(${cate['CateId']}, '${cate['CateName']}')" class="btn btn-sm btn-warning">Edit</button>
+              </td>
             </tr>
           `;
                 tbody.innerHTML += row;
@@ -46,9 +50,8 @@
             console.error('Failed to load categories:', err);
         }
     }
-    loadProducts();
 
- 
+    loadProducts();
 </script>
 
 <!-- <script></script> -->

@@ -1,6 +1,6 @@
 
 
-<!-- partials/prod_Cate_From.php -->
+<!-- category/create.php -->
 <form id="CreateCategoryForm">
   <div class="mb-3">
     <label>Category Name</label>

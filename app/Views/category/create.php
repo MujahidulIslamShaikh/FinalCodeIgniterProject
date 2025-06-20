@@ -31,6 +31,7 @@
         alert(result.message || 'Category created!');
         bootstrap.Modal.getInstance(document.getElementById('categoryModal')).hide();
         e.target.reset();
+        window.location.reload();
       } else {
         const errorMessages = result.messages ?
           Object.values(result.messages).join('\n') :

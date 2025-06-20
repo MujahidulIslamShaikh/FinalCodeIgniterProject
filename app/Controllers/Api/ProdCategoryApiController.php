@@ -46,7 +46,7 @@ class ProdCategoryApiController extends ResourceController
     // }
 
     
-    public function update($id = null) // PUT /api/users/{id}
+    public function update($id = null) // PUT /api/category/{id}
     {
         $data = $this->request->getJSON(true);
         if ($this->model->update($id, $data)) {
@@ -55,13 +55,13 @@ class ProdCategoryApiController extends ResourceController
         return $this->failValidationErrors($this->model->errors());
     }
 
-    // public function delete($id = null) // DELETE /api/users/{id}
-    // {
-    //     if ($this->model->delete($id)) {
-    //         return $this->respondDeleted(['message' => 'User deleted']);
-    //     }
-    //     return $this->failNotFound('User not found');
-    // }
+    public function delete($id = null) // DELETE /api/category/{id}
+    {
+        if ($this->model->delete($id)) {
+            return $this->respondDeleted(['message' => 'Category deleted']);
+        }
+        return $this->failNotFound('User not found');
+    }
 
 
 }

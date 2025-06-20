@@ -22,8 +22,8 @@
     </div>
 </div>
 <!-- ============= Category Modaal ===========  -->
-<?php 
-echo view('/category/CateModaal'); 
+<?php
+echo view('/category/CateModaal');
 // echo view('/category/updateModal'); 
 ?>
 
@@ -44,6 +44,7 @@ echo view('/category/CateModaal');
               <td>${cate.CateName}</td>
               <td>
                 <button onclick="openCategoryEditModal(${cate['CateId']}, '${cate['CateName']}')" class="btn btn-sm btn-warning">Edit</button>
+                <button onclick="deleteCategory(${cate['CateId']})" class="btn btn-sm btn-danger">Delete</button>
               </td>
             </tr>
           `;
@@ -57,6 +58,9 @@ echo view('/category/CateModaal');
     loadProducts();
 </script>
 
-<?php echo view('/category/updateModal');   ?>
+<?php 
+echo view('/category/updateModal');
+echo view('/category/deleteById');
+   ?>
 
 <!-- <script></script> -->

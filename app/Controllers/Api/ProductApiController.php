@@ -31,7 +31,7 @@ class ProductApiController extends ResourceController
         $data['categories'] = $this->cateModel->findAll();
         return view('/FilterProductListApiView', $data);
     }
-    public function ProductTest() 
+    public function ProductTest()
     {
         $data = $this->model->findAll();
         return $this->respond($data);
@@ -51,8 +51,9 @@ class ProductApiController extends ResourceController
             $builder->where('productapitable.CateId', $categoryId);
         }
         return $this->respond($builder->findAll());
-    }
- 
+    }  
+    
+
     public function FilterProdByBrand()   // important ============
     {
         $brandId = $this->request->getGet('prodBrand');
@@ -66,11 +67,11 @@ class ProductApiController extends ResourceController
             $builder->where('productapitable.BrandId', $brandId);
         }
         return $this->respond($builder->findAll());
-    }    
- 
+    }
+
     public function index() // GET /api/product 
     {
-        $products = $this->model->findAll(); 
+        $products = $this->model->findAll();
         // $products = $this->model
         //     ->select('productapitable.*, product_categories.CateName as category, product_brands.BrandName as brand')
         //     ->join('product_categories', 'product_categories.CateId = productapitable.CateId')
@@ -79,14 +80,14 @@ class ProductApiController extends ResourceController
         return $this->respond($products);
     }
 
-       public function SearchFilterProdCate()
+    public function SearchFilterProdCate()
     {
         // $products = $this->model->findAll();
         // $products = $this->model
         //     ->select('productapitable.*, product_categories.CateName as category, product_brands.BrandName as brand')
         //     ->join('product_categories', 'product_categories.CateId = productapitable.CateId')
         //     ->join('product_brands', 'product_brands.BrandId
-        
+
         // return $this->respond($products);
     }
 
@@ -122,8 +123,17 @@ class ProductApiController extends ResourceController
         }
         return $this->failNotFound('User not found');
     }
+    public function searchFilterProductsByCategory()
+    {
+        $search = $this->request->getGet('search');
 
-        // public function FilterProdByCate()
+        $result = $this->model
+            ->like('CateName', $search)
+            ->findAll();
+
+        return $this->respond($result);
+    }
+    // public function FilterProdByCate()
     // {
     //     $categoryId = $this->request->getGet('category');
     //     $search     = $this->request->getGet('search');
@@ -146,6 +156,28 @@ class ProductApiController extends ResourceController
 
     //     return $this->respond($builder->findAll());
     // }
+
+    //////////////  aisa ek sath bhi bana sakte ////////////////////
+//     public function FilterProdByCate()
+// {
+//     $categoryId = $this->request->getGet('category');
+//     $searchTerm = $this->request->getGet('search');
+
+//     $builder = $this->model
+//         ->select('productapitable.*, product_categories.CateName as category, product_brands.BrandName as brand')
+//         ->join('product_categories', 'product_categories.CateId = productapitable.CateId')
+//         ->join('product_brands', 'product_brands.BrandId = productapitable.BrandId');
+
+//     if (!empty($categoryId)) {
+//         $builder->where('productapitable.CateId', $categoryId);
+//     }
+
+//     if (!empty($searchTerm)) {
+//         $builder->like('productapitable.ProdName', $searchTerm);
+//     }
+
+//     return $this->respond($builder->findAll());
+// }
 
 
 }

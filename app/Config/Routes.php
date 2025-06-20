@@ -122,13 +122,3 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
     $routes->put('brand/(:num)', 'ProdBrandApiController::update/$1'); // Update
     $routes->delete('brand/(:num)', 'ProdBrandApiController::delete/$1'); // Delete
 });
-
-
-
-
-
-
-
-
-
-

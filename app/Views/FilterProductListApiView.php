@@ -46,7 +46,7 @@
 
         <a href="/CreateProductView">Create Product</a>
     </div>
-
+<input type="search" class="form-control" id="SearchProductTableInput">
     <h3 class="mb-4 text-center">Product List</h3>
     <div class="table-responsive">
         <table class="table table-bordered" id="productTable">
@@ -107,6 +107,12 @@
     document.getElementById('categoryFilter').addEventListener('change', function() {
         loadProducts(this.value);
     });
+   document.getElementById("SearchProductTableInput").addEventListener('input', function() {
+        const keyword = this.value.trim();
+        console.log(keyword);
+        // loadProducts(keyword);
+
+   });
 
     loadProducts();
 
@@ -133,6 +139,7 @@
             alert("Error: " + err.message);
         }
     }
+  
 </script>
 
 

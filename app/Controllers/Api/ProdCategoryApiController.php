@@ -67,13 +67,14 @@ class ProdCategoryApiController extends ResourceController
     {
         $search = $this->request->getGet('search');
 
-        $query = $this->model
+        $result = $this->model
             ->like('CateName', $search)
             ->findAll();
 
-        return $this->respond($query);
+        return $this->respond($result);
     }
-    // public function SearchCate()
+// ============================ OR =============================
+    // public function searchCategory()
     // {
     //     $search = $this->request->getGet('search');
 

@@ -66,7 +66,7 @@ class ProductApiController extends ResourceController
             $builder->where('productapitable.BrandId', $brandId);
         }
         return $this->respond($builder->findAll());
-    }
+    }    
  
     public function index() // GET /api/product 
     {

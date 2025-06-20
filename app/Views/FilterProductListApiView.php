@@ -29,31 +29,7 @@
     </div>
 </div>
 
-<!-- Bootstrap Modal for Editing User -->
-<!-- Edit User Modal -->
-<div class="modal fade" id="EditProductModal" tabindex="-1">
-    <div class="modal-dialog">
-        <form id="EditProductForm" class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Edit User</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" id="Prodid">
-                <!-- <label for="">Product Name</label> -->
-                <input type="text" id="ProdName" class="form-control mb-2" placeholder="Name" required>
-                <input type="text" id="details" class="form-control mb-2" placeholder="Role" required>
-                <!-- <input type="text" id="edit_cont_num" class="form-control mb-2" placeholder="Contact Number" required> -->
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Update</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-
-
+<!-- ================= List Product and filter ====================== -->
 <div class="container mt-5">
     <form class="">
         <select id="categoryFilter" class="form-select w-25 d-inline-block">
@@ -90,6 +66,7 @@
         </table>
     </div>
 </div>
+<?= view('/partials/update_product_form') ?>
 
 
 
@@ -112,7 +89,9 @@
               <td>${prod.category}</td>
               <td>${prod.brand}</td>
               <td class="text-center">
-    			<button class="btn btn-sm btn-warning" onclick="openEditModal(${prod.Prodid}, '${prod.ProdName}', '${prod.details}')">Edit</button>
+    			
+                            <button onclick='openEditModal(${JSON.stringify(prod)})' class="btn btn-warning btn-sm">Editt</button>
+
                 <button class="btn btn-sm btn-danger" onclick="deleteProduct(${prod.Prodid})">Delete</button>
               </td> 
             </tr>
@@ -130,52 +109,6 @@
     });
 
     loadProducts();
-
-
-    // ==================================== EDIT MODAL =================================
-    function openEditModal(Prodid, ProdName, details) {
-        document.getElementById('Prodid').value = Prodid;
-        document.getElementById('ProdName').value = ProdName; // ye value pass karra edit form me
-        document.getElementById('details').value = details;
-
-        const modal = new bootstrap.Modal(document.getElementById('EditProductModal'));
-        modal.show();
-    }
-
-    document.getElementById('EditProductForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-
-        const Prodid = document.getElementById('Prodid').value;
-
-        const UpdatedData = {
-            ProdName: document.getElementById('ProdName').value,
-            details: document.getElementById('details').value,
-        };
-
-        try {
-            const res = await fetch(`/api/product/${Prodid}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(UpdatedData)
-            });
-
-            const result = await res.json();
-
-            if (res.ok) {
-                alert('User updated successfully!');
-                bootstrap.Modal.getInstance(document.getElementById('EditProductModal')).hide();
-                loadProducts(); // Refresh table
-            } else {
-                alert(result.message || 'Update failed');
-            }
-        } catch (err) {
-            console.error('Error:', err);
-            alert('Something went wrong');
-        }
-    });
-
 
 
     // ================================ DELETE ==========================
@@ -201,6 +134,10 @@
         }
     }
 </script>
+
+
+
+
 
 <!-- <script>
     async function loadProducts(categoryId = '', search = '') {
@@ -247,8 +184,6 @@
 
     loadProducts(); // Initial load
 </script> -->
-
-
 
 
 <?= $this->endSection() ?>

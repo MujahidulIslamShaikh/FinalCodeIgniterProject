@@ -1,7 +1,3 @@
-
-
-
-
 <script>
   async function deleteCategory(id) {
     if (!confirm("Are you sure you want to delete this category?")) return;
@@ -16,10 +12,11 @@
       if (response.ok) {
         alert(result.message || 'Category deleted successfully!');
         // Page refresh or table reload if needed
-        window.location.reload(); 
+        // window.location.reload(); 
+        loadCategories();
       } else {
         alert(result.message || 'Delete failed');
-      } 
+      }
     } catch (err) {
       alert('Error: ' + err.message);
     }

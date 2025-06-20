@@ -3,7 +3,9 @@
     <div class="d-flex justify-content-between ">
         <a href="#" data-bs-toggle="modal" data-bs-target="#categoryModal">+ New Category</a>
 
+        <input type="text" id="categorySearchInput" class="form-control mb-3" placeholder="Search category by name...">
         <a href="/CreateProductView">Create Product</a>
+
     </div>
     <h3 class="mb-4 text-center">Product List</h3>
     <div class="table-responsive">
@@ -29,38 +31,66 @@ echo view('/category/CateModaal');
 
 
 <script>
-    async function loadProducts() {
-        try {
-            const res = await fetch('/api/category');
-            const category = await res.json();
+    // async function loadCategories() {
+    //     try {
+    //         const res = await fetch('/api/category');
+    //         const category = await res.json();
 
-            const tbody = document.querySelector('#categoryTable tbody');
-            tbody.innerHTML = ''; // Clear existing rows
+    //         const tbody = document.querySelector('#categoryTable tbody');
+    //         tbody.innerHTML = ''; // Clear existing rows
 
-            category.forEach(cate => {
-                const row = `
-            <tr>
-              <td>${cate.CateId}</td>
-              <td>${cate.CateName}</td>
-              <td>
-                <button onclick="openCategoryEditModal(${cate['CateId']}, '${cate['CateName']}')" class="btn btn-sm btn-warning">Edit</button>
-                <button onclick="deleteCategory(${cate['CateId']})" class="btn btn-sm btn-danger">Delete</button>
-              </td>
-            </tr>
-          `;
-                tbody.innerHTML += row;
-            });
-        } catch (err) {
-            console.error('Failed to load categories:', err);
-        }
+    //         category.forEach(cate => {
+    //             const row = `
+    //         <tr>
+    //           <td>${cate.CateId}</td>
+    //           <td>${cate.CateName}</td>
+    //           <td>
+    //             <button onclick="openCategoryEditModal(${cate['CateId']}, '${cate['CateName']}')" class="btn btn-sm btn-warning">Edit</button>
+    //             <button onclick="deleteCategory(${cate['CateId']})" class="btn btn-sm btn-danger">Delete</button>
+    //           </td>
+    //         </tr>
+    //       `;
+    //             tbody.innerHTML += row;
+    //         });
+    //     } catch (err) {
+    //         console.error('Failed to load categories:', err);
+    //     }
+    // }
+
+    async function loadCategories(search = '') {
+        const res = await fetch(`/api/category${search ? '?search=' + encodeURIComponent(search) : ''}`);
+        const categories = await res.json();
+
+        const tbody = document.querySelector('#categoryTable tbody');
+        tbody.innerHTML = '';
+
+        categories.forEach(cate => {
+            const row = `
+        <tr>
+          <td>${cate.CateId}</td>
+          <td>${cate.CateName}</td>
+          <td>
+            <button onclick="openCategoryEditModal(${cate.CateId}, '${cate.CateName}')" class="btn btn-sm btn-warning">Edit</button>
+            <button onclick="deleteCategory(${cate.CateId})" class="btn btn-sm btn-danger">Delete</button>
+          </td>
+        </tr>
+      `;
+            tbody.innerHTML += row;
+        });
     }
+    document.getElementById('categorySearchInput').addEventListener('input', function() {
+        const keyword = this.value.trim();
+        loadCategories(keyword);
+    });
 
-    loadProducts();
+
+
+    loadCategories();
 </script>
 
-<?php 
+<?php
 echo view('/category/updateModal');
 echo view('/category/deleteById');
-   ?>
+?>
 
 <!-- <script></script> -->

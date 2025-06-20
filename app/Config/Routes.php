@@ -111,6 +111,7 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
     $routes->post('category', 'ProdCategoryApiController::create');        // Create
     $routes->put('category/(:num)', 'ProdCategoryApiController::update/$1'); // Update
     $routes->delete('category/(:num)', 'ProdCategoryApiController::delete/$1'); // Delete
+    $routes->get('category/search', 'ProdCategoryApiController::searchCategory'); // searchCategory
 });
 
 

@@ -36,7 +36,8 @@
                 alert(result.message || 'Category updated!');
                 bootstrap.Modal.getInstance(document.getElementById('openCategoryEditModal')).hide(); // ✅ Fixed ID
                 e.target.reset();
-                location.reload(); // Refresh table or category list if needed
+                // location.reload(); // Refresh table or category list if needed
+                loadCategories();
             } else {
                 const errorMessages = result.messages ?
                     Object.values(result.messages).join('\n') :

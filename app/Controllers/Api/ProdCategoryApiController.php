@@ -11,16 +11,17 @@ class ProdCategoryApiController extends ResourceController
     protected $modelName = ProdCateModel::class;
     protected $format    = 'json';
     protected $model;
-    
+
     public function __construct()
     {
         $this->model = new ProdCateModel();
     }
-    public function ShowListCategory() 
+    public function ShowListCategory()
     {
         return view('/category/categoryListView');
     }
-    public function productView(){
+    public function productView()
+    {
         return view('/ProductListApiView');
     }
 
@@ -45,7 +46,7 @@ class ProdCategoryApiController extends ResourceController
     //     return $data ? $this->respond($data) : $this->failNotFound("User not found");
     // }
 
-    
+
     public function update($id = null) // PUT /api/category/{id}
     {
         $data = $this->request->getJSON(true);
@@ -62,6 +63,26 @@ class ProdCategoryApiController extends ResourceController
         }
         return $this->failNotFound('User not found');
     }
+    public function searchCategory()
+    {
+        $search = $this->request->getGet('search');
 
+        $query = $this->model
+            ->like('CateName', $search)
+            ->findAll();
 
+        return $this->respond($query);
+    }
+    // public function SearchCate()
+    // {
+    //     $search = $this->request->getGet('search');
+
+    //     $builder = $this->model;
+
+    //     if ($search) {
+    //         $builder = $builder->like('CateName', $search);
+    //     }
+
+    //     return $this->respond($builder->findAll());
+    // }
 }

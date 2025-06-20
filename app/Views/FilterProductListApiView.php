@@ -72,10 +72,11 @@
 
 
 <script>
-    // async function loadProducts(categoryId = '') {
-    async function loadProducts(search = '') {
+    // async function loadProducts(search = '', categoryId = '') {
+    async function loadProducts(categoryId = '') {
         try {
-            const res = await fetch('/api/product/searchByProductName' + (search ? `?search=${search}` : ''));
+            // const res = await fetch('/api/product/searchByProductName' + (search ? `?search=${search}` : ''));
+            const res = await fetch('/api/FilterProdByCate' + (categoryId ? `?category=${categoryId}` : ''));
             const products = await res.json();
 
             const tbody = document.querySelector('#productTable tbody');
@@ -106,12 +107,13 @@
 
     // Dropdown filter
     document.getElementById('categoryFilter').addEventListener('change', function() {
-        // loadProducts(this.value);
+        loadProducts(this.value);
+        // console.log(this.value);
     });
 
     document.getElementById("SearchProductTableInput").addEventListener('input', function() {
         const keyword = this.value.trim();
-        loadProducts(keyword);
+        // loadProducts(keyword);
 
     });
 

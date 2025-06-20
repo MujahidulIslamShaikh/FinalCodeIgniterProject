@@ -9,6 +9,7 @@
 </form>
 
 
+
 <script>
     document.getElementById('UpdateCategoryForm').addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -33,9 +34,9 @@
 
             if (response.ok) {
                 alert(result.message || 'Category updated!');
-                bootstrap.Modal.getInstance(document.getElementById('categoryModal')).hide();
+                bootstrap.Modal.getInstance(document.getElementById('openCategoryEditModal')).hide(); // ✅ Fixed ID
                 e.target.reset();
-                // optionally: refresh category list if shown elsewhere
+                location.reload(); // Refresh table or category list if needed
             } else {
                 const errorMessages = result.messages ?
                     Object.values(result.messages).join('\n') :
@@ -46,13 +47,4 @@
             alert('Error: ' + err.message);
         }
     });
-
-    // Function to open modal with existing category data
-    function openCategoryEditModal(id, name) {
-        document.getElementById('editCateId').value = id;
-        document.getElementById('editCateName').value = name;
-
-        const modal = new bootstrap.Modal(document.getElementById('categoryModal'));
-        modal.show();
-    }
 </script>

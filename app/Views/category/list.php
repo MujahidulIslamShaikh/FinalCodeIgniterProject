@@ -22,8 +22,11 @@
     </div>
 </div>
 <!-- ============= Category Modaal ===========  -->
-<?= view('/category/CateModaal'); ?>
-<?= view('/category/updateModal'); ?>
+<?php 
+echo view('/category/CateModaal'); 
+// echo view('/category/updateModal'); 
+?>
+
 
 <script>
     async function loadProducts() {
@@ -53,5 +56,7 @@
 
     loadProducts();
 </script>
+
+<?php echo view('/category/updateModal');   ?>
 
 <!-- <script></script> -->

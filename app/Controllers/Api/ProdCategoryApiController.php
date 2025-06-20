@@ -46,14 +46,14 @@ class ProdCategoryApiController extends ResourceController
     // }
 
     
-    // public function update($id = null) // PUT /api/users/{id}
-    // {
-    //     $data = $this->request->getJSON(true);
-    //     if ($this->model->update($id, $data)) {
-    //         return $this->respond(['message' => 'User updated successfully']);
-    //     }
-    //     return $this->failValidationErrors($this->model->errors());
-    // }
+    public function update($id = null) // PUT /api/users/{id}
+    {
+        $data = $this->request->getJSON(true);
+        if ($this->model->update($id, $data)) {
+            return $this->respond(['message' => 'Category updated successfully']);
+        }
+        return $this->failValidationErrors($this->model->errors());
+    }
 
     // public function delete($id = null) // DELETE /api/users/{id}
     // {

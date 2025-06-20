@@ -1,13 +1,13 @@
 <!-- Category Modal -->
-<div class="modal fade" id="categoryModal">
+<div class="modal fade" id="openCategoryEditModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Create Category</h5>
+                <h5 class="modal-title">Update Category</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             
-            <?= view('/category/create') ?>
+            <?= view('/category/update') ?>
         </div>
     </div>
 </div>

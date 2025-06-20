@@ -81,12 +81,16 @@ $routes->group('/', ['namespace' => 'App\Controllers\Api'], function($routes) {
     $routes->get('ProductListApiView','ProductApiController::productView');
     $routes->get('FilterProductListApiView','ProductApiController::FilterProductView');
 });  
+$routes->group('/', ['namespace' => 'App\Controllers\Api'], function($routes) {
+    $routes->get('ShowListCategory','ProdCategoryApiController::ShowListCategory');
+});  
 
 // $routes->get('/admin/product', 'ProductApiController::productView', ['namespace' => 'App\Controllers\Api']);
 // ===================== OR ===============
 // $routes->group('admin', ['namespace' => 'App\Controllers\Api'], function($routes) {
 //     $routes->get('product_list', 'ProductApiController::productView');
 // });
+
 
 
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){

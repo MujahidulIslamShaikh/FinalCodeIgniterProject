@@ -16,7 +16,10 @@ class ProdCategoryApiController extends ResourceController
     {
         $this->model = new ProdCateModel();
     }
-
+    public function ShowListCategory() 
+    {
+        return view('/category/categoryListView');
+    }
     public function productView(){
         return view('/ProductListApiView');
     }

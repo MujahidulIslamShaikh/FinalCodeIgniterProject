@@ -6,7 +6,7 @@ namespace App\Controllers\Api;
 use App\Models\ProdBrandModel;
 use CodeIgniter\RESTful\ResourceController;
 
-class ProdBrandApiController extends ResourceController
+class AuthController extends ResourceController
 {
     protected $modelName = ProdBrandModel::class;
     protected $format    = 'json';

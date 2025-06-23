@@ -94,6 +94,9 @@ $routes->group('/', ['namespace' => 'App\Controllers\Api'], function($routes) {
 $routes->group('/', ['namespace' => 'App\Controllers\Api'], function($routes){
     $routes->get('CreateNewProduct','ProductApiController::CreateNewProduct');
 });
+$routes->group('/', ['namespace' => 'App\Controllers\Api'], function($routes){
+    $routes->get('signupView','AuthController::signupView');
+});
 
 $routes->get('BrandView','GeneralController::BrandView');
 

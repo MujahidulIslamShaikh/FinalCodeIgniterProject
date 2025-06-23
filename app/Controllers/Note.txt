@@ -1,3 +1,10 @@
+CodeIgniter 4 me migration file generate karne ki command hoti hai:
+           php spark make:migration CreateSignupTable
+
+Agar aap table ka naam specify karna chahte ho:
+           php spark make:migration CreateSignupTable --table signupmodel
+
+
 CREATE TABLE signup (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
@@ -82,6 +89,7 @@ CREATE TABLE productapitable (
   FOREIGN KEY (CateId) REFERENCES product_categories(CateId) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (BrandId) REFERENCES product_brands(BrandId) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
 
 
 

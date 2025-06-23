@@ -121,7 +121,7 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
     $routes->delete('category/(:num)', 'ProdCategoryApiController::delete/$1'); // Delete
     $routes->get('category/search', 'ProdCategoryApiController::searchCategory'); // searchCategory
 });
-
+  
 
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
     $routes->get('brand', 'ProdBrandApiController::index');         // List

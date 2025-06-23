@@ -30,16 +30,35 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="/ProductView">ProductView</a></li>
                     <li class="nav-item"><a class="nav-link" href="/ShowListCategory">categoryListView</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/FilterProductListApiView">Filter Product List</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/ProductListApiView">Product List</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/CreateProductView">Create Product</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/user_list_api">user_list_api</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/form">Form</a></li>
                     <li class="nav-item"><a class="nav-link" href="/admin/dashboard">Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/user_list">User List</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/signup-user">Signup</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/login-user">Login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/logout-user">Logout</a></li>
+
+
+                    <!-- Dropdown Menu for General -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="authDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            General
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="authDropdown">
+                            <li><a class="dropdown-item" href="/FilterProductListApiView">Filter Product List</a></li>
+                            <li><a class="dropdown-item" href="/ProductListApiView">Product List</a></li>
+                            <li><a class="dropdown-item" href="/CreateProductView">Create Product</a></li>
+                            <li><a class="dropdown-item" href="/user_list_api">user_list_api</a></li>
+                            <li><a class="dropdown-item" href="/form">Form</a></li>
+                            <li><a class="dropdown-item" href="/user_list">User List</a></li>
+                        </ul>
+                    </li>
+                    <!-- Dropdown Menu for Auth -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="authDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Account
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="authDropdown">
+                            <li><a class="dropdown-item" href="/signup-user">Signup</a></li>
+                            <li><a class="dropdown-item" href="/login-user">Login</a></li>
+                            <li><a class="dropdown-item" href="/logout-user">Logout</a></li>
+                        </ul>
+                    </li>
+
                     <li class="nav-item"><a class="nav-link" href="/display-file">display-file</a></li>
                 </ul>
             </div>

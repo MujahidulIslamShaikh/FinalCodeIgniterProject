@@ -83,6 +83,26 @@ class ProductApiController extends ResourceController
 
         return $this->respond($builder->findAll());
     }
+    public function searchByProdNameCateBrand()
+    {
+        $searchTerm = $this->request->getGet('search');
+
+        $builder = $this->model
+            ->select('productapitable.*, product_categories.CateName as category, product_brands.BrandName as brand')
+            ->join('product_categories', 'product_categories.CateId = productapitable.CateId')
+            ->join('product_brands', 'product_brands.BrandId = productapitable.BrandId');
+
+        if (!empty($searchTerm)) {
+            $builder->groupStart()
+                ->like('productapitable.ProdName', $searchTerm)
+                ->orLike('product_categories.CateName', $searchTerm)
+                ->orLike('product_brands.BrandName', $searchTerm)
+                ->groupEnd();
+        }
+
+        return $this->respond($builder->findAll());
+    }
+
 
 
 

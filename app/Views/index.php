@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
     <style>
         .content {
             /* flex: 1; */
@@ -26,12 +28,11 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/ProductView">ProductView</a></li>
                     <li class="nav-item"><a class="nav-link" href="/ShowListCategory">categoryListView</a></li>
                     <li class="nav-item"><a class="nav-link" href="/FilterProductListApiView">Filter Product List</a></li>
                     <li class="nav-item"><a class="nav-link" href="/ProductListApiView">Product List</a></li>
-
                     <li class="nav-item"><a class="nav-link" href="/CreateProductView">Create Product</a></li>
-
                     <li class="nav-item"><a class="nav-link" href="/user_list_api">user_list_api</a></li>
                     <li class="nav-item"><a class="nav-link" href="/form">Form</a></li>
                     <li class="nav-item"><a class="nav-link" href="/admin/dashboard">Dashboard</a></li>

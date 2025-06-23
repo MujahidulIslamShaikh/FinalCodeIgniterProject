@@ -17,6 +17,6 @@
         }
     };
 
-    // Ab tum kahin bhi call kar sakte ho:
+    // Isko kahin bhi call kar sakte hai:
     // fillSelect('/api/brand', 'editBrandSelect', 'BrandId', 'BrandName');
 </script>

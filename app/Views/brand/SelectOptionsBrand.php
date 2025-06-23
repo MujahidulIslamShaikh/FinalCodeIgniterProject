@@ -1,4 +1,3 @@
-<select class="form-control mb-2" name="BrandId" id="editBrandSelect"></select>
 
 <script>
     const fillSelect = async (url, selectId, valueKey, labelKey) => {
@@ -8,7 +7,7 @@
             const data = await res.json();
             const select = document.getElementById(selectId);
             select.innerHTML = `<option value="">Select</option>`;
-            data.forEach(item => {
+            data.forEach(item => {  
                 const opt = new Option(item[labelKey], item[valueKey]);
                 select.appendChild(opt);
             });
@@ -18,5 +17,5 @@
     };
 
     // Isko kahin bhi call kar sakte hai:
-    // fillSelect('/api/brand', 'editBrandSelect', 'BrandId', 'BrandName');
+    // fillSelect('/api/brand', 'BrandSelect', 'BrandId', 'BrandName');
 </script>

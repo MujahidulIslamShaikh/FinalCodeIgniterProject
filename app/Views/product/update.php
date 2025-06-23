@@ -1,7 +1,7 @@
 <!-- category/update.php -->
 <form id="UpdateProductForm">
     <input type="hidden" name="editprodId" id="editprodId">
-    <!-- <input type="hidden" name="cateId" id="CateId"> -->
+    <!-- <input type="hidden" name="cateId" id="CateId">-->
     <!-- <input type="hidden" name="brandId" id="BrandId"> -->
 
     <div class="mb-3">
@@ -15,21 +15,28 @@
     </div>
 
     <div class="mb-3">
-        <label>Brand</label> 
-        <?= view('/brand/SelectOptionsBrand') ?>
+        <label>Brand</label>
+        <select class="form-control mb-2" name="BrandId" id="editBrandSelect"></select>
+        <?php
+        echo view('brand/SelectOptionsBrand');
+        ?>
     </div>
 
     <div class="mb-3">
         <label>Category</label>
-        <?= view('/category/SelectOptionsCate') ?>
+        <select class="form-control mb-2" name="CateId" id="editCategorySelect"></select>
+        <?php
+        echo view('category/SelectOptionsCate')
+
+        ?>
     </div>
 
     <button type="submit" class="btn btn-primary">Update</button>
 </form>
 
 <script>
-    fillSelect('/api/category', 'editCategorySelect', 'CateId', 'CateName');
     fillSelect('/api/brand', 'editBrandSelect', 'BrandId', 'BrandName');
+    fillSelect('/api/category', 'editCategorySelect', 'CateId', 'CateName');
 
     document.getElementById('UpdateProductForm').addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -49,7 +56,6 @@
             BrandId
         };
 
-
         console.log(data);
 
         // ✅ PUT API call
@@ -59,7 +65,7 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(id, data)
+                body: JSON.stringify(data)
             });
 
             const result = await response.json();
@@ -73,7 +79,7 @@
 
                 e.target.reset();
                 // Call your reload function here, if needed
-                loadProducts();
+                loadProducts(); // or loadProducts(), etc.
             } else {
                 const errors = result?.messages ? Object.values(result.messages).join('\n') : result.message;
                 alert(errors || 'Update failed!');

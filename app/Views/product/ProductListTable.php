@@ -34,6 +34,7 @@
         }
     }
 </style>
+<?= view('/product/updateModal') ?>
 
 <div class="container py-4">
     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
@@ -43,10 +44,17 @@
 
     <div class="row g-3 mb-3">
         <div class="col-md-4">
-            <?= view('brand/SelectOptionsBrand') ?>
+            <select class="form-control mb-2" name="BrandId" id="BrandSelect"></select>
+            
+            <?php
+            echo view('brand/SelectOptionsBrand');
+            ?>
         </div>
         <div class="col-md-4">
-            <?= view('category/SelectOptionsCate') ?>
+            <select class="form-control mb-2" name="CateId" id="CategorySelect"></select>
+            <?php
+            echo view('category/SelectOptionsCate')
+            ?>
         </div>
         <div class="col-md-4">
             <label for="searchProduct" class="form-label fw-semibold">🔍 Search</label>
@@ -75,6 +83,11 @@
 </div>
 
 <script>
+   
+    fillSelect('/api/brand', 'BrandSelect', 'BrandId', 'BrandName');
+    fillSelect('/api/category', 'CategorySelect', 'CateId', 'CateName');
+
+
     const loadProducts = async (search = '') => {
         try {
             const res = await fetch(`/api/product/searchByProdNameCateBrand${search ? `?search=${encodeURIComponent(search)}` : ''}`);
@@ -97,10 +110,10 @@
             console.error('Failed to load products:', err);
         }
     };
-    document.getElementById("editBrandSelect").addEventListener('change', function() {
+    document.getElementById("BrandSelect").addEventListener('change', function() {
         loadProducts(this.options[this.selectedIndex].text);
     });
-    document.getElementById("editCategorySelect").addEventListener('change', function() {
+    document.getElementById("CategorySelect").addEventListener('change', function() {
         loadProducts(this.options[this.selectedIndex].text);
     });
     document.getElementById('searchProduct').addEventListener('input', function() {
@@ -110,5 +123,4 @@
 </script>
 
 <?= view('/product/deleteById') ?>
-<?= view('/product/updateModal') ?>
 <?= $this->endSection() ?>

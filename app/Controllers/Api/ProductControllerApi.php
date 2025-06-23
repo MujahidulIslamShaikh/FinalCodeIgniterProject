@@ -21,9 +21,9 @@ class ProductControllerApi extends ResourceController
         $this->cateModel = new ProdCateModel();
     }
 
-    public function ProductListView()
+    public function ProductView()
     {
-        return view('product/ProductList');
+        return view('product/ProductView');
     }
 
     public function FilterProductView()

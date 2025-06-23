@@ -55,7 +55,7 @@ $routes->get('/admin/prod-action','UploadController::ProductActions');
 
 $routes->get('/admin/delete-product/(:num)','UploadController::DeleteProduct/$1');
 $routes->get('/admin/edit-product/(:num)','UploadController::EditProduct/$1');
-
+ 
 $routes->post('/admin/edit-product/(:num)','UploadController::UpdateProduct/$1');
 
 
@@ -91,7 +91,7 @@ $routes->group('/', ['namespace' => 'App\Controllers\Api'], function($routes) {
 //     $routes->get('product_list', 'ProductApiController::productView');
 // });
 
-
+                  
 
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
     $routes->get('product', 'ProductApiController::index');     // List
@@ -127,8 +127,10 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
 
 // $routes->get('/product/ProductListView','ProductControllerApi::ProductListView');
 // $routes->get('/product/ProductListView', 'ProductControllerApi::ProductListView', ['namespace' => 'App\Controllers\Api']);
+
 $routes->group('/', ['namespace' => 'App\Controllers\Api'], function($routes) {
-    $routes->get('ProductList','ProductControllerApi::ProductListView');
+    // $routes->get('ProductList','ProductControllerApi::ProductListView');
+    $routes->get('ProductView','ProductControllerApi::ProductView');
 });  
 
 

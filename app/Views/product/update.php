@@ -15,7 +15,7 @@
     </div>
 
     <div class="mb-3">
-        <label>Brand</label>
+        <label>Brand</label> 
         <?= view('/brand/SelectOptionsBrand') ?>
     </div>
 
@@ -72,7 +72,7 @@
 
                 e.target.reset();
                 // Call your reload function here, if needed
-                loadCategories(); // or loadProducts(), etc.
+                loadProducts();
             } else {
                 const errors = result?.messages ? Object.values(result.messages).join('\n') : result.message;
                 alert(errors || 'Update failed!');

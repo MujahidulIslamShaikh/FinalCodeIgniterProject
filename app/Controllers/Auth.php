@@ -14,8 +14,8 @@ class Auth extends BaseController
     }
     public function loginuserlist()
     {
-        $model = new SignupModel(); 
-        return view('/LoginUserListView', [ 'Login_user_list' => $model->findAll()]);
+        $model = new SignupModel();
+        return view('/LoginUserListView', ['Login_user_list' => $model->findAll()]);
     }
     public function dosignup_user()
     {

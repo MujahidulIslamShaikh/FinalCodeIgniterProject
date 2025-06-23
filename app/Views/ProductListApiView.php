@@ -31,8 +31,8 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Product Details</th>
-                    <th>Product category</th>
-                    <th>Product brand</th>
+                    <th>Product category Name</th>
+                    <th>Product Brand Name</th>
                 </tr>
             </thead>
             <tbody>

@@ -79,7 +79,7 @@ $routes->get('/CreateProductView', 'GeneralController::CreateProductView');
 
 $routes->group('/', ['namespace' => 'App\Controllers\Api'], function($routes) {
     $routes->get('ProductListApiView','ProductApiController::productView');
-    $routes->get('FilterProductListApiView','ProductApiController::FilterProductView');
+    $routes->get('FilterProductListApiView','ProductApiController::FilterProductView'); //
 });  
 $routes->group('/', ['namespace' => 'App\Controllers\Api'], function($routes) {
     $routes->get('ShowListCategory','ProdCategoryApiController::ShowListCategory');
@@ -122,4 +122,21 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
     $routes->post('brand', 'ProdBrandApiController::create');        // Create
     $routes->put('brand/(:num)', 'ProdBrandApiController::update/$1'); // Update
     $routes->delete('brand/(:num)', 'ProdBrandApiController::delete/$1'); // Delete
+});
+//////////////////////// Product Foder //////////////////////
+
+// $routes->get('/product/ProductListView','ProductControllerApi::ProductListView');
+// $routes->get('/product/ProductListView', 'ProductControllerApi::ProductListView', ['namespace' => 'App\Controllers\Api']);
+$routes->group('/', ['namespace' => 'App\Controllers\Api'], function($routes) {
+    $routes->get('ProductList','ProductControllerApi::ProductListView');
+});  
+
+
+
+$routes->group('/product', ['namespace' => 'App\Controllers\Api'], function($routes){
+    // $routes->get('ProductList', 'ProductApiController::ProductList');         // List
+    // $routes->get('product/(:num)', 'ProductApiController::show/$1'); // Single
+    // $routes->post('product', 'ProductApiController::create');        // Create
+    // $routes->put('product/(:num)', 'ProductApiController::update/$1'); // Update
+    // $routes->delete('product/(:num)', 'ProductApiController::delete/$1'); // Delete
 });

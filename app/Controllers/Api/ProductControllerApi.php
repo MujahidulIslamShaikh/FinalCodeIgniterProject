@@ -8,7 +8,7 @@ use App\Models\ProductApiModel;
 use CodeIgniter\RESTful\ResourceController;
 use PhpParser\Node\Expr\FuncCall;
 
-class ProductApiController extends ResourceController
+class ProductControllerApi extends ResourceController
 {
     protected $modelName = ProductApiModel::class;
     protected $format    = 'json';
@@ -21,9 +21,9 @@ class ProductApiController extends ResourceController
         $this->cateModel = new ProdCateModel();
     }
 
-    public function productView()
+    public function ProductListView()
     {
-        return view('/ProductListApiView');
+        return view('product/ProductList');
     }
 
     public function FilterProductView()

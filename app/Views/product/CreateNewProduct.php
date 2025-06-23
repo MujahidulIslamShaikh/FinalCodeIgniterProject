@@ -48,6 +48,7 @@
 
         <div class="mb">
             <label for="brandSelect">Select Brand</label>
+            <select class="form-control mb-2" name="BrandId" id="CreateBrandSelect"></select>
             <?php
             echo view('/brand/SelectOptionsBrand');
             ?>
@@ -56,6 +57,7 @@
 
         <div class="mb">
             <label for="categorySelect">Select Category</label>
+            <select class="form-control mb-2" name="CateId" id="CreateCategorySelect"></select>
             <?php
             echo view('/category/SelectOptionsCate');
             ?>
@@ -83,8 +85,8 @@ echo view('/category/CateModaal');
 ?>
 
 <script>
-    fillSelect('/api/brand', 'editBrandSelect', 'BrandId', 'BrandName');
-    fillSelect('/api/category', 'editCategorySelect', 'CateId', 'CateName');
+    fillSelect('/api/brand', 'CreateBrandSelect', 'BrandId', 'BrandName');
+    fillSelect('/api/category', 'CreateCategorySelect', 'CateId', 'CateName');
 
     document.getElementById('CreateProductForm').addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -110,8 +112,6 @@ echo view('/category/CateModaal');
             alert('Error: ' + err.message);
         }
     });
-
-
 </script>
 
 

@@ -5,7 +5,7 @@
         padding: 20px;
         background: #f9f9f9;
         border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
     .form-container label {
@@ -48,14 +48,12 @@
             padding: 15px;
         }
 
-        .form-container input, .form-container button {
+        .form-container input,
+        .form-container button {
             font-size: 14px;
         }
     }
 </style>
-
-
-
 
 <div class="container mt-4">
     <h2 class="text-center mb-4">Users Table</h2>
@@ -80,3 +78,30 @@
         <a href="/login-user">Login here</a>
     </form>
 </div>
+
+<script>
+    document.getElementById('CreateProductForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const data = Object.fromEntries(new FormData(e.target).entries());
+        console.log(data);
+        try {
+            const res = await fetch('/api/product', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            const result = await res.json();
+            alert(res.ok ? result.message || 'Product created!' : Object.values(result.messages || {
+                error: result.message
+            }).join('\n'));
+            if (res.ok) {
+                e.target.reset();
+                window.location.href = "/ProductView";
+            }
+        } catch (err) {
+            alert('Error: ' + err.message);
+        }
+    });
+</script>

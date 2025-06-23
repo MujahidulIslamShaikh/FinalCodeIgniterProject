@@ -3,22 +3,22 @@
 // app/Controllers/Api/UserApiController.php
 namespace App\Controllers\Api;
 
-use App\Models\ProdBrandModel;
+use App\Models\AuthModels\SignupModel;
 use CodeIgniter\RESTful\ResourceController;
 
 class AuthController extends ResourceController
 {
-    protected $modelName = ProdBrandModel::class;
+    protected $modelName = SignupModel::class;
     protected $format    = 'json';
     protected $model;
     
     public function __construct()
     {
-        $this->model = new ProdBrandModel();
+        $this->model = new SignupModel();
     }
 
-    public function productView(){
-        return view('/ProductListApiView');
+    public function signupView(){
+        return view('signup/signupView');
     }
 
     public function index() // GET /api/category

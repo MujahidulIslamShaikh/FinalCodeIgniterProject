@@ -31,6 +31,7 @@
                     <li class="nav-item"><a class="nav-link" href="/ProductView">ProductView</a></li>
                     <li class="nav-item"><a class="nav-link" href="/ShowListCategory">categoryListView</a></li>
                     <li class="nav-item"><a class="nav-link" href="/admin/dashboard">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/api/signupView">signupView</a></li>
 
 
                     <!-- Dropdown Menu for General -->

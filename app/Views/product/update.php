@@ -49,6 +49,7 @@
             BrandId
         };
 
+
         console.log(data);
 
         // ✅ PUT API call
@@ -58,7 +59,7 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify(id, data)
             });
 
             const result = await response.json();

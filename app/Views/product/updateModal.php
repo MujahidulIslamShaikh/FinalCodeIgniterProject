@@ -19,8 +19,6 @@
     // function openProductEditModal(prodId, prodName, prodDetails, prodCateName, prodBrandName, cateId, brandId) {
     function openProductEditModal(prod) {   
         document.getElementById('editprodId').value = prod.Prodid;
-        // document.getElementById('CateId').value = prod.CateId;
-        // document.getElementById('BrandId').value = prod.BrandId;
         document.getElementById('prodName').value = prod.ProdName;
         document.getElementById('prodDetails').value = prod.details;
         document.getElementById('editCategorySelect').value = prod.CateId;

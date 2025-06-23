@@ -91,7 +91,13 @@ $routes->group('/', ['namespace' => 'App\Controllers\Api'], function($routes) {
 //     $routes->get('product_list', 'ProductApiController::productView');
 // });
 
-                  
+$routes->group('/', ['namespace' => 'App\Controllers\Api'], function($routes){
+    $routes->get('CreateNewProduct','ProductApiController::CreateNewProduct');
+});
+
+$routes->get('BrandView','GeneralController::BrandView');
+
+// $routes->get('/CreateNewProduct','ProductApiController::CreateNewProduct', ['namespace' => 'App\Controllers\Api']);         
 
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
     $routes->get('product', 'ProductApiController::index');     // List

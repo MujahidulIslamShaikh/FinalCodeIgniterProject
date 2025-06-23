@@ -11,6 +11,12 @@ class GeneralController extends BaseController
 
     }
 
+    public function BrandView(){
+
+        return view('brand/BrandView');
+
+    }
+
     public function index(): string
     {
         return view('welcome_message');

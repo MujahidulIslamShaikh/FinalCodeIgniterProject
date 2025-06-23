@@ -52,13 +52,13 @@ class ProdBrandApiController extends ResourceController
     //     return $this->failValidationErrors($this->model->errors());
     // }
 
-    // public function delete($id = null) // DELETE /api/users/{id}
-    // {
-    //     if ($this->model->delete($id)) {
-    //         return $this->respondDeleted(['message' => 'User deleted']);
-    //     }
-    //     return $this->failNotFound('User not found');
-    // }
+    public function delete($id = null) // DELETE /api/users/{id}
+    {
+        if ($this->model->delete($id)) {
+            return $this->respondDeleted(['message' => 'User deleted']);
+        }
+        return $this->failNotFound('User not found');
+    }
 
 
 }

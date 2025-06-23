@@ -144,7 +144,7 @@ class ProductApiController extends ResourceController
         return $this->failValidationErrors($this->model->errors());
     }
 
-    public function update($id = null) // PUT /api/product/{id}
+    public function update($id = null) // PUT /api/product/{id} ==================== imp ====================
     {
         $data = $this->request->getJSON(true);
         if ($this->model->update($id, $data)) {

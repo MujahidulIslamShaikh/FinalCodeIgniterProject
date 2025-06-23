@@ -65,11 +65,10 @@
             // const res = await fetch('/api/product/searchByProductName' + (search ? `?search=${search}` : ''));
             const res = await fetch('/api/product/searchByProdNameCateBrand' + (search ? `?search=${search}` : ''));
 
-
             const products = await res.json();
 
             const tbody = document.querySelector('#productTable tbody');
-            tbody.innerHTML = ''; // Clear existing rows
+            tbody.innerHTML = ''; // Clear existing rows  
 
             products.forEach(prod => {
                 const row = `
@@ -79,6 +78,10 @@
               <td>${prod.details}</td>
               <td>${prod.category}</td>
               <td>${prod.brand}</td>
+              <td>
+                <button onclick='openProductEditModal(${JSON.stringify(prod)})' class="btn btn-sm btn-warning">Edit</button>
+                <button onclick="deleteProduct(${prod.Prodid})" class="btn btn-sm btn-danger">Delete</button>
+              </td>
             </tr>
           `;
                 tbody.innerHTML += row;
@@ -93,5 +96,7 @@
         loadProducts(this.value)
     });
 </script>
+<?= view('/product/deleteById'); ?>
+<?= view('/product/updateModal'); ?>
 
 <?= $this->endSection() ?>

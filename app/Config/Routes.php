@@ -94,13 +94,18 @@ $routes->group('/', ['namespace' => 'App\Controllers\Api'], function($routes) {
 $routes->group('/', ['namespace' => 'App\Controllers\Api'], function($routes){
     $routes->get('CreateNewProduct','ProductApiController::CreateNewProduct');
 });
+
+// ========================================= General Controller  =======================================================================================================
+$routes->get('pdf_template', 'GeneralController::pdf_template');
+$routes->get('pdf/product_list_pdf', 'GeneralController::product_list_pdf');
+
 // ========================================= signupView =======================================================================================================
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
     $routes->get('signupView','AuthController::signupView');
     $routes->post('signupcreate','AuthController::create'); // create
 });
 /////////// OR \\\\\\\\\\\\\\\\\\\
-// $routes->group('api', function($routes) {
+// $routes->group('api', function($routes) {  
 //     $routes->post('users', 'Api\UserApi::create');
 // });
 

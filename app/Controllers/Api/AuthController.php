@@ -18,24 +18,26 @@ class AuthController extends ResourceController
     }
 
     // ========================= with Api and Config/Validation.php hai ye ================= 
-    public function create() // POST /api/signupcreate
+    public function create()  // POST /api/signupcreate
     {
-        $data = $this->request->getJSON(true); // ✅ Get JSON request
+        $data = $this->request->getJSON(true);
 
-        // $rules = config('Validation')->signup;  // ✅ Load config group
-        $rules = (new Validation())->signup;
-
+        $rules = (new \Config\Validation())->signup;
 
         if (! $this->validate($rules, $data)) {
-            return $this->failValidationErrors($this->validator->getErrors()); // ✅ Return error in JSON
+            return $this->failValidationErrors($this->validator->getErrors());
         }
 
-        // ✅ Continue if valid (save logic here)
+        // ✅ Save to DB using model
+        $model = new SignupModel();
+        $model->save($data);
+
         return $this->respondCreated([
-            'message' => 'User data is valid.',
+            'message' => 'User data is valid & saved!',
             'data' => $data
         ]);
     }
+
     // ========================= with Api and Model validatin hai ye ================= 
     // public function create() // POST /api/users
     // {

@@ -1,3 +1,6 @@
+composer require dompdf/dompdf
+
+
 CodeIgniter 4 me migration file generate karne ki command hoti hai:
            php spark make:migration CreateSignupTable
 

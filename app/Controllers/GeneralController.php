@@ -2,19 +2,67 @@
 
 namespace App\Controllers;
 
+use App\Models\ProductApiModel;
+use App\Models\ProductModel;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
 class GeneralController extends BaseController
 {
+    public function product_list_pdf()
+    {
+        $model = new ProductApiModel();
 
-    public function CreateProductView(){
+        $products = $model
+            ->select('productapitable.*, product_categories.CateName as category, product_brands.BrandName as brand')
+            ->join('product_categories', 'product_categories.CateId = productapitable.CateId')
+            ->join('product_brands', 'product_brands.BrandId = productapitable.BrandId')
+            ->findAll();
 
-        return view('/CreateProductView');
+        $dompdf = new Dompdf();
+        $html = view('/pdf/product_list_pdf', ['products' => $products]);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
 
+        $dompdf->stream("product_list.pdf", ["Attachment" => false]);
+        exit();
+    }
+    public function pdf_template()
+    {
+        $dompdf = new Dompdf();
+
+        // Optional: PDF settings
+        $options = new Options();
+        $options->set('isRemoteEnabled', true);
+        $dompdf->setOptions($options);
+
+        // ✅ Load HTML content (from view file or dynamic)
+        $html = view('pdf_template', [
+            'title' => 'User Report',
+            'data'  => ['username' => 'Mujahid']
+        ]);
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        // ✅ Output PDF to browser directly as download
+        $dompdf->stream("user_report.pdf", ["Attachment" => false]); // true = download, false = inline
+
+        exit(); // Stop CI response after output
     }
 
-    public function BrandView(){
+    public function CreateProductView()
+    {
+
+        return view('/CreateProductView');
+    }
+
+    public function BrandView()
+    {
 
         return view('brand/BrandView');
-
     }
 
     public function index(): string
@@ -23,14 +71,9 @@ class GeneralController extends BaseController
         // return "Mujahid";
         // return view('Form');
     }
-    
-    public function greet($name){
+
+    public function greet($name)
+    {
         return "Hellow, " . esc($name) . "!";
     }
-
-}   
-
-
-
-
-
+}

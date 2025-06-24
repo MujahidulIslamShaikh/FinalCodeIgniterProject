@@ -2,7 +2,76 @@
     <div class="card p-4 shadow-sm">
         <h3 class="mb-4">Signup (API Based)</h3>
 
-        <div id="messageBox"></div> <!-- 🔁 Success / Error message box -->
+        <!-- <div id="messageBox"></div> -->
+        <form id="signupForm">
+            <div class="mb-3">
+                <label>Username</label>
+                <input type="text" name="username" class="form-control">
+                <div id="error-username" class="text-danger small"></div>
+            </div>
+            <div class="mb-3">
+                <label>Email</label>
+                <input type="email" name="email" class="form-control">
+                <div id="error-email" class="text-danger small"></div>
+            </div>
+            <div class="mb-3">
+                <label>Password</label>
+                <input type="password" name="password" class="form-control">
+                <div id="error-password" class="text-danger small"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">Signup</button>
+        </form>
+
+    </div>
+</div>
+
+
+
+
+<script>
+    document.getElementById('signupForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        // Clear old errors
+        ['username', 'email', 'password'].forEach(field => {
+            document.getElementById('error-' + field).textContent = '';
+        });
+
+        const form = e.target;
+        const formData = new FormData(form);
+        const payload = Object.fromEntries(formData.entries());
+
+        const res = await fetch('/api/signupcreate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const result = await res.json();
+
+        if (res.ok) {
+            alert(result.message); // or success alert box
+            form.reset();
+        } else {
+            const errors = result.messages;
+            for (const field in errors) {
+                if (document.getElementById('error-' + field)) {
+                    document.getElementById('error-' + field).textContent = errors[field];
+                }
+            }
+        }
+    });
+</script>
+
+
+
+<!-- <div class="container mt-5">
+    <div class="card p-4 shadow-sm">
+        <h3 class="mb-4">Signup (API Based)</h3>
+
+        <div id="messageBox"></div> 
 
         <form id="signupForm">
             <div class="mb-3">
@@ -53,7 +122,7 @@
             box.innerHTML = `<div class="alert alert-danger">${messages}</div>`;
         }
     });
-</script>
+</script> -->
 
 
 

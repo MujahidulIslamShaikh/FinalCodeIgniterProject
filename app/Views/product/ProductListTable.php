@@ -40,9 +40,8 @@
 <div class="container py-4">
     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
         <a href="/pdf/product_list_pdf" target="_blank" class="btn btn-success">
-            View Product PDF
+            View Products PDF
         </a>
-
         <h3 class="mb-0 text-success fw-semibold">📦 Product List</h3>
         <a href="/CreateNewProduct" class="btn btn-success">+ Add Product</a>
     </div>

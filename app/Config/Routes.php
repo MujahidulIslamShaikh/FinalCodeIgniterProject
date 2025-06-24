@@ -97,8 +97,13 @@ $routes->group('/', ['namespace' => 'App\Controllers\Api'], function($routes){
 // ========================================= signupView =======================================================================================================
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
     $routes->get('signupView','AuthController::signupView');
-    $routes->get('signupcreate','AuthController::create');
+    $routes->post('signupcreate','AuthController::create'); // create
 });
+/////////// OR \\\\\\\\\\\\\\\\\\\
+// $routes->group('api', function($routes) {
+//     $routes->post('users', 'Api\UserApi::create');
+// });
+
 
 $routes->get('BrandView','GeneralController::BrandView');
 

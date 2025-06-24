@@ -4,6 +4,7 @@ CodeIgniter 4 me migration file generate karne ki command hoti hai:
 Agar aap table ka naam specify karna chahte ho:
            php spark make:migration CreateSignupTable --table signupmodel
 
+php spark migrate
 
 CREATE TABLE signup (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -89,6 +90,105 @@ CREATE TABLE productapitable (
   FOREIGN KEY (CateId) REFERENCES product_categories(CateId) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (BrandId) REFERENCES product_brands(BrandId) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
+<style>
+    .form-container {
+        max-width: 500px;
+        margin: auto;
+        padding: 20px;
+        background: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-container label {
+        font-weight: 600;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .form-container input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 15px;
+    }
+
+    .form-container button {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .form-container button:hover {
+        background-color: #0056b3;
+    }
+
+    .form-container a {
+        display: inline-block;
+        margin-top: 10px;
+        font-size: 14px;
+    }
+
+    @media (max-width: 576px) {
+        .form-container {
+            padding: 15px;
+        }
+
+        .form-container input,
+        .form-container button {
+            font-size: 14px;
+        }
+    }
+</style>
+
+
+namespace 'Views/signup/create.php'
+ye view without api agr form submit karne ka hai
+
+<div class="container mt-5">
+    <div class="card p-4 shadow">
+        <h3 class="mb-3">Signup</h3>
+
+        <!-- ✅ Validation Errors -->
+        <?php if (isset($validation)): ?>
+            <div class="alert alert-danger">
+                <ul>
+                    <?php foreach ($validation as $field => $error): ?>
+                        <li><?= esc($error) ?></li>
+                    <?php endforeach ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+
+        <!-- ✅ Signup Form -->
+        <form action="<?= base_url('signup') ?>" method="post">
+            <?= csrf_field() ?>
+            <div class="mb-3">
+                <label>Username</label>
+                <input type="text" name="username" class="form-control" value="<?= old('username') ?>">
+            </div>
+            <div class="mb-3">
+                <label>Email</label>
+                <input type="email" name="email" class="form-control" value="<?= old('email') ?>">
+            </div>
+            <div class="mb-3">
+                <label>Password</label>
+                <input type="password" name="password" class="form-control">
+            </div>
+            <button class="btn btn-primary">Sign Up</button>
+        </form>
+    </div>
+</div>
+
+
 
 
 

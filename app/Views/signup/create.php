@@ -1,107 +1,122 @@
-<style>
-    .form-container {
-        max-width: 500px;
-        margin: auto;
-        padding: 20px;
-        background: #f9f9f9;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
+<div class="container mt-5">
+    <div class="card p-4 shadow-sm">
+        <h3 class="mb-4">Signup (API Based)</h3>
 
-    .form-container label {
-        font-weight: 600;
-        margin-bottom: 5px;
-        display: block;
-    }
+        <div id="messageBox"></div> <!-- 🔁 Success / Error message box -->
 
-    .form-container input {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 15px;
-        border-radius: 6px;
-        border: 1px solid #ccc;
-        font-size: 15px;
-    }
-
-    .form-container button {
-        background-color: #007bff;
-        color: #fff;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 6px;
-        font-size: 16px;
-        cursor: pointer;
-    }
-
-    .form-container button:hover {
-        background-color: #0056b3;
-    }
-
-    .form-container a {
-        display: inline-block;
-        margin-top: 10px;
-        font-size: 14px;
-    }
-
-    @media (max-width: 576px) {
-        .form-container {
-            padding: 15px;
-        }
-
-        .form-container input,
-        .form-container button {
-            font-size: 14px;
-        }
-    }
-</style>
-
-<div class="container mt-4">
-    <h2 class="text-center mb-4">Users Table</h2>
-    <div class="text-center mb-3"><a href="/">Back to Registration Form</a></div>
-
-    <form class="form-container" action="/signup-user" method="post">
-        <label for="name">Your Username</label>
-        <input type="text" name="name" id="name" placeholder="Enter username" required>
-
-        <label for="email">Your Email</label>
-        <input type="text" name="email" id="email" placeholder="Enter email" required>
-
-        <label for="password">Your Password</label>
-        <input type="text" name="password" id="password" placeholder="Enter password" required>
-
-        <button type="submit">Submit</button>
-
-        <?php if (session()->getFlashdata('error')): ?>
-            <p style="color:red;"><?= session()->getFlashdata('error') ?></p>
-        <?php endif; ?>
-
-        <a href="/login-user">Login here</a>
-    </form>
+        <form id="signupForm">
+            <div class="mb-3">
+                <label>Username</label>
+                <input type="text" name="username" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Email</label>
+                <input type="email" name="email" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Password</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Signup</button>
+        </form>
+    </div>
 </div>
 
 <script>
-    document.getElementById('CreateProductForm').addEventListener('submit', async (e) => {
+    document.getElementById('signupForm').addEventListener('submit', async function(e) {
         e.preventDefault();
-        const data = Object.fromEntries(new FormData(e.target).entries());
-        console.log(data);
-        try {
-            const res = await fetch('/api/product', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-            const result = await res.json();
-            alert(res.ok ? result.message || 'Product created!' : Object.values(result.messages || {
-                error: result.message
-            }).join('\n'));
-            if (res.ok) {
-                e.target.reset();
-                window.location.href = "/ProductView";
-            }
-        } catch (err) {
-            alert('Error: ' + err.message);
+
+        const form = e.target;
+        const formData = new FormData(form);
+        const payload = Object.fromEntries(formData.entries());
+
+        const res = await fetch('/api/signupcreate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const result = await res.json();
+        const box = document.getElementById('messageBox');
+
+        if (res.ok) {
+            box.innerHTML = `<div class="alert alert-success">${result.message}</div>`;
+            form.reset();
+        } else {
+            // const messages = Object.values(result.messages).join('<br>');
+            // let errors = Object.values(result.messages).join('<br>');
+            const messages = result.messages ?
+                Object.values(result.messages).join('<br>') :
+                result.message || 'Something went wrong!';
+            box.innerHTML = `<div class="alert alert-danger">${messages}</div>`;
         }
     });
 </script>
+
+
+
+
+
+<!-- <div class="container mt-5">
+    <div class="card p-4 shadow-sm">
+        <h3 class="mb-4">Signup (Using API)</h3>
+
+        ✅ For success/error messages 
+        <div id="messageBox"></div>
+
+        <form id="signupForm">
+            <div class="mb-3">
+                <label>Username</label>
+                <input type="text" name="username" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label>Email</label>
+                <input type="email" name="email" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label>Password</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+</div>
+
+✅ JavaScript fetch to API
+<script>
+    document.getElementById('signupForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+        const payload = Object.fromEntries(formData.entries());
+        console.log(payload);
+
+        const response = await fetch('/api/signupcreate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+        const box = document.getElementById('messageBox');
+
+        if (response.ok) {
+            box.innerHTML = `<div class="alert alert-success">${result.message}</div>`;
+            this.reset();
+        } else {
+            // let errors = Object.values(result.messages).join('<br>');
+            let errors = result.messages ?
+                Object.values(result.messages).join('<br>') :
+                result.message || 'Something went wrong!';
+
+            box.innerHTML = `<div class="alert alert-danger">${errors}</div>`;
+        }
+    });
+</script> -->

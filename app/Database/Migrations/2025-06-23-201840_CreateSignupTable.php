@@ -15,7 +15,7 @@ class CreateSignupTable extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true
             ],
-            'name' => [
+            'username' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 100,
                 'null'       => false,

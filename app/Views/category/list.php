@@ -40,10 +40,10 @@
     <h3 class="text-center">📂 Category List</h3>
 
     <div class="d-flex flex-wrap gap-2 justify-content-center custom-btns mb-4">
-        <a href="pdf/product_list_pdf" class="btn btn-primary">
+        <a href="CreateNewProduct" class="btn btn-primary">
             ➕ Create Product
         </a>
-        <a href="/pdf/Brand_list_pdf" target="_blank" class="btn btn-outline-success">
+        <a href="/pdf/product_list_pdf" target="_blank" class="btn btn-outline-success">
             📄 Product PDF
         </a>
         <a href="/pdf/Brand_list_pdf" target="_blank" class="btn btn-outline-success">
@@ -60,7 +60,7 @@
 
         <input type="text" id="categorySearchInput" class="form-control w-50" placeholder="🔍 Search category by name...">
 
-        <a href="/CreateProductView" class="btn btn-outline-secondary">
+        <a href="/CreateNewProduct" class="btn btn-outline-secondary">
             ➕ Create Product
         </a>
     </div>

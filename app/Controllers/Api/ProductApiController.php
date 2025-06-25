@@ -20,7 +20,11 @@ class ProductApiController extends ResourceController
         $this->model = new ProductApiModel();
         $this->cateModel = new ProdCateModel();
     }
-    public function CreateNewProduct() 
+    public function CreateProductView()
+    {
+        return view('/CreateProductView');
+    }
+    public function CreateNewProduct()
     {
         return view('product/CreateNewProduct');
     }

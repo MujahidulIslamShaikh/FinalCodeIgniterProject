@@ -119,7 +119,6 @@ class GeneralController extends BaseController
 
     public function CreateProductView()
     {
-
         return view('/CreateProductView');
     }
 

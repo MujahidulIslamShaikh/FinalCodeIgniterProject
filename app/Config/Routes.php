@@ -75,7 +75,6 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes)
     $routes->delete('users/(:num)', 'UserApiController::delete/$1'); // Delete
 });
 
-$routes->get('/CreateProductView', 'GeneralController::CreateProductView');
 
 $routes->group('/', ['namespace' => 'App\Controllers\Api'], function ($routes) {
     $routes->get('ProductListApiView', 'ProductApiController::productView');
@@ -89,9 +88,6 @@ $routes->group('/', ['namespace' => 'App\Controllers\Api'], function ($routes) {
 //     $routes->get('product_list', 'ProductApiController::productView');
 // });
 
-$routes->group('/', ['namespace' => 'App\Controllers\Api'], function ($routes) {
-    $routes->get('CreateNewProduct', 'ProductApiController::CreateNewProduct');
-});
 
 // ========================================= General And PDF Controller  =======================================================================================================
 $routes->get('pdf_template', 'GeneralController::pdf_template');
@@ -111,9 +107,11 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes)
 // });
 
 
-$routes->get('BrandView', 'GeneralController::BrandView');
+
+$routes->get('/CreateProductView', 'GeneralController::CreateProductView');
 
 $routes->get('ProductView', 'ProductControllerApi::ProductView', ['namespace' => 'App\Controllers\Api']);
+$routes->get('CreateNewProduct', 'Api\ProductApiController::CreateNewProduct');
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes) {
     $routes->get('product', 'ProductApiController::index');     // List
     $routes->get('FilterProdByCate', 'ProductApiController::FilterProdByCate');     // List
@@ -137,7 +135,7 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes)
     $routes->get('category/search', 'ProdCategoryApiController::searchCategory'); // searchCategory
 });
 
-
+$routes->get('BrandView', 'GeneralController::BrandView');
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes) {
     $routes->get('brand', 'ProdBrandApiController::index');         // List
     $routes->get('brand/(:num)', 'ProdBrandApiController::show/$1'); // Single

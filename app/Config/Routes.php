@@ -14,25 +14,25 @@ $routes->get('/form', 'Form::formreturn');
 
 $routes->post('/submit-form', 'Form::submit');
 
-$routes->get('/user_list', 'Form::list');   
-$routes->get('/user_list_api', 'Form::listApi');   
-  
+$routes->get('/user_list', 'Form::list');
+$routes->get('/user_list_api', 'Form::listApi');
+
 $routes->get('delete-user/(:num)', 'Form::delete_user/$1');
 
-$routes->get('/edit-user/(:num)','Form::edit_user/$1');
+$routes->get('/edit-user/(:num)', 'Form::edit_user/$1');
 
-$routes->post('/update-user/(:num)','Form::update_user/$1');  
+$routes->post('/update-user/(:num)', 'Form::update_user/$1');
 
-$routes->get('/signup-user','Auth::signup_user');
-$routes->post('/signup-user','Auth::dosignup_user');
+$routes->get('/signup-user', 'Auth::signup_user');
+$routes->post('/signup-user', 'Auth::dosignup_user');
 
-$routes->get('/login-user','Auth::login_user'); 
-$routes->get('/Noor','Auth::loginuserlist');
+$routes->get('/login-user', 'Auth::login_user');
+$routes->get('/Noor', 'Auth::loginuserlist');
 
-  
 
-$routes->post('/login-user','Auth::dologin_user');
-$routes->get('/logout-user','Auth::logout');
+
+$routes->post('/login-user', 'Auth::dologin_user');
+$routes->get('/logout-user', 'Auth::logout');
 
 $routes->get('forgot', 'Auth::forgot');
 $routes->post('forgot', 'Auth::handleForgot');
@@ -41,22 +41,22 @@ $routes->post('reset-password/(:segment)', 'Auth::resetPassword/$1');
 
 $routes->get('send-email', 'Auth::testEmail');
 
-$routes->get('/admin/upload-file','UploadController::uploadMethod');
-$routes->post('/admin/upload-file','UploadController::saveFileMethod');
-$routes->get('/display-file','UploadController::ShowFileDataMethod');
+$routes->get('/admin/upload-file', 'UploadController::uploadMethod');
+$routes->post('/admin/upload-file', 'UploadController::saveFileMethod');
+$routes->get('/display-file', 'UploadController::ShowFileDataMethod');
 //==========================================
-$routes->get('/admin/dashboard','Admin::dashboard');
-$routes->get('/admin/login','Admin::login');
-$routes->post('/admin/login','Admin::checkLogin');
-$routes->get('/admin/logout','Admin::logout');
+$routes->get('/admin/dashboard', 'Admin::dashboard');
+$routes->get('/admin/login', 'Admin::login');
+$routes->post('/admin/login', 'Admin::checkLogin');
+$routes->get('/admin/logout', 'Admin::logout');
 
 // $routes->get('/admin/ProductActions','UploadController::ProductActions');
-$routes->get('/admin/prod-action','UploadController::ProductActions');
+$routes->get('/admin/prod-action', 'UploadController::ProductActions');
 
-$routes->get('/admin/delete-product/(:num)','UploadController::DeleteProduct/$1');
-$routes->get('/admin/edit-product/(:num)','UploadController::EditProduct/$1');
- 
-$routes->post('/admin/edit-product/(:num)','UploadController::UpdateProduct/$1');
+$routes->get('/admin/delete-product/(:num)', 'UploadController::DeleteProduct/$1');
+$routes->get('/admin/edit-product/(:num)', 'UploadController::EditProduct/$1');
+
+$routes->post('/admin/edit-product/(:num)', 'UploadController::UpdateProduct/$1');
 
 
 // ========== Multiple Images Upload =====================
@@ -67,7 +67,7 @@ $routes->post('/admin/mult-image-upload', 'ImageController::doupload');
 
 // $routes->resource('api/UserApiController');  // This maps to UserApi
 
-$routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
+$routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes) {
     $routes->get('users', 'UserApiController::index');         // List
     $routes->get('users/(:num)', 'UserApiController::show/$1'); // Single
     $routes->post('users', 'UserApiController::create');        // Create
@@ -77,13 +77,13 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
 
 $routes->get('/CreateProductView', 'GeneralController::CreateProductView');
 
-$routes->group('/', ['namespace' => 'App\Controllers\Api'], function($routes) {
-    $routes->get('ProductListApiView','ProductApiController::productView');
-    $routes->get('FilterProductListApiView','ProductApiController::FilterProductView'); //
-});  
-$routes->group('/', ['namespace' => 'App\Controllers\Api'], function($routes) {
-    $routes->get('ShowListCategory','ProdCategoryApiController::ShowListCategory');
-});  
+$routes->group('/', ['namespace' => 'App\Controllers\Api'], function ($routes) {
+    $routes->get('ProductListApiView', 'ProductApiController::productView');
+    $routes->get('FilterProductListApiView', 'ProductApiController::FilterProductView'); //
+});
+$routes->group('/', ['namespace' => 'App\Controllers\Api'], function ($routes) {
+    $routes->get('ShowListCategory', 'ProdCategoryApiController::ShowListCategory');
+});
 
 // $routes->get('/admin/product', 'ProductApiController::productView', ['namespace' => 'App\Controllers\Api']);
 // ===================== OR ===============
@@ -91,20 +91,21 @@ $routes->group('/', ['namespace' => 'App\Controllers\Api'], function($routes) {
 //     $routes->get('product_list', 'ProductApiController::productView');
 // });
 
-$routes->group('/', ['namespace' => 'App\Controllers\Api'], function($routes){
-    $routes->get('CreateNewProduct','ProductApiController::CreateNewProduct');
+$routes->group('/', ['namespace' => 'App\Controllers\Api'], function ($routes) {
+    $routes->get('CreateNewProduct', 'ProductApiController::CreateNewProduct');
 });
 
-// ========================================= General Controller  =======================================================================================================
+// ========================================= General And PDF Controller  =======================================================================================================
 $routes->get('pdf_template', 'GeneralController::pdf_template');
 $routes->get('pdf/product_list_pdf', 'GeneralController::product_list_pdf');
 $routes->get('pdf/cateListpdf', 'GeneralController::CategoryListPdf');
 $routes->get('pdf/Brand_list_pdf', 'GeneralController::Brand_list_pdf');
 
 // ========================================= signupView =======================================================================================================
-$routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
-    $routes->get('signupView','AuthController::signupView');
-    $routes->post('signupcreate','AuthController::create'); // create
+
+$routes->get('signupView', 'AuthController::signupView', ['namespace' => 'App\Controllers\Api']);
+$routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes) {
+    $routes->post('signupcreate', 'AuthController::create'); // create
 });
 /////////// OR \\\\\\\\\\\\\\\\\\\
 // $routes->group('api', function($routes) {  
@@ -112,11 +113,10 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
 // });
 
 
-$routes->get('BrandView','GeneralController::BrandView');
+$routes->get('BrandView', 'GeneralController::BrandView');
 
-// $routes->get('/CreateNewProduct','ProductApiController::CreateNewProduct', ['namespace' => 'App\Controllers\Api']);         
-
-$routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
+$routes->get('ProductView', 'ProductControllerApi::ProductView' , ['namespace' => 'App\Controllers\Api']);
+$routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes) {
     $routes->get('product', 'ProductApiController::index');     // List
     $routes->get('FilterProdByCate', 'ProductApiController::FilterProdByCate');     // List
     $routes->get('FilterProdByBrand', 'ProductApiController::FilterProdByBrand');     // List
@@ -127,10 +127,10 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
     $routes->delete('product/(:num)', 'ProductApiController::delete/$1'); // Delete
     $routes->get('product/searchByProductName', 'ProductApiController::searchByProductName'); // searchByProductName
     $routes->get('product/searchByProdNameCateBrand', 'ProductApiController::searchByProdNameCateBrand'); // searchByProdNameCateBrand
-});   
+});
 
 
-$routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
+$routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes) {
     $routes->get('category', 'ProdCategoryApiController::index');         // List
     $routes->get('category/(:num)', 'ProdCategoryApiController::show/$1'); // Single
     $routes->post('category', 'ProdCategoryApiController::create');        // Create
@@ -138,31 +138,12 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
     $routes->delete('category/(:num)', 'ProdCategoryApiController::delete/$1'); // Delete
     $routes->get('category/search', 'ProdCategoryApiController::searchCategory'); // searchCategory
 });
-  
 
-$routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){
+
+$routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes) {
     $routes->get('brand', 'ProdBrandApiController::index');         // List
     $routes->get('brand/(:num)', 'ProdBrandApiController::show/$1'); // Single
     $routes->post('brand', 'ProdBrandApiController::create');        // Create
     $routes->put('brand/(:num)', 'ProdBrandApiController::update/$1'); // Update
     $routes->delete('brand/(:num)', 'ProdBrandApiController::delete/$1'); // Delete
-});
-//////////////////////// Product Foder //////////////////////
-
-// $routes->get('/product/ProductListView','ProductControllerApi::ProductListView');
-// $routes->get('/product/ProductListView', 'ProductControllerApi::ProductListView', ['namespace' => 'App\Controllers\Api']);
-
-$routes->group('/', ['namespace' => 'App\Controllers\Api'], function($routes) {
-    // $routes->get('ProductList','ProductControllerApi::ProductListView');
-    $routes->get('ProductView','ProductControllerApi::ProductView');
-});  
-
-
-
-$routes->group('/product', ['namespace' => 'App\Controllers\Api'], function($routes){
-    // $routes->get('ProductList', 'ProductApiController::ProductList');         // List
-    // $routes->get('product/(:num)', 'ProductApiController::show/$1'); // Single
-    // $routes->post('product', 'ProductApiController::create');        // Create
-    // $routes->put('product/(:num)', 'ProductApiController::update/$1'); // Update
-    // $routes->delete('product/(:num)', 'ProductApiController::delete/$1'); // Delete
 });

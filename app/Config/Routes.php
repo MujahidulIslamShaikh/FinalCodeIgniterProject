@@ -81,9 +81,7 @@ $routes->group('/', ['namespace' => 'App\Controllers\Api'], function ($routes) {
     $routes->get('ProductListApiView', 'ProductApiController::productView');
     $routes->get('FilterProductListApiView', 'ProductApiController::FilterProductView'); //
 });
-$routes->group('/', ['namespace' => 'App\Controllers\Api'], function ($routes) {
-    $routes->get('ShowListCategory', 'ProdCategoryApiController::ShowListCategory');
-});
+
 
 // $routes->get('/admin/product', 'ProductApiController::productView', ['namespace' => 'App\Controllers\Api']);
 // ===================== OR ===============
@@ -115,7 +113,7 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes)
 
 $routes->get('BrandView', 'GeneralController::BrandView');
 
-$routes->get('ProductView', 'ProductControllerApi::ProductView' , ['namespace' => 'App\Controllers\Api']);
+$routes->get('ProductView', 'ProductControllerApi::ProductView', ['namespace' => 'App\Controllers\Api']);
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes) {
     $routes->get('product', 'ProductApiController::index');     // List
     $routes->get('FilterProdByCate', 'ProductApiController::FilterProdByCate');     // List
@@ -129,7 +127,7 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes)
     $routes->get('product/searchByProdNameCateBrand', 'ProductApiController::searchByProdNameCateBrand'); // searchByProdNameCateBrand
 });
 
-
+$routes->get('ShowListCategory', 'Api\ProdCategoryApiController::ShowListCategory');
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes) {
     $routes->get('category', 'ProdCategoryApiController::index');         // List
     $routes->get('category/(:num)', 'ProdCategoryApiController::show/$1'); // Single

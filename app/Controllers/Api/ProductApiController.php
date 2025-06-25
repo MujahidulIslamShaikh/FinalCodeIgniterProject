@@ -111,9 +111,6 @@ class ProductApiController extends ResourceController
         return $this->respond($builder->findAll());
     }
 
-
-
-
     public function index() // GET /api/product 
     {
         // $products = $this->model->findAll();
@@ -143,14 +140,36 @@ class ProductApiController extends ResourceController
     //     return $data ? $this->respond($data) : $this->failNotFound("User not found");
     // }
 
-    public function create() // POST /api/users
+    // public function create() // POST /api/users
+    // {
+    //     $data = $this->request->getJSON(true);
+
+    //     if ($this->model->insert($data)) {
+    //         return $this->respondCreated(['message' => 'User created successfully']);
+    //     }
+    //     return $this->failValidationErrors($this->model->errors());
+    // }
+    public function create()
     {
-        $data = $this->request->getJSON(true);
-        if ($this->model->insert($data)) {
-            return $this->respondCreated(['message' => 'User created successfully']);
+        $data = $this->request->getJSON(true); // Get input as array
+
+        // ✅ Validate using rule group defined in Config\Validation
+        if (! $this->validateData($data, 'product')) {
+            return $this->failValidationErrors($this->validator->getErrors());
         }
-        return $this->failValidationErrors($this->model->errors());
+
+        // ✅ If valid, insert into DB
+        if ($this->model->insert($data)) {
+            return $this->respondCreated([
+                'message' => 'Product created successfully',
+                'data'    => $data,
+            ]);
+        }
+
+        // ❌ DB insert failed (e.g., DB-level error)
+        return $this->failServerError('Insert failed.');
     }
+
 
     public function update($id = null) // PUT /api/product/{id} ==================== imp ====================
     {

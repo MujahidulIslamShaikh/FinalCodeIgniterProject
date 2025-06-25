@@ -56,37 +56,42 @@
     }
 </style>
 
-<div class="product-form">
-    <form id="CreateProductForm">
-        <div class="mb-3">
-            <label for="CreateBrandSelect">Select Brand</label>
-            <select class="form-select" name="BrandId" id="CreateBrandSelect"></select>
-            <?= view('/brand/SelectOptionsBrand') ?>
-            <a href="#" data-bs-toggle="modal" data-bs-target="#BrandModaal">+ New Brand</a>
-        </div>
+<div class="container my-5">
+    <div class="bg-white p-4 rounded-4 shadow-sm" style="max-width: 700px; margin: auto;">
+        <form id="CreateProductForm">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="CreateBrandSelect" class="form-label">Select Brand</label>
+                    <select class="form-select" name="BrandId" id="CreateBrandSelect"></select>
+                    <?= view('/brand/SelectOptionsBrand') ?>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#BrandModaal">+ New Brand</a>
+                </div>
 
-        <div class="mb-3">
-            <label for="CreateCategorySelect">Select Category</label>
-            <select class="form-select" name="CateId" id="CreateCategorySelect"></select>
-            <?= view('/category/SelectOptionsCate') ?>
-            <a href="#" data-bs-toggle="modal" data-bs-target="#categoryModal">+ New Category</a>
-        </div>
+                <div class="col-md-6 mb-3">
+                    <label for="CreateCategorySelect" class="form-label">Select Category</label>
+                    <select class="form-select" name="CateId" id="CreateCategorySelect"></select>
+                    <?= view('/category/SelectOptionsCate') ?>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#categoryModal">+ New Category</a>
+                </div>
 
-        <div class="mb-3">
-            <label for="ProdName">Product Name</label>
-            <input type="text" class="form-control" name="ProdName" id="ProdName" required>
-        </div>
+                <div class="col-md-6 mb-3">
+                    <label for="ProdName" class="form-label">Product Name</label>
+                    <input type="text" class="form-control" name="ProdName" id="ProdName" required>
+                </div>
 
-        <div class="mb-3">
-            <label for="details">Product Details</label>
-            <input type="text" class="form-control" name="details" id="details" required>
-        </div>
+                <div class="col-md-6 mb-3">
+                    <label for="details" class="form-label">Product Details</label>
+                    <input type="text" class="form-control" name="details" id="details" required>
+                </div>
+            </div>
 
-        <div class="form-footer">
-            <button type="submit" class="btn btn-success px-4">Submit</button>
-        </div>
-    </form>
+            <div class="text-end mt-3">
+                <button type="submit" class="btn btn-success px-4">Submit</button>
+            </div>
+        </form>
+    </div>
 </div>
+
 
 
 

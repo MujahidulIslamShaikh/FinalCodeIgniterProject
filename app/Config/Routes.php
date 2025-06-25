@@ -98,6 +98,8 @@ $routes->group('/', ['namespace' => 'App\Controllers\Api'], function($routes){
 // ========================================= General Controller  =======================================================================================================
 $routes->get('pdf_template', 'GeneralController::pdf_template');
 $routes->get('pdf/product_list_pdf', 'GeneralController::product_list_pdf');
+$routes->get('pdf/cateListpdf', 'GeneralController::CategoryListPdf');
+$routes->get('pdf/Brand_list_pdf', 'GeneralController::Brand_list_pdf');
 
 // ========================================= signupView =======================================================================================================
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes){

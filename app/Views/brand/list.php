@@ -3,7 +3,17 @@
     <div class="d-flex justify-content-between ">
         <a href="#" data-bs-toggle="modal" data-bs-target="#categoryModal">+ New Category</a>
         <input type="text" id="categorySearchInput" class="form-control mb-3" placeholder="Search category by name...">
-        <a href="/CreateProductView">Create Product</a>
+        <div class="container mt-4">
+            <div class="d-flex flex-wrap gap-2">
+                <a href="/CreateProductView" class="btn btn-primary">
+                    ➕ Create Product
+                </a>
+                <a href="/pdf/Brand_list_pdf" target="_blank" class="btn btn-outline-success">
+                    📄 Download Brand PDF
+                </a>
+            </div>
+        </div>
+
     </div>
     <h3 class="mb-4 text-center">Product List</h3>
     <div class="table-responsive">
@@ -99,5 +109,4 @@ echo view('/brand/deleteById');
     // });
 
     loadBrand();
-
 </script>

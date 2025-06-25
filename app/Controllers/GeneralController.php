@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\ProdBrandModel;
+use App\Models\ProdCateModel;
 use App\Models\ProductApiModel;
 use App\Models\ProductModel;
 use Dompdf\Dompdf;
@@ -28,6 +30,68 @@ class GeneralController extends BaseController
         $dompdf->stream("product_list.pdf", ["Attachment" => false]);
         exit();
     }
+
+    public function General_check()
+    {
+        $model = new ProductApiModel();
+        $products = $model->findAll();
+        //  $products = $model
+        //     ->select('productapitable.*, product_categories.CateName as category, product_brands.BrandName as brand')
+        //     ->join('product_categories', 'product_categories.CateId = productapitable.CateId')
+        //     ->join('product_brands', 'product_brands.BrandId = productapitable.BrandId')
+        //     ->findAll();
+
+        echo "<h2>Product List</h2>";
+        echo "<ul>";
+        foreach ($products as $product) {
+            // e    cho "<li>{$product['ProductName']}</li>";
+            echo '<pre>';
+            print_r($product);
+            echo '</pre>';
+        }
+        echo "</ul>";
+    }
+    // ============================ Category and Brand =============================================
+    public function CategoryListPdf()
+    {
+        $model = new ProdCateModel();
+        $cates = $model->findAll();
+
+        $dompdf = new Dompdf();
+        $html = view('pdf/Brand_Cate_list_pdf', [
+            'title'   => 'Category List',
+            'headers' => ['Cate ID', 'Cate Name'],
+            'columns' => ['CateId', 'CateName'],
+            'rows'    => $cates
+        ]);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        $dompdf->stream("category_list.pdf", ["Attachment" => false]);
+        exit();
+    }
+    public function Brand_list_pdf()
+    {
+        $model = new ProdBrandModel();
+        $brands = $model->findAll();
+
+        $dompdf = new Dompdf();
+        $html = view('pdf/Brand_Cate_list_pdf', [
+            'title'   => 'Brand List',
+            'headers' => ['Brand ID', 'Brand Name'],
+            'columns' => ['BrandId', 'BrandName'],
+            'rows'    => $brands
+        ]);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        $dompdf->stream("brand_list.pdf", ["Attachment" => false]);
+        exit();
+    }
+
+
+
+
     public function pdf_template()
     {
         $dompdf = new Dompdf();

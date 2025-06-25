@@ -3,82 +3,93 @@
 
 <style>
     .product-form {
-        background: #f8f9fa;
-        border-radius: 12px;
-        padding: 20px;
-        max-width: 600px;
+        background-color: #ffffff;
+        border-radius: 16px;
+        padding: 30px;
+        max-width: 700px;
         margin: auto;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 6px 16px rgba(25, 135, 84, 0.1);
     }
 
     .product-form label {
-        font-weight: 500;
-        display: block;
-        margin-bottom: 5px;
+        font-weight: 600;
+        color: #198754;
+        margin-bottom: 6px;
     }
 
-    .product-form select,
-    .product-form input {
-        width: 100%;
-        padding: 6px 10px;
-        border: 1px solid #198754;
-        border-radius: 4px;
-        font-size: 0.9rem;
+    .product-form input,
+    .product-form select {
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        padding: 10px 12px;
+        font-size: 0.95rem;
+        transition: border-color 0.2s;
     }
 
-    .product-form .mb {
-        margin-bottom: 15px;
+    .product-form input:focus,
+    .product-form select:focus {
+        border-color: #198754;
+        outline: none;
+        box-shadow: 0 0 0 0.15rem rgba(25, 135, 84, 0.25);
     }
 
     .product-form a {
         font-size: 0.85rem;
-        margin-top: 4px;
+        color: #0d6efd;
+        text-decoration: none;
         display: inline-block;
+        margin-top: 4px;
+    }
+
+    .product-form a:hover {
+        text-decoration: underline;
+    }
+
+    .form-footer {
+        text-align: right;
     }
 
     @media (max-width: 576px) {
         .product-form {
-            padding: 15px;
+            padding: 20px;
         }
     }
 </style>
 
 <div class="product-form">
     <form id="CreateProductForm">
-
-        <div class="mb">
-            <label for="brandSelect">Select Brand</label>
-            <select class="form-control mb-2" name="BrandId" id="CreateBrandSelect"></select>
-            <?php
-            echo view('/brand/SelectOptionsBrand');
-            ?>
+        <div class="mb-3">
+            <label for="CreateBrandSelect">Select Brand</label>
+            <select class="form-select" name="BrandId" id="CreateBrandSelect"></select>
+            <?= view('/brand/SelectOptionsBrand') ?>
             <a href="#" data-bs-toggle="modal" data-bs-target="#BrandModaal">+ New Brand</a>
         </div>
 
-        <div class="mb">
-            <label for="categorySelect">Select Category</label>
-            <select class="form-control mb-2" name="CateId" id="CreateCategorySelect"></select>
-            <?php
-            echo view('/category/SelectOptionsCate');
-            ?>
+        <div class="mb-3">
+            <label for="CreateCategorySelect">Select Category</label>
+            <select class="form-select" name="CateId" id="CreateCategorySelect"></select>
+            <?= view('/category/SelectOptionsCate') ?>
             <a href="#" data-bs-toggle="modal" data-bs-target="#categoryModal">+ New Category</a>
         </div>
 
-        <div class="mb">
+        <div class="mb-3">
             <label for="ProdName">Product Name</label>
-            <input type="text" name="ProdName" id="ProdName" required>
+            <input type="text" class="form-control" name="ProdName" id="ProdName" required>
         </div>
 
-        <div class="mb">
+        <div class="mb-3">
             <label for="details">Product Details</label>
-            <input type="text" name="details" id="details" required>
+            <input type="text" class="form-control" name="details" id="details" required>
         </div>
 
-        <div class="text-end">
-            <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="form-footer">
+            <button type="submit" class="btn btn-success px-4">Submit</button>
         </div>
     </form>
 </div>
+
+
+
 <?php
 echo view('/brand/BrandModaal');
 echo view('/category/CateModaal');

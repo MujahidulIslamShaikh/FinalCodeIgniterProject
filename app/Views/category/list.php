@@ -1,14 +1,72 @@
-<!-- ================= List Category ====================== -->
+<style>
+    .section-header {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .section-header a,
+    .section-header input {
+        margin-bottom: 0.5rem;
+    }
+
+    .custom-btns a {
+        border-radius: 8px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .table-responsive {
+        background-color: #fff;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .table thead th {
+        background-color: #198754;
+        color: white;
+    }
+
+    .container h3 {
+        font-weight: 600;
+        color: #198754;
+        margin-top: 2rem;
+    }
+</style>
+
 <div class="container mt-5">
-    <div class="d-flex justify-content-between ">
-        <a href="#" data-bs-toggle="modal" data-bs-target="#categoryModal">+ New Category</a>
-        <input type="text" id="categorySearchInput" class="form-control mb-3" placeholder="Search category by name...">
-        <a href="/CreateProductView">Create Product</a>
+    <h3 class="text-center">📂 Category List</h3>
+
+    <div class="d-flex flex-wrap gap-2 justify-content-center custom-btns mb-4">
+        <a href="/CreateProductView" class="btn btn-primary">
+            ➕ Create Product
+        </a>
+        <a href="/pdf/Brand_list_pdf" target="_blank" class="btn btn-outline-success">
+            📄 Brand PDF
+        </a>
+        <a href="/pdf/cateListpdf" target="_blank" class="btn btn-outline-success">
+            📄 Category PDF
+        </a>
     </div>
-    <h3 class="mb-4 text-center">Product List</h3>
+    <div class="section-header">
+        <a href="#" data-bs-toggle="modal" data-bs-target="#categoryModal" class="btn btn-outline-primary">
+            ➕ New Category
+        </a>
+
+        <input type="text" id="categorySearchInput" class="form-control w-50" placeholder="🔍 Search category by name...">
+
+        <a href="/CreateProductView" class="btn btn-outline-secondary">
+            ➕ Create Product
+        </a>
+    </div>
+
+
+
     <div class="table-responsive">
-        <table class="table table-bordered" id="categoryTable">
-            <thead class="table-dark">
+        <table class="table table-bordered table-hover align-middle" id="categoryTable">
+            <thead>
                 <tr>
                     <th>Category ID</th>
                     <th>Category Name</th>
@@ -21,6 +79,7 @@
         </table>
     </div>
 </div>
+
 <!-- ============= Category Modaal ===========  -->
 <?php
 echo view('/category/CateModaal');

@@ -47,27 +47,30 @@
     </div>
 
     <div class="row g-3 mb-3">
-        <div class="col-md-4">
-            <select class="form-control mb-2" name="BrandId" id="BrandSelect"></select>
 
-            <?php
-            echo view('brand/SelectOptionsBrand');
-            ?>
+        <div class="col-md-4 d-flex align-items-center gap-2">
+            <label for="BrandSelect" class="form-label fw-semibold mb-0" style="white-space: nowrap;">🔍 Brand</label>
+            <select class="form-control" name="BrandId" id="BrandSelect" style="min-width: 0;"></select>
+            <?= view('brand/SelectOptionsBrand'); ?>
         </div>
-        <div class="col-md-4">
-            <select class="form-control mb-2" name="CateId" id="CategorySelect"></select>
-            <?php
-            echo view('category/SelectOptionsCate')
-            ?>
+
+        <div class="col-md-4 d-flex align-items-center gap-2">
+            <label for="CategorySelect" class="form-label fw-semibold mb-0" style="white-space: nowrap;">🔍 Category</label>
+            <select class="form-control" name="CateId" id="CategorySelect" style="min-width: 0;"></select>
+            <?= view('category/SelectOptionsCate'); ?>
         </div>
-        <div class="col-md-4">
-            <label for="searchProduct" class="form-label fw-semibold">🔍 Search</label>
-            <div class="input-group search-box shadow-sm">
+
+        <div class="col-md-4 d-flex align-items-center gap-2">
+            <label for="searchProduct" class="form-label fw-semibold mb-0" style="white-space: nowrap;">🔍 Search</label>
+            <div class="input-group shadow-sm flex-grow-1">
                 <span class="input-group-text"><i class="bi bi-search"></i></span>
                 <input type="search" id="searchProduct" class="form-control" placeholder="Name, Brand or Category">
             </div>
         </div>
+
     </div>
+
+
 
     <div class="table-responsive">
         <table class="table custom-table table-bordered align-middle" id="productTable">

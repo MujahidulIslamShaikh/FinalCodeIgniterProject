@@ -1,6 +1,4 @@
 
-
-
 <div class="container mt-5">
     <div class="card p-4 shadow-sm">
         <h3 class="mb-4">Signup (API Based)</h3>
@@ -63,7 +61,6 @@
 </script>
 
 
-
 <!-- <div class="container mt-5">
     <div class="card p-4 shadow-sm">
         <h3 class="mb-4">Signup (API Based)</h3>
@@ -122,10 +119,8 @@
 </script> -->
 
 
-
-
-
-<!-- <div class="container mt-5">
+<!-- 
+<div class="container mt-5">
     <div class="card p-4 shadow-sm">
         <h3 class="mb-4">Signup (Using API)</h3>
 

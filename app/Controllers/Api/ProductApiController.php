@@ -157,7 +157,7 @@ class ProductApiController extends ResourceController
         if (! $this->validateData($data, 'product')) {
             return $this->failValidationErrors($this->validator->getErrors());
         }
-
+     
         // ✅ If valid, insert into DB
         if ($this->model->insert($data)) {
             return $this->respondCreated([

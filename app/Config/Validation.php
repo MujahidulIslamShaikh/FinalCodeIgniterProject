@@ -57,43 +57,45 @@ class Validation extends BaseConfig
     ];
 
     public array $product = [
-    'ProdName' => [
-        'label' => 'Product Name',
-        'rules' => 'required|min_length[2]|max_length[100]',
-        'errors' => [
-            'required'   => 'Product name is required.',
-            'min_length' => 'At least 2 characters required.',
-            'max_length' => 'Cannot exceed 100 characters.'
-        ]
-    ],
-    'details' => [
-        'label' => 'Product Details',
-        'rules' => 'required|min_length[5]|max_length[255]',
-        'errors' => [
-            'required'   => 'Product details are required.',
-            'min_length' => 'Minimum 5 characters needed.',
-            'max_length' => 'Maximum 255 characters allowed.'
-        ]
-    ],
-    'CateId' => [
-        'label' => 'Category',
-        'rules' => 'required|integer|is_not_unique[category.CateId]',
-        'errors' => [
-            'required'      => 'Category must be selected.',
-            'integer'       => 'Invalid category ID.',
-            'is_not_unique' => 'Category does not exist.'
-        ]
-    ],
-    'BrandId' => [
-        'label' => 'Brand',
-        'rules' => 'required|integer|is_not_unique[brand.BrandId]',
-        'errors' => [
-            'required'      => 'Brand must be selected.',
-            'integer'       => 'Invalid brand ID.',
-            'is_not_unique' => 'Brand does not exist.'
-        ]
-    ],
-];
+        'ProdName' => [
+            'label' => 'Product Name',
+            'rules' => 'required|min_length[2]|max_length[100]|is_unique[productapitable.ProdName]',
+            'errors' => [
+                'required'   => 'Product name is required.',
+                'min_length' => 'At least 2 characters required.',
+                'max_length' => 'Cannot exceed 100 characters.',
+                'is_unique'   => 'This product already taken.'
+            ]
+        ],
+        'details' => [
+            'label' => 'Product Details',
+            // 'rules' => 'required|min_length[5]|max_length[255]',
+            'rules' => 'max_length[255]',
+            'errors' => [
+                // 'required'   => 'Product details are required.',
+                // 'min_length' => 'Minimum 5 characters needed.',
+                'max_length' => 'Maximum 255 characters allowed.'
+            ]
+        ],
+        'CateId' => [
+            'label' => 'Category',
+            'rules' => 'required|integer|is_not_unique[product_categories.CateId]',
+            'errors' => [
+                'required'      => 'Category must be selected.',
+                'integer'       => 'Invalid category ID.',
+                'is_not_unique' => 'Category does not exist.'
+            ]
+        ],
+        'BrandId' => [
+            'label' => 'Brand',
+            'rules' => 'required|integer|is_not_unique[product_brands.BrandId]',
+            'errors' => [
+                'required'      => 'Brand must be selected.',
+                'integer'       => 'Invalid brand ID.',
+                'is_not_unique' => 'Brand does not exist.'
+            ]
+        ],
+    ];
 
 
 

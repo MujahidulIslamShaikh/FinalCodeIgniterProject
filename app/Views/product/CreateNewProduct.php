@@ -81,7 +81,7 @@
 
                 <div class="col-md-6 mb-3">
                     <label for="details" class="form-label">Product Details</label>
-                    <input type="text" class="form-control" name="details" id="details" required>
+                    <input type="text" class="form-control" name="details" id="details">
                 </div>
             </div>
 

@@ -11,3 +11,10 @@ class ProductApiModel extends Model
 
     protected $allowedFields = ['ProdName', 'details', 'CateId', 'BrandId'];
 }
+
+
+
+
+
+
+

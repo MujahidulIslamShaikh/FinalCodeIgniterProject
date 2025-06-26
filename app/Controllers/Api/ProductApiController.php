@@ -179,7 +179,6 @@ class ProductApiController extends ResourceController
         }
         return $this->failValidationErrors($this->model->errors());
     }
-
     public function delete($id = null) // DELETE /api/product/{id}
     {
         if ($this->model->delete($id)) {

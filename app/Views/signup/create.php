@@ -1,7 +1,9 @@
+
+
+
 <div class="container mt-5">
     <div class="card p-4 shadow-sm">
         <h3 class="mb-4">Signup (API Based)</h3>
-
         <!-- <div id="messageBox"></div> -->
         <form id="signupForm">
             <div class="mb-3">
@@ -21,13 +23,8 @@
             </div>
             <button type="submit" class="btn btn-primary">Signup</button>
         </form>
-
     </div>
 </div>
-
-
-
-
 <script>
     document.getElementById('signupForm').addEventListener('submit', async function(e) {
         e.preventDefault();

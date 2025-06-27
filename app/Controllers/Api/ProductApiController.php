@@ -149,24 +149,54 @@ class ProductApiController extends ResourceController
     //     }
     //     return $this->failValidationErrors($this->model->errors());
     // }
+    // =========== only fields ke liye , without image  ================
+    // public function create()
+    // {
+    //     $data = $this->request->getJSON(true); // Get input as array
+
+    //     // ✅ Validate using rule group defined in Config\Validation
+    //     if (! $this->validateData($data, 'product')) {
+    //         return $this->failValidationErrors($this->validator->getErrors());
+    //     }
+
+    //     // ✅ If valid, insert into DB
+    //     if ($this->model->insert($data)) {
+    //         return $this->respondCreated([
+    //             'message' => 'Product created successfully',
+    //             'data'    => $data,
+    //         ]);
+    //     }
+
+    //     // ❌ DB insert failed (e.g., DB-level error)
+    //     return $this->failServerError('Insert failed.');
+    // }
+
+    // ===================== With Image =============================
     public function create()
     {
-        $data = $this->request->getJSON(true); // Get input as array
+        $post = $this->request->getPost(); // ✅ all non-file inputs
+        $image = $this->request->getFile('ProdImage'); // ✅ file input
 
-        // ✅ Validate using rule group defined in Config\Validation
-        if (! $this->validateData($data, 'product')) {
+        // 👇 Optionally merge file name into main array
+        if ($image && $image->isValid() && !$image->hasMoved()) {
+            $newName = $image->getRandomName();
+            $image->move(FCPATH . 'uploads/productsImage/', $newName);
+            $post['ProdImage'] = 'uploads/productsImage/' . $newName;
+        }
+
+        // ✅ Validate
+        if (! $this->validateData($post, 'product')) {
             return $this->failValidationErrors($this->validator->getErrors());
         }
-     
-        // ✅ If valid, insert into DB
-        if ($this->model->insert($data)) {
+
+        // ✅ Insert
+        if ($this->model->insert($post)) {
             return $this->respondCreated([
                 'message' => 'Product created successfully',
-                'data'    => $data,
+                'data'    => $post,
             ]);
         }
 
-        // ❌ DB insert failed (e.g., DB-level error)
         return $this->failServerError('Insert failed.');
     }
 

@@ -65,6 +65,7 @@
                     <select class="form-select" name="BrandId" id="CreateBrandSelect"></select>
                     <?= view('/brand/SelectOptionsBrand') ?>
                     <a href="#" data-bs-toggle="modal" data-bs-target="#BrandModaal">+ New Brand</a>
+                    <div id="error-BrandId" class="text-danger small"></div>
                 </div>
 
                 <div class="col-md-6 mb-3">
@@ -72,17 +73,24 @@
                     <select class="form-select" name="CateId" id="CreateCategorySelect"></select>
                     <?= view('/category/SelectOptionsCate') ?>
                     <a href="#" data-bs-toggle="modal" data-bs-target="#categoryModal">+ New Category</a>
+                    <div id="error-CateId" class="text-danger small"></div>
                 </div>
 
                 <div class="col-md-6 mb-3">
                     <label for="ProdName" class="form-label">Product Name</label>
                     <input type="text" class="form-control" name="ProdName" id="ProdName" required>
+                    <div id="error-ProdName" class="text-danger small"></div>
                 </div>
 
                 <div class="col-md-6 mb-3">
                     <label for="details" class="form-label">Product Details</label>
                     <input type="text" class="form-control" name="details" id="details">
+                    <div id="error-details" class="text-danger small"></div>
                 </div>
+                <?php
+                echo view('components/ImageUploadField');
+                ?>
+
             </div>
 
             <div class="text-end mt-3">
@@ -106,7 +114,15 @@ echo view('/category/CateModaal');
 
     document.getElementById('CreateProductForm').addEventListener('submit', async (e) => {
         e.preventDefault();
-        const data = Object.fromEntries(new FormData(e.target).entries());
+        const form = e.target;
+
+        // Clear old errors
+        ['BrandId', 'CateId', 'ProdName', 'details'].forEach(field => {
+            const errorEl = document.getElementById('error-' + field);
+            if (errorEl) errorEl.textContent = '';
+        });
+
+        const data = Object.fromEntries(new FormData(form).entries());
         console.log(data);
         try {
             const res = await fetch('/api/product', {
@@ -116,19 +132,29 @@ echo view('/category/CateModaal');
                 },
                 body: JSON.stringify(data)
             });
+
             const result = await res.json();
-            alert(res.ok ? result.message || 'Product created!' : Object.values(result.messages || {
-                error: result.message
-            }).join('\n'));
+
             if (res.ok) {
-                e.target.reset();
-                window.location.href = "/ProductView";
+                alert(result.message || 'Product created successfully!');
+                form.reset();
+                window.location.href = "/ProductView"; // 🔁 Redirect
+            } else {
+                const errors = result.messages || {};
+                for (const field in errors) {
+                    const errorEl = document.getElementById('error-' + field);
+                    if (errorEl) {
+                        errorEl.textContent = errors[field];
+                    }
+                }
             }
+
         } catch (err) {
-            alert('Error: ' + err.message);
+            console.error('Request failed:', err);
         }
     });
 </script>
+
 
 
 

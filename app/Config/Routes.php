@@ -105,6 +105,10 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes)
 // $routes->group('api', function($routes) {  
 //     $routes->post('users', 'Api\UserApi::create');
 // });
+// =============== IMAGE FILE UPLOAD API HERE ============================
+$routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes) {
+    $routes->post('imageupload/upload', 'ImageUploadController::upload');
+});
 
 
 

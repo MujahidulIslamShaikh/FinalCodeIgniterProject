@@ -9,7 +9,7 @@ class ProductApiModel extends Model
     protected $table = 'productApiTable';
     protected $primaryKey = 'Prodid';
 
-    protected $allowedFields = ['ProdName', 'details', 'CateId', 'BrandId'];
+    protected $allowedFields = ['ProdName', 'details', 'CateId', 'BrandId', 'ProdImage'];
 }
 
 

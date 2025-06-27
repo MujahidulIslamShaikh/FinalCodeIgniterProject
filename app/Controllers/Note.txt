@@ -6,6 +6,7 @@ CodeIgniter 4 me migration file generate karne ki command hoti hai:
 
 Agar aap table ka naam specify karna chahte ho:
            php spark make:migration CreateSignupTable --table signupmodel
+           php spark make:migration CreateImageTable --table ImageModel
 
 php spark migrate
 

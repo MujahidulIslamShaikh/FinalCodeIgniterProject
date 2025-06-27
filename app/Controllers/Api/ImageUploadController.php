@@ -26,6 +26,10 @@ class ImageUploadController extends ResourceController
             'path'     => $result['path']
         ]);
     }
+    public function update() 
+    {
+        
+    }
 }
 
 

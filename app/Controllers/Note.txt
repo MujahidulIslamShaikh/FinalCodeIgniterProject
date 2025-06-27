@@ -10,6 +10,13 @@ Agar aap table ka naam specify karna chahte ho:
 
 php spark migrate
 
+ Important:
+php spark migrate sirf naye migration par run hota hai.
+Agar table pehle se bana hua hai to change apply nahi hota, uske liye:
+
+php spark migrate:rollback
+php spark migrate
+
 CREATE TABLE signup (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL,

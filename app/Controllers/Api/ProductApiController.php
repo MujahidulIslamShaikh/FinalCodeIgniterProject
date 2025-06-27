@@ -96,9 +96,16 @@ class ProductApiController extends ResourceController
         $searchTerm = $this->request->getGet('search');
 
         $builder = $this->model
-            ->select('productapitable.*, product_categories.CateName as category, product_brands.BrandName as brand')
+            ->select('
+            productapitable.*,
+            product_categories.CateName as category,
+            product_brands.BrandName as brand,
+            imagemodel.file_name,
+            imagemodel.file_path
+        ')
             ->join('product_categories', 'product_categories.CateId = productapitable.CateId')
-            ->join('product_brands', 'product_brands.BrandId = productapitable.BrandId');
+            ->join('product_brands', 'product_brands.BrandId = productapitable.BrandId')
+            ->join('imagemodel', 'imagemodel.id = productapitable.ImageId', 'left');
 
         if (!empty($searchTerm)) {
             $builder->groupStart()
@@ -110,6 +117,7 @@ class ProductApiController extends ResourceController
 
         return $this->respond($builder->findAll());
     }
+
 
     public function index() // GET /api/product 
     {
@@ -149,56 +157,30 @@ class ProductApiController extends ResourceController
     //     }
     //     return $this->failValidationErrors($this->model->errors());
     // }
-    // =========== only fields ke liye , without image  ================
-    // public function create()
-    // {
-    //     $data = $this->request->getJSON(true); // Get input as array
-
-    //     // ✅ Validate using rule group defined in Config\Validation
-    //     if (! $this->validateData($data, 'product')) {
-    //         return $this->failValidationErrors($this->validator->getErrors());
-    //     }
-
-    //     // ✅ If valid, insert into DB
-    //     if ($this->model->insert($data)) {
-    //         return $this->respondCreated([
-    //             'message' => 'Product created successfully',
-    //             'data'    => $data,
-    //         ]);
-    //     }
-
-    //     // ❌ DB insert failed (e.g., DB-level error)
-    //     return $this->failServerError('Insert failed.');
-    // }
 
     // ===================== With Image =============================
     public function create()
     {
-        $post = $this->request->getPost(); // ✅ all non-file inputs
-        $image = $this->request->getFile('ProdImage'); // ✅ file input
+        $data = $this->request->getJSON(true); // Get input as array
 
-        // 👇 Optionally merge file name into main array
-        if ($image && $image->isValid() && !$image->hasMoved()) {
-            $newName = $image->getRandomName();
-            $image->move(FCPATH . 'uploads/productsImage/', $newName);
-            $post['ProdImage'] = 'uploads/productsImage/' . $newName;
-        }
-
-        // ✅ Validate
-        if (! $this->validateData($post, 'product')) {
+        // ✅ Validate using rule group defined in Config\Validation
+        if (! $this->validateData($data, 'product')) {
             return $this->failValidationErrors($this->validator->getErrors());
         }
 
-        // ✅ Insert
-        if ($this->model->insert($post)) {
+        // ✅ If valid, insert into DB
+        if ($this->model->insert($data)) {
             return $this->respondCreated([
                 'message' => 'Product created successfully',
-                'data'    => $post,
+                'data'    => $data,
             ]);
         }
 
+        // ❌ DB insert failed (e.g., DB-level error)
         return $this->failServerError('Insert failed.');
     }
+
+
 
 
     public function update($id = null) // PUT /api/product/{id} ==================== imp ====================

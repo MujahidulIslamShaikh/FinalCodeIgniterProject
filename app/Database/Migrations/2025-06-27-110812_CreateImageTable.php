@@ -42,6 +42,8 @@ class CreateImageTable extends Migration
         ]);
 
         $this->forge->addKey('id', true);
+        $this->forge->addKey('ref_id'); // 👍 Good for JOIN performance
+        $this->forge->addForeignKey('ref_id', 'productapitable', 'Prodid', 'CASCADE', 'CASCADE'); 
         $this->forge->createTable('ImageModel');
     }
 

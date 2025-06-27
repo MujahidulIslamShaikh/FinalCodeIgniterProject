@@ -1,5 +1,4 @@
 <?php
-// File: app/Services/ImageService.php
 
 namespace App\Services;
 
@@ -38,3 +37,6 @@ class ImageService
         return ['status' => true, 'image_id' => $imageId, 'path' => $imageData['file_path']];
     }
 }
+
+
+?>

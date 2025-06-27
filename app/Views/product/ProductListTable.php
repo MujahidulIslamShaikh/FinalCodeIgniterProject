@@ -81,6 +81,7 @@
                     <th>Details</th>
                     <th>Category</th>
                     <th>Brand</th>
+                    <th>Product Image</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -106,6 +107,9 @@
                     <td>${prod.details}</td>
                     <td>${prod.category}</td>
                     <td>${prod.brand}</td>
+                    <td>
+                      <img src="${prod.file_path ?? '/assets/no-image.png'}" width="60" height="60">
+                    </td>
                     <td>
                         <button onclick='openProductEditModal(${JSON.stringify(prod)})' class="btn btn-sm btn-outline-warning">Edit</button>
                         <button onclick="deleteProduct(${prod.Prodid})" class="btn btn-sm btn-outline-danger">Delete</button>

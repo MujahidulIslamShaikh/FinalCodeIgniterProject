@@ -162,14 +162,24 @@ class ProductApiController extends ResourceController
     public function create()
     {
         $data = $this->request->getJSON(true); // Get input as array
+        $imageId = $data['ImageId'] ?? null;   // 🟡 Extract image ID
+        // unset($data['ImageId']);               // 🧹 Remove from product data
 
         // ✅ Validate using rule group defined in Config\Validation
         if (! $this->validateData($data, 'product')) {
             return $this->failValidationErrors($this->validator->getErrors());
         }
 
-        // ✅ If valid, insert into DB
+        // ✅ Insert into DB
         if ($this->model->insert($data)) {
+            $productId = $this->model->getInsertID();
+
+            // ✅ Update ref_id in image table
+            if ($imageId) {
+                $imageService = new \App\Services\ImageService();
+                $imageService->updateRefId($imageId, $productId);
+            }
+
             return $this->respondCreated([
                 'message' => 'Product created successfully',
                 'data'    => $data,

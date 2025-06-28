@@ -8,7 +8,7 @@ class ImageService
 {
     protected $uploadPath = FCPATH . 'uploads/';
 
-    public function upload($file, $type = 'productsImage', $refId = null)   
+    public function upload($file, $type = 'productsImage', $refId = null)
     {
         if (!$file || !$file->isValid()) {
             return ['status' => false, 'message' => 'Invalid file'];
@@ -36,7 +36,9 @@ class ImageService
 
         return ['status' => true, 'image_id' => $imageId, 'path' => $imageData['file_path']];
     }
+    public function updateRefId($imageId, $refId)
+    {
+        $model = new ImageModel();
+        return $model->update($imageId, ['ref_id' => $refId]);
+    }
 }
-
-
-?>

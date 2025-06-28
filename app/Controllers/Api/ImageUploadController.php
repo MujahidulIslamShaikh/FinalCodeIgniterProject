@@ -5,12 +5,12 @@
 namespace App\Controllers\Api;
 
 use CodeIgniter\RESTful\ResourceController;
-use App\Services\ImageService;
+use App\Services\ImageService;   
 
 class ImageUploadController extends ResourceController
 {
     public function upload()
-    {
+    {   
         $file = $this->request->getFile('image');
 
         $imageService = new ImageService();
@@ -26,10 +26,10 @@ class ImageUploadController extends ResourceController
             'path'     => $result['path']
         ]);
     }
-    public function update() 
-    {
+    // public function update() 
+    // {
         
-    }
+    // }
 }
 
 

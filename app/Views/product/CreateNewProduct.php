@@ -78,7 +78,7 @@
 
                 <div class="col-md-6 mb-3">
                     <label for="ProdName" class="form-label">Product Name</label>
-                    <input type="text" class="form-control" name="ProdName" id="ProdName" required>
+                    <input type="text" class="form-control" name="ProdName" id="ProdName">
                     <div id="error-ProdName" class="text-danger small"></div>
                 </div>
 
@@ -112,16 +112,45 @@ echo view('/category/CateModaal');
     fillSelect('/api/brand', 'CreateBrandSelect', 'BrandId', 'BrandName');
     fillSelect('/api/category', 'CreateCategorySelect', 'CateId', 'CateName');
 
+    // // // ✅  Preview
+    // document.getElementsByClassName('uploadImage').addEventListener('change', function() {
+        
+    //     const preview = document.getElementById('imagePreview');
+    //     preview.src = '/' + result.path;
+    // });
+
     document.getElementById('CreateProductForm').addEventListener('submit', async (e) => {
         e.preventDefault();
-        const form = e.target;
+        // ✅ 1. Get the image file from input
+        const imageInput = document.getElementById('uploadImage');
+        const imageFile = imageInput.files[0];
 
+        // console.log(imageFile);
+        // handleImageUpload(imageFile);
+
+        // ✅ 2. Upload image first (if file selected)
+        if (imageFile) {
+            // const result = await handleImageUpload(imageFile); // call function directly
+            // console.log(result);
+            // if (result?.status) {
+            //     document.getElementById('ImageId').value = result.image_id; // inject ID into form
+            // } else {
+            //     document.getElementById('error-image').textContent = result.message || 'Image upload failed.';
+            //     return; // stop further execution if image upload fails
+            // }
+        }   
+
+        const form = e.target;
+        
         // Clear old errors
         ['BrandId', 'CateId', 'ProdName', 'details'].forEach(field => {
             const errorEl = document.getElementById('error-' + field);
             if (errorEl) errorEl.textContent = '';
         });
-
+        
+        
+        
+        
         const data = Object.fromEntries(new FormData(form).entries());
         console.log(data);
         try {
@@ -136,6 +165,8 @@ echo view('/category/CateModaal');
             const result = await res.json();
 
             if (res.ok) {
+                handleImageUpload(imageFile); // call function directly   
+
                 alert(result.message || 'Product created successfully!');
                 form.reset();
                 window.location.href = "/ProductView"; // 🔁 Redirect

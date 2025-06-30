@@ -65,8 +65,8 @@ class GeneralController extends BaseController
                 'CateId'     => rand(1, 5),
                 'BrandId'    => rand(1, 5),
                 'ProdImage'  => $imageFiles[array_rand($imageFiles)],
-                'price'      => rand(100, 5000),
-                'stock'      => rand(1, 100),
+                'price'      => rand(10, 40),
+                'stock'      => rand(1, 30),
             ];
         }
 

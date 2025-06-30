@@ -24,6 +24,10 @@ class ProductApiController extends ResourceController
     {
         return view('/CreateProductView');
     }
+    public function addtocartview($id)
+    {
+        return view('ProductCart/addtocartview', ['Prodid' => $id]);
+    }
     public function ProdCardDisplayList()
     {
         return view('product/ProdCardDisplayList');
@@ -144,11 +148,28 @@ class ProductApiController extends ResourceController
     }
 
 
-    // public function show($id = null) // GET /api/users/{id}
+    // public function show($id = null) // GET /api/product/{id}
     // {
     //     $data = $this->model->find($id);
-    //     return $data ? $this->respond($data) : $this->failNotFound("User not found");
+    //     return $data ? $this->respond($data) : $this->failNotFound("Product not found");
     // }
+    public function show($id = null)
+    {
+        $builder = $this->model
+            ->select('
+            productapitable.*,
+            product_categories.CateName as category,
+            product_brands.BrandName as brand
+        ')
+            ->join('product_categories', 'product_categories.CateId = productapitable.CateId')
+            ->join('product_brands', 'product_brands.BrandId = productapitable.BrandId')
+            ->where('productapitable.Prodid', $id);
+
+        $data = $builder->first(); // only one row expected
+
+        return $data ? $this->respond($data) : $this->failNotFound("Product not found");
+    }
+
 
     // public function create() // POST /api/users
     // {

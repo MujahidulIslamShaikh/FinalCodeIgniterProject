@@ -122,6 +122,7 @@ $routes->get('ProductView', 'ProductControllerApi::ProductView', ['namespace' =>
 $routes->get('CreateNewProduct', 'Api\ProductApiController::CreateNewProduct');
 $routes->group('/', ['namespace' => 'App\Controllers\Api'], function ($routes) {
     $routes->get('ProdCardDisplayList', 'ProductApiController::ProdCardDisplayList');     // List
+    $routes->get('addtocartview/(:num)', 'ProductApiController::addtocartview/$1');     // List
 });
 
 
@@ -138,6 +139,7 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes)
     $routes->delete('product/(:num)', 'ProductApiController::delete/$1'); // Delete
     $routes->get('product/searchByProductName', 'ProductApiController::searchByProductName'); // searchByProductName
     $routes->get('product/searchByProdNameCateBrand', 'ProductApiController::searchByProdNameCateBrand'); // searchByProdNameCateBrand
+    $routes->get('product/searchByProdNameCateBrand/(:num)', 'ProductApiController::searchByProdNameCateBrand/$1'); // searchByProdNameCateBrand
 });
 
 $routes->get('ShowListCategory', 'Api\ProdCategoryApiController::ShowListCategory');

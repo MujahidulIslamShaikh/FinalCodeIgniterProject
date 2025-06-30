@@ -67,11 +67,7 @@
                     <input type="search" id="searchProduct" class="form-control" placeholder="Name, Brand or Category">
                 </div>
             </div>
-
         </div>
-
-
-
         <div class="table-responsive">
             <table class="table custom-table table-bordered align-middle" id="productTable">
                 <thead>
@@ -81,6 +77,8 @@
                         <th>Details</th>
                         <th>Category</th>
                         <th>Brand</th>
+                        <th class="text-success">PRICE</th>
+                        <th>STOCK</th>
                         <th>Product Image</th>
                         <th>Actions</th>
                     </tr>
@@ -94,7 +92,6 @@
         fillSelect('/api/brand', 'BrandSelect', 'BrandId', 'BrandName');
         fillSelect('/api/category', 'CategorySelect', 'CateId', 'CateName');
 
-
         const loadProducts = async (search = '') => {
             try {
                 const res = await fetch(`/api/product/searchByProdNameCateBrand${search ? `?search=${encodeURIComponent(search)}` : ''}`);
@@ -107,8 +104,10 @@
                         <td>${prod.details}</td>
                         <td>${prod.category}</td>
                         <td>${prod.brand}</td>
+                        <td class="text-success">${prod.price}</td>
+                        <td>${prod.stock}</td>
                         <td>
-                        <img src="${prod.file_path ?? '/assets/no-image.png'}" width="60" height="60">
+                            <img src="${prod.ProdImage ?? '/assets/no-image.png'}" width="60" height="60">
                         </td>
                         <td>
                             <button onclick='openProductEditModal(${JSON.stringify(prod)})' class="btn btn-sm btn-outline-warning">Edit</button>

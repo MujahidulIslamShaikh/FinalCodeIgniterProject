@@ -101,6 +101,15 @@ CREATE TABLE productapitable (
   FOREIGN KEY (CateId) REFERENCES product_categories(CateId) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (BrandId) REFERENCES product_brands(BrandId) ON DELETE CASCADE ON UPDATE CASCADE
 );
+ALTER TABLE productApiTable
+ADD COLUMN price DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+ADD COLUMN stock INT NOT NULL DEFAULT 0;
+
+==========// delete data table after agar id 1 se start karna ho to // ================
+DELETE Form product_brand
+ALTER TABLE product_brands AUTO_INCREMENT = 1;
+ALTER TABLE productapitable AUTO_INCREMENT = 1;
+
 
 
 <style>

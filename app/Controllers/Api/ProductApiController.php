@@ -24,6 +24,10 @@ class ProductApiController extends ResourceController
     {
         return view('/CreateProductView');
     }
+    public function ProdCardDisplayList()
+    {
+        return view('product/ProdCardDisplayList');
+    }
     public function CreateNewProduct()
     {
         return view('product/CreateNewProduct');
@@ -33,6 +37,7 @@ class ProductApiController extends ResourceController
     {
         return view('/ProductListApiView');
     }
+
 
     public function FilterProductView()
     {
@@ -99,13 +104,10 @@ class ProductApiController extends ResourceController
             ->select('
             productapitable.*,
             product_categories.CateName as category,
-            product_brands.BrandName as brand,
-            imagemodel.file_name,
-            imagemodel.file_path
+            product_brands.BrandName as brand
         ')
             ->join('product_categories', 'product_categories.CateId = productapitable.CateId')
-            ->join('product_brands', 'product_brands.BrandId = productapitable.BrandId')
-            ->join('imagemodel', 'imagemodel.id = productapitable.ImageId', 'left');
+            ->join('product_brands', 'product_brands.BrandId = productapitable.BrandId');
 
         if (!empty($searchTerm)) {
             $builder->groupStart()
@@ -159,48 +161,64 @@ class ProductApiController extends ResourceController
     // }
 
     // ===================== With Image =============================
+
     public function create()
     {
-        $data = $this->request->getJSON(true); // Get input as array
-        $imageId = $data['ImageId'] ?? null;   // 🟡 Extract image ID
-        // unset($data['ImageId']);               // 🧹 Remove from product data
+        $data = $this->request->getPost(); // get text fields
 
-        // ✅ Validate using rule group defined in Config\Validation
+        // ✅ Handle file upload
+        $image = $this->request->getFile('ProdImage');
+        if ($image && $image->isValid() && !$image->hasMoved()) {
+            $newName = $image->getRandomName();
+            $image->move(FCPATH . 'uploads/products/', $newName);
+            $data['ProdImage'] = 'uploads/products/' . $newName;
+        }
+
+        // ✅ Validate
         if (! $this->validateData($data, 'product')) {
             return $this->failValidationErrors($this->validator->getErrors());
         }
 
         // ✅ Insert into DB
         if ($this->model->insert($data)) {
-            $productId = $this->model->getInsertID();
+            return $this->respondCreated(['message' => 'Product created successfully']);
+        }
 
-            // ✅ Update ref_id in image table
-            if ($imageId) {
-                $imageService = new \App\Services\ImageService();
-                $imageService->updateRefId($imageId, $productId);
+        return $this->failServerError('Insert failed');
+    }
+
+    public function update($id = null)
+    {
+        // Get text input
+        $data = $this->request->getPost();
+
+        // ✅ Handle file upload
+        $image = $this->request->getFile('ProdImage');
+        if ($image && $image->isValid() && !$image->hasMoved()) {
+            $newName = $image->getRandomName();
+            $uploadPath = FCPATH . 'uploads/products/';
+
+            if (!is_dir($uploadPath)) {
+                mkdir($uploadPath, 0777, true); // Create dir if not exists
             }
 
-            return $this->respondCreated([
-                'message' => 'Product created successfully',
-                'data'    => $data,
+            $image->move($uploadPath, $newName);
+            $data['ProdImage'] = 'uploads/products/' . $newName;
+        }
+
+        // ✅ Update in DB
+        if ($this->model->update($id, $data)) {
+            return $this->respond([
+                'message' => 'Product updated successfully',
+                'data' => $data
             ]);
         }
 
-        // ❌ DB insert failed (e.g., DB-level error)
-        return $this->failServerError('Insert failed.');
-    }
-
-
-
-
-    public function update($id = null) // PUT /api/product/{id} ==================== imp ====================
-    {
-        $data = $this->request->getJSON(true);
-        if ($this->model->update($id, $data)) {
-            return $this->respond(['message' => 'User updated successfully']);
-        }
         return $this->failValidationErrors($this->model->errors());
     }
+
+
+
     public function delete($id = null) // DELETE /api/product/{id}
     {
         if ($this->model->delete($id)) {
@@ -266,3 +284,50 @@ class ProductApiController extends ResourceController
 
 
 }
+
+
+// public function searchByProdNameCateBrand()
+// {
+    //     $searchTerm = $this->request->getGet('search');
+    
+    //     $builder = $this->model
+    //         ->select('
+    //         productapitable.*,
+    //         product_categories.CateName as category,
+    //         product_brands.BrandName as brand,
+    //         imagemodel.file_name,
+    //         imagemodel.file_path
+    //     ')
+    //         ->join('product_categories', 'product_categories.CateId = productapitable.CateId')
+    //         ->join('product_brands', 'product_brands.BrandId = productapitable.BrandId')
+    //         ->join('imagemodel', 'imagemodel.id = productapitable.ImageId', 'left');
+
+    //     if (!empty($searchTerm)) {
+        //         $builder->groupStart()
+    //             ->like('productapitable.ProdName', $searchTerm)
+    //             ->orLike('product_categories.CateName', $searchTerm)
+    //             ->orLike('product_brands.BrandName', $searchTerm)
+    //             ->groupEnd();
+    //     }
+    
+    //     return $this->respond($builder->findAll());
+    // }
+    
+    // public function update($id = null) // PUT /api/product/{id} ==================== imp ====================
+    // {
+    //     // $data = $this->request->getJSON(true);
+    //     $data = $this->request->getPost(); // get text fields
+    
+    //     // ✅ Handle file upload
+    //     $image = $this->request->getFile('ProdImage');
+    //     if ($image && $image->isValid() && !$image->hasMoved()) {
+    //         $newName = $image->getRandomName();
+    //         $image->move(FCPATH . 'uploads/products/', $newName);
+    //         $data['ProdImage'] = 'uploads/products/' . $newName;
+    //     }
+    //     if ($this->model->update($id, $data)) {
+    //         return $this->respond(['message' => 'User updated successfully']);
+    //     }
+     
+    //     return $this->failValidationErrors($this->model->errors());
+    // }

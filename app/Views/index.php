@@ -28,6 +28,8 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/CreateNewProduct">CreateNewProduct</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/ProdCardDisplayList">ProdCardDisplayList</a></li>
                     <li class="nav-item"><a class="nav-link" href="/ProductView">ProductView</a></li>
                     <li class="nav-item"><a class="nav-link" href="/ShowListCategory">categoryListView</a></li>
                     <li class="nav-item"><a class="nav-link" href="/admin/dashboard">Dashboard</a></li>

@@ -11,6 +11,100 @@ use Dompdf\Options;
 
 class GeneralController extends BaseController
 {
+
+    public function insertDummyProducts()
+    {
+        $prodmodel = new \App\Models\ProductApiModel();
+        $faker = \Faker\Factory::create();
+
+        $imageUrls = [
+            'https://images.unsplash.com/photo-1592503253921-79ec36ffb49b',
+            'https://images.unsplash.com/photo-1606813902483-cd4ec6989a36',
+            'https://images.unsplash.com/photo-1585386959984-a41552262da1',
+            'https://images.unsplash.com/photo-1585386958340-c998b17feec2',
+            'https://images.unsplash.com/photo-1583267745083-bb1a01fca7e2',
+        ];
+
+        $savePath = FCPATH . 'uploads/products/';
+        if (!is_dir($savePath)) {
+            mkdir($savePath, 0777, true);
+        }
+
+        $imageFiles = [];
+
+        // Download images via cURL
+        foreach ($imageUrls as $index => $url) {
+            $fileName = 'product_' . ($index + 1) . '.jpg';
+            $filePath = $savePath . $fileName;
+
+            $ch = curl_init($url);
+            $fp = fopen($filePath, 'wb');
+            curl_setopt($ch, CURLOPT_FILE, $fp);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+            curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0');
+            curl_exec($ch);
+            curl_close($ch);
+            fclose($fp);
+
+            // Check if image downloaded
+            if (file_exists($filePath)) {
+                $imageFiles[] = 'uploads/products/' . $fileName;
+            }
+        }
+
+        if (empty($imageFiles)) {
+            $imageFiles[] = 'uploads/products/default.png';
+        }
+
+        $data = [];
+        for ($i = 0; $i < 50; $i++) {
+            $data[] = [
+                'ProdName'   => $faker->words(2, true),
+                'details'    => $faker->sentence(),
+                'CateId'     => rand(1, 5),
+                'BrandId'    => rand(1, 5),
+                'ProdImage'  => $imageFiles[array_rand($imageFiles)],
+                'price'      => rand(100, 5000),
+                'stock'      => rand(1, 100),
+            ];
+        }
+
+        $prodmodel->insertBatch($data);
+        return "✅ Inserted 50 dummy products with real static images!";
+    }
+
+    public function insertDummyCategories()
+    {
+        $model = new \App\Models\ProdCateModel();
+        $faker = \Faker\Factory::create();
+
+        $data = [];
+        for ($i = 0; $i < 5; $i++) {
+            $data[] = [
+                'CateName' => ucfirst($faker->unique()->word)
+            ];
+        }
+
+        $model->insertBatch($data);
+        return "5 dummy categories inserted.";
+    }
+
+    public function insertDummyBrands()
+    {
+        $model = new \App\Models\ProdBrandModel();
+        $faker = \Faker\Factory::create();
+
+        $data = [];
+        for ($i = 0; $i < 5; $i++) {
+            $data[] = [
+                'BrandName' => ucfirst($faker->unique()->company)
+            ];
+        }
+
+        $model->insertBatch($data);
+        return "5 dummy brands inserted.";
+    }
     public function product_list_pdf()
     {
         $model = new ProductApiModel();
@@ -88,9 +182,6 @@ class GeneralController extends BaseController
         $dompdf->stream("brand_list.pdf", ["Attachment" => false]);
         exit();
     }
-
-
-
 
     public function pdf_template()
     {

@@ -105,25 +105,36 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes)
 // $routes->group('api', function($routes) {  
 //     $routes->post('users', 'Api\UserApi::create');
 // });
+
 // =============== IMAGE FILE UPLOAD API HERE ============================
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes) {
     $routes->post('imageupload/upload', 'ImageUploadController::upload');
 });
 
 
-
 $routes->get('/CreateProductView', 'GeneralController::CreateProductView');
+$routes->get('/insertDummyCategories', 'GeneralController::insertDummyCategories');
+$routes->get('/insertDummyBrands', 'GeneralController::insertDummyBrands');
+$routes->get('/insertDummyProducts', 'GeneralController::insertDummyProducts');
+
 
 $routes->get('ProductView', 'ProductControllerApi::ProductView', ['namespace' => 'App\Controllers\Api']);
 $routes->get('CreateNewProduct', 'Api\ProductApiController::CreateNewProduct');
+$routes->group('/', ['namespace' => 'App\Controllers\Api'], function ($routes) {
+    $routes->get('ProdCardDisplayList', 'ProductApiController::ProdCardDisplayList');     // List
+});
+
+
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes) {
     $routes->get('product', 'ProductApiController::index');     // List
+    $routes->get('ProdCardDisplayList', 'ProductApiController::ProdCardDisplayList');     // List
     $routes->get('FilterProdByCate', 'ProductApiController::FilterProdByCate');     // List
     $routes->get('FilterProdByBrand', 'ProductApiController::FilterProdByBrand');     // List
     $routes->get('ProductTest', 'ProductApiController::ProductTest');     // List
     $routes->get('product/(:num)', 'ProductApiController::show/$1'); // Single
-    $routes->post('product', 'ProductApiController::create');        // Create
-    $routes->put('product/(:num)', 'ProductApiController::update/$1'); // Update
+    $routes->post('product', 'ProductApiController::create');        // Create ============== imp ==============
+    // $routes->put('product/(:num)', 'ProductApiController::update/$1'); // Update
+    $routes->post('product/(:num)', 'ProductApiController::update/$1'); // Update ============ imp =========
     $routes->delete('product/(:num)', 'ProductApiController::delete/$1'); // Delete
     $routes->get('product/searchByProductName', 'ProductApiController::searchByProductName'); // searchByProductName
     $routes->get('product/searchByProdNameCateBrand', 'ProductApiController::searchByProdNameCateBrand'); // searchByProdNameCateBrand

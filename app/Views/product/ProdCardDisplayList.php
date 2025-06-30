@@ -1,0 +1,92 @@
+<?= $this->extend('/index') ?>
+<?= $this->section('contentIndex') ?>
+
+<style>
+    .product-card {
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .product-image {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .product-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #343a40;
+    }
+
+    .product-text {
+        font-size: 0.95rem;
+        color: #6c757d;
+    }
+
+    .product-tags {
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: #495057;
+    }
+
+    .card-link:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="container py-5">
+    <div class="row g-4" id="productContainer">
+        <!-- Product cards will be injected here -->
+    </div>
+</div>
+
+<script>
+    const loadCards = async () => {
+        const res = await fetch(`/api/product/searchByProdNameCateBrand`);
+        const prodInfo = await res.json();
+
+        const container = document.getElementById('productContainer');
+        container.innerHTML = prodInfo.map(prod => `
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="card product-card h-100">
+                    <img src="${prod.ProdImage}" class="card-img-top product-image" alt="${prod.ProdName}">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="product-title">${prod.ProdName}</h5>
+                        <p class="product-text flex-grow-1">${prod.details}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item product-tags"><strong>Category:</strong> ${prod.category}</li>
+                        <li class="list-group-item product-tags"><strong>Brand:</strong> ${prod.brand}</li>
+                    </ul>
+                    <div class="card-body d-flex justify-content-between">
+                        <a href="#" class="card-link text-primary">${prod.category}</a>
+                        <a href="#" class="card-link text-success">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    loadCards();
+</script>
+
+<?= $this->endSection() ?>
+
+  <!-- {
+        "Prodid": "53",
+        "ProdName": "dsdsadsa",
+        "details": "sadsa",
+        "CateId": "6",
+        "BrandId": "23",
+        "ProdImage": "uploads/products/1751207408_ad1ab285064718205a34.jpeg",
+        "category": "Keyboard",
+        "brand": "Brand 2"
+    }, -->

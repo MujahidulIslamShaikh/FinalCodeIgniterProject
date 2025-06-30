@@ -28,7 +28,7 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="/CreateNewProduct">CreateNewProduct</a></li>
+                    <!-- <li class="nav-item"><a class="nav-link" href="/CreateNewProduct">CreateNewProduct</a></li> -->
                     <li class="nav-item "><a class="nav-link text-success" href="/ProdCardDisplayList">ProdCardDisplayList</a></li>
                     <li class="nav-item"><a class="nav-link" href="/ProductView">ProductView</a></li>
                     <li class="nav-item"><a class="nav-link" href="/ShowListCategory">categoryListView</a></li>
@@ -62,7 +62,7 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item"><a class="nav-link" href="/display-file">display-file</a></li>
+                    <!-- <li class="nav-item"><a class="nav-link" href="/display-file">display-file</a></li> -->
                 </ul>
             </div>
         </div>

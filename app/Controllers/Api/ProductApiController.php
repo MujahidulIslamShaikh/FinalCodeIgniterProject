@@ -24,9 +24,13 @@ class ProductApiController extends ResourceController
     {
         return view('/CreateProductView');
     }
-    public function addtocartview($id)
+    public function DisplayCart($id)
     {
-        return view('ProductCart/addtocartview', ['Prodid' => $id]);
+        return view('ProductCart/DisplayCart', ['Prodid' => $id]);
+    }
+    public function CartView($id)
+    {
+        return view('ProductCart/CartView', ['Prodid' => $id]);
     }
     public function ProdCardDisplayList()
     {

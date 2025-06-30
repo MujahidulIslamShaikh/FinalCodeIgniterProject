@@ -54,7 +54,7 @@
         const prodInfo = await res.json();
         // console.log(prodInfo);
         prodInfo.map(prod => {
-            console.log(prod);
+            // console.log(prod);
         });
 
         const container = document.getElementById('productContainer');
@@ -70,10 +70,16 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item product-tags"><strong>Category:</strong> ${prod.category}</li>
                         <li class="list-group-item product-tags"><strong>Brand:</strong> ${prod.brand}</li>
+                        <li class="list-group-item text-success fs-5">
+                            <strong>Price:</strong> <span class="text-dark">₹ ${parseFloat(prod.price).toLocaleString('en-IN', {minimumFractionDigits: 2})}</span>
+                        </li>
+                    <li class="list-group-item text-danger"><strong>Stock:</strong>${prod.stock}</li>
                     </ul>
                     <div class="card-body d-flex justify-content-between">
                         <a href="#" class="card-link text-primary">${prod.category}</a>
-                        <a href="addtocartview/${prod.Prodid}" class="card-link text-success">Add to Cart</a>
+                        <a href="DisplayCart/${prod.Prodid}" class="card-link text-success">View Details</a>
+                        <button class="btn btn-success w-100" onclick='addCart(${JSON.stringify(prod)})'>ADD CART</button>
+
                     </div>
                 </div>
             </div>
@@ -81,6 +87,10 @@
     }
 
     loadCards();
+    
+    const addCart = async (prod) => {
+        console.log(prod);
+    }
 </script>
 
 <?= $this->endSection() ?>
@@ -95,3 +105,5 @@
         "category": "Keyboard",
         "brand": "Brand 2"
     }, -->
+
+<!-- <a href="CartView/${prod.Prodid}" agar yaha se prodid na bhejte hue, sirf prod bhejna durust hai kya class="card-link text-primary">ADD CART</a> -->

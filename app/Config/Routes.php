@@ -101,6 +101,7 @@ $routes->get('signupView', 'AuthController::signupView', ['namespace' => 'App\Co
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes) {
     $routes->post('signupcreate', 'AuthController::create'); // create
 });
+
 /////////// OR \\\\\\\\\\\\\\\\\\\
 // $routes->group('api', function($routes) {  
 //     $routes->post('users', 'Api\UserApi::create');
@@ -117,13 +118,6 @@ $routes->get('/insertDummyCategories', 'GeneralController::insertDummyCategories
 $routes->get('/insertDummyBrands', 'GeneralController::insertDummyBrands');
 $routes->get('/insertDummyProducts', 'GeneralController::insertDummyProducts');
 
-
-$routes->get('ProductView', 'ProductControllerApi::ProductView', ['namespace' => 'App\Controllers\Api']);
-$routes->get('CreateNewProduct', 'Api\ProductApiController::CreateNewProduct');
-$routes->group('/', ['namespace' => 'App\Controllers\Api'], function ($routes) {
-    $routes->get('ProdCardDisplayList', 'ProductApiController::ProdCardDisplayList');     // List
-    $routes->get('addtocartview/(:num)', 'ProductApiController::addtocartview/$1');     // List
-});
 
 
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes) {
@@ -159,4 +153,20 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes)
     $routes->post('brand', 'ProdBrandApiController::create');        // Create
     $routes->put('brand/(:num)', 'ProdBrandApiController::update/$1'); // Update
     $routes->delete('brand/(:num)', 'ProdBrandApiController::delete/$1'); // Delete
+});
+
+
+
+$routes->get('ProductView', 'ProductControllerApi::ProductView', ['namespace' => 'App\Controllers\Api']);
+$routes->get('CreateNewProduct', 'Api\ProductApiController::CreateNewProduct');
+$routes->group('/', ['namespace' => 'App\Controllers\Api'], function ($routes) {
+    $routes->get('ProdCardDisplayList', 'ProductApiController::ProdCardDisplayList');     // List
+    $routes->get('DisplayCart/(:num)', 'ProductApiController::DisplayCart/$1');     // List
+    $routes->get('CartView/(:num)', 'ProductApiController::CartView/$1');     // List
+});
+
+$routes->get('CartView', 'CartController::CartView', ['namespace' => 'App\Controllers\Api']);
+
+$routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes) {
+    $routes->post('cartCreate', 'CartController::cartCreate'); // create
 });

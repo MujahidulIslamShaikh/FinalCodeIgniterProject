@@ -171,5 +171,5 @@ $routes->get('MyCart', 'CartController::MyCart', ['namespace' => 'App\Controller
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes) {
     $routes->post('cartCreate', 'CartController::cartCreate'); // create
     $routes->get('getCartItems', 'CartController::getCartItems'); // List
-    $routes->get('removeCart/(:num)', 'CartController::removeCart/$1'); // List
+    $routes->delete('removeCart/(:num)', 'CartController::removeCart/$1'); // List
 });

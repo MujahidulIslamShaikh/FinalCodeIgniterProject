@@ -30,7 +30,7 @@
                 <td>
                     <div class="d-flex justify-content-between">
                         ${item.ProdName}
-                        <a href="/api/removeCart/${item.CartId}" class="text-danger ms-2" onclick="return confirm('Remove this item?')">Remove</a>
+                        <a href="#" class="text-danger ms-2" onclick="removeCart(${item.CartId}, this); return false;">Remove</a>
                     </div>
                 </td>
                 <td >₹ ${parseFloat(item.price).toFixed(2)}</td>
@@ -41,6 +41,28 @@
     };
 
     loadCart();
+    const removeCart = async (id, el) => {
+        if (!confirm("Remove this item?")) return;
+
+        try {
+            const res = await fetch(`/api/removeCart/${id}`, {
+                method: 'DELETE',
+            });
+
+            if (res.ok) {
+                // 🧹 Remove the row without reloading
+                const row = el.closest('tr');
+                row.remove();
+            } else {
+                const data = await res.json();
+                alert("❌ Failed: " + (data.message || 'Unknown error'));
+            }
+        } catch (err) {
+            console.error(err);
+            alert("⚠️ Something went wrong.");
+        }
+    };
+
 </script>
 
 <?= $this->endSection(); ?>

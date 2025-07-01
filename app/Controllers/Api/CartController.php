@@ -149,12 +149,18 @@ class CartController extends ResourceController
     //     return $this->failValidationErrors($this->model->errors());
     // }
 
+    // public function removeCart($id = null) // DELETE /api/removeCart/{id}
+    // {
+    //     $model = new CartModel();
+    //     $model->delete($id);
+    //     return redirect()->to('/MyCart');
+    // }
     public function removeCart($id = null) // DELETE /api/removeCart/{id}
     {
         $model = new CartModel();
         if ($model->delete($id)) {
-            return $this->respondDeleted(['message' => 'Cart Remove']);
+            return $this->respondDeleted(['message' => 'Cart item removed']);
         }
-        return $this->failNotFound('Cart not found');
+        return $this->failNotFound('Cart item not found');
     }
 }

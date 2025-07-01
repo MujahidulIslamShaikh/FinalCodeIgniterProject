@@ -1,43 +1,32 @@
-
 <script>
-    // function addcart() 
-    // {
-
-    // }
-    document.getElementById('signupForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-
-        // Clear old errors
-        ['username', 'email', 'password'].forEach(field => {
-            document.getElementById('error-' + field).textContent = '';
-        });
-
-        const form = e.target;
-        const formData = new FormData(form);  
-        const payload = Object.fromEntries(formData.entries());
+    const addCart = async (prod) => {
         const api = `/api/cartCreate`;
-        const res = await fetch('/api/cartCreate', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-        });
+        const payload = {
+            Prodid: prod.Prodid,
+            ProdName: prod.ProdName,
+            price: prod.price,
+            quantity: prod.quantity
+        };
 
-        const result = await res.json();
+        try {
+            const res = await fetch(api, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
 
-        if (res.ok) {
-            alert(result.message); // or success alert box
-            form.reset();
-        } else {
-            const errors = result.messages;
-            for (const field in errors) {
-                if (document.getElementById('error-' + field)) {
-                    document.getElementById('error-' + field).textContent = errors[field];
-                }
-            }
+            const result = await res.json();
+            // console.log(result);
+
+            console.log("✅ Cart response:", result);
+            alert("Product added to cart successfully!");
+        } catch (error) {
+            console.error("❌ Failed to add to cart:", error);
+            alert("Something went wrong while adding to cart.");
         }
-    });
+    };
 </script>
 
 

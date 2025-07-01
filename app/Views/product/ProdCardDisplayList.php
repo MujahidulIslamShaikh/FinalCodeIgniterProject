@@ -3,119 +3,122 @@
 
 <style>
     .product-card {
-        border: none;
-        border-radius: 15px;
+        border-radius: 10px;
         overflow: hidden;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        transition: all 0.2s ease-in-out;
     }
 
     .product-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        transform: scale(1.02);
     }
 
     .product-image {
-        height: 200px;
+        height: 160px;
         object-fit: cover;
     }
 
     .product-title {
-        font-size: 1.25rem;
+        font-size: 1rem;
         font-weight: 600;
-        color: #343a40;
+        color: #333;
+        margin-bottom: 0.25rem;
     }
 
-    .product-text {
-        font-size: 0.95rem;
-        color: #6c757d;
+    .product-meta {
+        font-size: 0.75rem;
+        color: #777;
     }
 
-    .product-tags {
-        font-size: 0.85rem;
-        font-weight: 500;
-        color: #495057;
+    .product-price {
+        font-size: 1rem;
+        color: #198754;
+        font-weight: bold;
     }
 
-    .card-link:hover {
-        text-decoration: underline;
+    .product-description {
+        font-size: 0.8rem;
+        color: #555;
+        margin: 0.5rem 0;
+    }
+
+    .btn-cart,
+    .btn-view {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.6rem;
+    }
+
+    .btn-group {
+        display: flex;
+        gap: 0.5rem;
     }
 </style>
 
-<div class="container py-5">
-    <div class="row g-4" id="productContainer">
-        <!-- Product cards will be injected here -->
-    </div>
+<div class="container py-4">
+    <div class="row g-3" id="productContainer"></div>
 </div>
 
 <script>
     const loadCards = async () => {
         const res = await fetch(`/api/product/searchByProdNameCateBrand`);
         const prodInfo = await res.json();
-        // console.log(prodInfo);
-        prodInfo.map(prod => {
-            // console.log(prod);
-        });
 
         const container = document.getElementById('productContainer');
-        container.innerHTML = prodInfo.map(prod =>
-            `
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        container.innerHTML = prodInfo.map(prod => `
+            <div class="col-6 col-md-4 col-lg-3">
                 <div class="card product-card h-100">
                     <img src="${prod.ProdImage}" class="card-img-top product-image" alt="${prod.ProdName}">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="product-title">${prod.ProdName}</h5>
-                        <p class="product-text flex-grow-1">${prod.details}</p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item product-tags"><strong>Category:</strong> ${prod.category}</li>
-                        <li class="list-group-item product-tags"><strong>Brand:</strong> ${prod.brand}</li>
-                        <li class="list-group-item text-success fs-5">
-                            <strong>Price:</strong> <span class="text-dark">₹ ${parseFloat(prod.price).toLocaleString('en-IN', {minimumFractionDigits: 2})}</span>
-                        </li>
-                    <li class="list-group-item text-danger"><strong>Stock:</strong>${prod.stock}</li>
-                    </ul>
-                    <div class="card-body d-flex justify-content-between">
-                        <a href="#" class="card-link text-primary">${prod.category}</a>
-                        <a href="DisplayCart/${prod.Prodid}" class="card-link text-success">View Details</a>
-                        <button class="btn btn-success w-100" onclick='addCart(${JSON.stringify(prod)})'>ADD CART</button> ye click pe
+                    <div class="card-body p-2 d-flex flex-column">
+                        <h6 class="product-title">${prod.ProdName}</h6>
+                        <div class="product-meta mb-1">${prod.brand} | ${prod.category}</div>
+                        <div class="product-description">${prod.details.slice(0, 60)}...</div>
+                        <div class="product-price mb-2">₹ ${parseFloat(prod.price).toLocaleString('en-IN', {minimumFractionDigits: 2})}</div>
+                        <div class="btn-group mt-auto">
+                            <a href="DisplayCart/${prod.Prodid}" class="btn btn-outline-primary btn-view w-50">View Details</a>
+                            <button class="btn btn-success btn-cart w-50" onclick='addCart(${JSON.stringify(prod)})'>Add Cart</button>
+                        </div>
                     </div>
                 </div>
             </div>
         `).join('');
     }
 
+
     loadCards();
+  
 
-    const addCart = async (prod) => {
-        const api = `/api/cartCreate`;
-        const payload = {
-            Prodid: prod.Prodid,
-            ProdName: prod.ProdName,
-            price: prod.price,
-            quantity: prod.quantity
-        };
+    // const addCart = async (prod) => {
+    //     const api = `/api/cartCreate`;
+    //     const payload = {
+    //         Prodid: prod.Prodid,
+    //         ProdName: prod.ProdName,
+    //         price: prod.price,
+    //         quantity: prod.quantity
+    //     };
 
-        try {
-            const res = await fetch(api, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload)
-            });
+    //     try {
+    //         const res = await fetch(api, {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             body: JSON.stringify(payload)
+    //         });
 
-            const result = await res.json();
-            // console.log(result);
+    //         const result = await res.json();
+    //         // console.log(result);
             
-            console.log("✅ Cart response:", result);
-            alert("Product added to cart successfully!");
-        } catch (error) {
-            console.error("❌ Failed to add to cart:", error);
-            alert("Something went wrong while adding to cart.");
-        }
-    };
+    //         console.log("✅ Cart response:", result);
+    //         alert("Product added to cart successfully!");
+    //     } catch (error) {
+    //         console.error("❌ Failed to add to cart:", error);
+    //         alert("Something went wrong while adding to cart.");
+    //     }
+    // };
 </script>
+  <?php
+        echo view('ProductCart/create');
+    ?>
 
 <?= $this->endSection() ?>
 

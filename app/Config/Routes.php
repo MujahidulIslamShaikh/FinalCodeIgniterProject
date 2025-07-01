@@ -169,4 +169,5 @@ $routes->get('CartView', 'CartController::CartView', ['namespace' => 'App\Contro
 
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes) {
     $routes->post('cartCreate', 'CartController::cartCreate'); // create
+    $routes->get('getCartItems', 'CartController::getCartItems'); // List
 });

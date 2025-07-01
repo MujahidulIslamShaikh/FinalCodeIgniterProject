@@ -42,6 +42,16 @@ class CartController extends ResourceController
         }
     }
 
+    // In CartApiController.php
+
+    public function getCartItems()
+    {
+        $model = new CartModel();
+        $cartItems = $model->findAll();
+
+        return $this->respond($cartItems);
+    }
+
     // public function cartCreate()  // POST /api/CartView
     // {
     //     $data = $this->request->getJSON(true);

@@ -76,6 +76,9 @@ class CreateAddCartTable extends Migration
 
         $this->forge->addKey('CartId', true);
         $this->forge->createTable('cart');
+
+        // 🟡 Manually add generated column using raw SQL
+        $this->db->query('ALTER TABLE `cart` ADD COLUMN `totalAmount` DECIMAL(10,2) GENERATED ALWAYS AS (price * quantity) STORED');
     }
 
     public function down()

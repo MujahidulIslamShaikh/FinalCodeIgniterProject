@@ -15,7 +15,7 @@
         const form = e.target;
         const formData = new FormData(form);  
         const payload = Object.fromEntries(formData.entries());
-
+        const api = `/api/cartCreate`;
         const res = await fetch('/api/cartCreate', {
             method: 'POST',
             headers: {

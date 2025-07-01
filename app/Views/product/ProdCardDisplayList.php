@@ -59,7 +59,7 @@
 
         const container = document.getElementById('productContainer');
         container.innerHTML = prodInfo.map(prod =>
-         `
+            `
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="card product-card h-100">
                     <img src="${prod.ProdImage}" class="card-img-top product-image" alt="${prod.ProdName}">
@@ -78,8 +78,7 @@
                     <div class="card-body d-flex justify-content-between">
                         <a href="#" class="card-link text-primary">${prod.category}</a>
                         <a href="DisplayCart/${prod.Prodid}" class="card-link text-success">View Details</a>
-                        <button class="btn btn-success w-100" onclick='addCart(${JSON.stringify(prod)})'>ADD CART</button>
-
+                        <button class="btn btn-success w-100" onclick='addCart(${JSON.stringify(prod)})'>ADD CART</button> ye click pe
                     </div>
                 </div>
             </div>
@@ -87,15 +86,40 @@
     }
 
     loadCards();
-    
+
     const addCart = async (prod) => {
-        console.log(prod);
-    }
+        const api = `/api/cartCreate`;
+        const payload = {
+            Prodid: prod.Prodid,
+            ProdName: prod.ProdName,
+            price: prod.price,
+            quantity: prod.quantity
+        };
+
+        try {
+            const res = await fetch(api, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const result = await res.json();
+            // console.log(result);
+            
+            console.log("✅ Cart response:", result);
+            alert("Product added to cart successfully!");
+        } catch (error) {
+            console.error("❌ Failed to add to cart:", error);
+            alert("Something went wrong while adding to cart.");
+        }
+    };
 </script>
 
 <?= $this->endSection() ?>
 
-  <!-- {
+<!-- {
         "Prodid": "53",
         "ProdName": "dsdsadsa",
         "details": "sadsa",

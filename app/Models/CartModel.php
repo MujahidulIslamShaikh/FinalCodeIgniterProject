@@ -9,7 +9,7 @@ use CodeIgniter\Model;
 class CartModel extends Model
 {
     protected $table = 'cart';
-    protected $primaryKey = 'CartId';
+    protected $primaryKey = 'CartId';  
 
     protected $useTimestamps = true;
 

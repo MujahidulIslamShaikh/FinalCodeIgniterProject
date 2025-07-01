@@ -20,25 +20,49 @@ class CartController extends ResourceController
     }
 
     // ========================= with Api and Config/Validation.php hai ye ================= 
-    public function cartCreate()  // POST /api/CartView
+    public function cartCreate()
     {
         $data = $this->request->getJSON(true);
+        $cartModel = new \App\Models\CartModel();
 
-        // $rules = (new \Config\Validation())->signup;
+        // ✅ Use Prodid for safe matching
+        $existing = $cartModel->where('Prodid', $data['Prodid'])->first();
 
-        // if (! $this->validate($rules, $data)) {
-        //     return $this->failValidationErrors($this->validator->getErrors());
-        // }
+        if ($existing) {
+            // ✅ Increase quantity if already exists
+            $cartModel->update($existing['CartId'], [
+                'quantity' => $existing['quantity'] + 1
+            ]);
 
-        // ✅ Save to DB using model
-        $model = new CartModel();
-        $model->save($data);
-
-        return $this->respondCreated([
-            'message' => 'Cart data saved!',
-            'data' => $data
-        ]);
+            return $this->respond(['message' => 'Quantity updated in cart']);
+        } else {
+            // ✅ Add new entry
+            $cartModel->insert($data);
+            return $this->respondCreated(['message' => 'Product added to cart']);
+        }
     }
+
+    // public function cartCreate()  // POST /api/CartView
+    // {
+    //     $data = $this->request->getJSON(true);
+    //     $cartModel = new CartModel();
+
+    //     $existing = $cartModel->where('Prodid', $data['Prodid'])->first();
+
+    //     return $this->response->setJSON([
+    //     'message' => $existing ? 'Product already in cart' : 'No match found',
+    //     'existing_product' => $existing
+    // ]);
+
+    // // ✅ Save to DB using model
+    // $model = new CartModel();
+    // $model->save($data);
+
+    // return $this->respondCreated([
+    //     'message' => 'Cart data saved!',
+    //     'data' => $data
+    // ]);
+    // }
 
     // ========================= with Api and Model validatin hai ye ================= 
     // public function create() // POST /api/users

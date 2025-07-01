@@ -102,11 +102,11 @@ CREATE TABLE productapitable (
   FOREIGN KEY (CateId) REFERENCES product_categories(CateId) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (BrandId) REFERENCES product_brands(BrandId) ON DELETE CASCADE ON UPDATE CASCADE
 );
-ALTER TABLE productApiTable
-ADD COLUMN price DECIMAL(10,2) NOT NULL DEFAULT 0.00,
-ADD COLUMN quantity INT NOT NULL DEFAULT 1,
-ADD COLUMN totalAmount DECIMAL(10,2) AS (price * quantity) STORED,
-ADD COLUMN stock INT NOT NULL DEFAULT 0;
+
+ALTER TABLE productApiTable ADD COLUMN price DECIMAL(10,2) NOT NULL DEFAULT 0.00;
+ALTER TABLE productApiTable ADD COLUMN quantity INT NOT NULL DEFAULT 1;
+ALTER TABLE productApiTable ADD COLUMN totalAmount DECIMAL(10,2) AS (price * quantity) STORED;
+ALTER TABLE productApiTable ADD COLUMN stock INT NOT NULL DEFAULT 0;
 
 
 ==========// delete data table after agar id 1 se start karna ho to // ================

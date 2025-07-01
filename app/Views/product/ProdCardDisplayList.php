@@ -63,7 +63,7 @@
         const res = await fetch(`/api/product/searchByProdNameCateBrand`);
         const prodInfo = await res.json();
 
-        const container = document.getElementById('productContainer');
+        const container = document.getElementById('productContainer');  
         container.innerHTML = prodInfo.map(prod => `
             <div class="col-6 col-md-4 col-lg-3">
                 <div class="card product-card h-100">
@@ -72,9 +72,10 @@
                         <h6 class="product-title">${prod.ProdName}</h6>
                         <div class="product-meta mb-1">${prod.brand} | ${prod.category}</div>
                         <div class="product-description">${prod.details.slice(0, 60)}...</div>
-                        <div class="product-price mb-2">₹ ${parseFloat(prod.price).toLocaleString('en-IN', {minimumFractionDigits: 2})}</div>
+                        <div class="product-price mb-1">₹ ${parseFloat(prod.price).toLocaleString('en-IN', {minimumFractionDigits: 2})}</div>
+                        <div class="product-meta text-danger mb-2">Stock: ${prod.stock}</div>
                         <div class="btn-group mt-auto">
-                            <a href="DisplayCart/${prod.Prodid}" class="btn btn-outline-primary btn-view w-50">View Details</a>
+                            <a href="DisplayProdCardDetails/${prod.Prodid}" class="btn btn-outline-primary btn-view w-50">View Details</a>
                             <button class="btn btn-success btn-cart w-50" onclick='addCart(${JSON.stringify(prod)})'>Add Cart</button>
                         </div>
                     </div>
@@ -85,40 +86,10 @@
 
 
     loadCards();
-  
-
-    // const addCart = async (prod) => {
-    //     const api = `/api/cartCreate`;
-    //     const payload = {
-    //         Prodid: prod.Prodid,
-    //         ProdName: prod.ProdName,
-    //         price: prod.price,
-    //         quantity: prod.quantity
-    //     };
-
-    //     try {
-    //         const res = await fetch(api, {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify(payload)
-    //         });
-
-    //         const result = await res.json();
-    //         // console.log(result);
-            
-    //         console.log("✅ Cart response:", result);
-    //         alert("Product added to cart successfully!");
-    //     } catch (error) {
-    //         console.error("❌ Failed to add to cart:", error);
-    //         alert("Something went wrong while adding to cart.");
-    //     }
-    // };
 </script>
-  <?php
-        echo view('ProductCart/create');
-    ?>
+<?php
+echo view('ProductCart/create');
+?>
 
 <?= $this->endSection() ?>
 
@@ -132,5 +103,3 @@
         "category": "Keyboard",
         "brand": "Brand 2"
     }, -->
-
-<!-- <a href="CartView/${prod.Prodid}" agar yaha se prodid na bhejte hue, sirf prod bhejna durust hai kya class="card-link text-primary">ADD CART</a> -->

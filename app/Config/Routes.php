@@ -161,13 +161,15 @@ $routes->get('ProductView', 'ProductControllerApi::ProductView', ['namespace' =>
 $routes->get('CreateNewProduct', 'Api\ProductApiController::CreateNewProduct');
 $routes->group('/', ['namespace' => 'App\Controllers\Api'], function ($routes) {
     $routes->get('ProdCardDisplayList', 'ProductApiController::ProdCardDisplayList');     // List
-    $routes->get('DisplayCart/(:num)', 'ProductApiController::DisplayCart/$1');     // List
+    $routes->get('DisplayProdCardDetails/(:num)', 'ProductApiController::DisplayProdCardDetails/$1');     // List
     $routes->get('CartView/(:num)', 'ProductApiController::CartView/$1');     // List
-});
+});   
 
-$routes->get('CartView', 'CartController::CartView', ['namespace' => 'App\Controllers\Api']);
+$routes->get('ProdCartDetails', 'CartController::ProdCartDetails', ['namespace' => 'App\Controllers\Api']);
+$routes->get('MyCart', 'CartController::MyCart', ['namespace' => 'App\Controllers\Api']);
 
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes) {
     $routes->post('cartCreate', 'CartController::cartCreate'); // create
     $routes->get('getCartItems', 'CartController::getCartItems'); // List
+    $routes->get('removeCart/(:num)', 'CartController::removeCart/$1'); // List
 });

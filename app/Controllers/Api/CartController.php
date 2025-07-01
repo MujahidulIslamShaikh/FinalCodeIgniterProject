@@ -13,10 +13,10 @@ class CartController extends ResourceController
     // protected $modelName = SignupModel::class;
     protected $format    = 'json';
 
-    public function CartView()
+    public function ProdCartDetails()
     {
-        // return view('ProductCart/CartView');
-        return 'cart controller method success';
+        return view('ProductCart/ProdCartDetails');
+        // return 'cart controller method success';
     }
 
     // ========================= with Api and Config/Validation.php hai ye ================= 
@@ -43,7 +43,10 @@ class CartController extends ResourceController
     }
 
     // In CartApiController.php
-
+    public function MyCart()
+    {
+        return view('/ProductCart/MyCart');
+    }
     public function getCartItems()
     {
         $model = new CartModel();
@@ -146,11 +149,12 @@ class CartController extends ResourceController
     //     return $this->failValidationErrors($this->model->errors());
     // }
 
-    // public function delete($id = null) // DELETE /api/users/{id}
-    // {
-    //     if ($this->model->delete($id)) {
-    //         return $this->respondDeleted(['message' => 'User deleted']);
-    //     }
-    //     return $this->failNotFound('User not found');
-    // }
+    public function removeCart($id = null) // DELETE /api/removeCart/{id}
+    {
+        $model = new CartModel();
+        if ($model->delete($id)) {
+            return $this->respondDeleted(['message' => 'Cart Remove']);
+        }
+        return $this->failNotFound('Cart not found');
+    }
 }

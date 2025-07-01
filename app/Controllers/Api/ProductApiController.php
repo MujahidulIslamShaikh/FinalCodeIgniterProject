@@ -15,7 +15,7 @@ class ProductApiController extends ResourceController
     protected $model;
     protected $cateModel;
 
-    public function __construct()
+    public function __construct()   
     {
         $this->model = new ProductApiModel();
         $this->cateModel = new ProdCateModel();
@@ -24,14 +24,14 @@ class ProductApiController extends ResourceController
     {
         return view('/CreateProductView');
     }
-    public function DisplayCart($id)
+    public function DisplayProdCardDetails($id)
     {
-        return view('ProductCart/DisplayCart', ['Prodid' => $id]);
+        return view('ProductCart/DisplayProdCardDetails', ['Prodid' => $id]);
     }
-    public function CartView($id)
-    {
-        return view('ProductCart/CartView', ['Prodid' => $id]);
-    }
+    // public function CartView($id)
+    // {
+    //     return view('ProductCart/CartView', ['Prodid' => $id]);
+    // }
     public function ProdCardDisplayList()
     {
         return view('product/ProdCardDisplayList');
@@ -45,8 +45,6 @@ class ProductApiController extends ResourceController
     {
         return view('/ProductListApiView');
     }
-
-
     public function FilterProductView()
     {
         $data['categories'] = $this->cateModel->findAll();
@@ -57,7 +55,6 @@ class ProductApiController extends ResourceController
         $data = $this->model->findAll();
         return $this->respond($data);
     }
-
 
     public function FilterProdByCate()   // important ======================
     {

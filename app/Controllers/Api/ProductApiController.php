@@ -15,7 +15,7 @@ class ProductApiController extends ResourceController
     protected $model;
     protected $cateModel;
 
-    public function __construct()   
+    public function __construct()
     {
         $this->model = new ProductApiModel();
         $this->cateModel = new ProdCateModel();
@@ -26,7 +26,7 @@ class ProductApiController extends ResourceController
     }
     public function DisplayProdCardDetails($id)
     {
-        return view('ProductCart/DisplayProdCardDetails', ['Prodid' => $id]);
+        return view('/ProductCart/DisplayProdCardDetails', ['Prodid' => $id]);
     }
     // public function CartView($id)
     // {
@@ -104,6 +104,14 @@ class ProductApiController extends ResourceController
     public function searchByProdNameCateBrand()
     {
         $searchTerm = $this->request->getGet('search');
+        $sortField = $this->request->getGet('sortField') ?? 'Prodid';
+        $sortOrder = $this->request->getGet('sortOrder') ?? 'asc';
+
+        // Validate sort field (prevent SQL injection via field names)
+        $allowedSortFields = ['productapitable.Prodid', 'productapitable.ProdName', 'product_categories.CateName', 'product_brands.BrandName', 'productapitable.price'];
+        if (!in_array($sortField, $allowedSortFields)) {
+            $sortField = 'productapitable.Prodid';
+        }
 
         $builder = $this->model
             ->select('
@@ -121,6 +129,9 @@ class ProductApiController extends ResourceController
                 ->orLike('product_brands.BrandName', $searchTerm)
                 ->groupEnd();
         }
+        // $products = $model->orderBy($sortField, $sortOrder)->findAll(); // Adjust according to your logic
+        // Apply sorting
+        $builder->orderBy($sortField, $sortOrder);
 
         return $this->respond($builder->findAll());
     }

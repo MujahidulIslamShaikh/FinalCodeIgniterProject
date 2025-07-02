@@ -156,7 +156,7 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes)
 });
 
 
-
+       
 $routes->get('ProductView', 'ProductControllerApi::ProductView', ['namespace' => 'App\Controllers\Api']);
 $routes->get('CreateNewProduct', 'Api\ProductApiController::CreateNewProduct');
 $routes->group('/', ['namespace' => 'App\Controllers\Api'], function ($routes) {

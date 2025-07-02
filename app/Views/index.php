@@ -13,13 +13,17 @@
             /* flex: 1; */
             /* padding: 20px; */
         }
+
+        .cursor-pointer {
+            cursor: pointer;
+        }
     </style>
 </head>
 
 <body>
 
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">   
         <div class="container">
             <a class="navbar-brand" href="/">My App</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -27,7 +31,7 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto align-items-center">
                     <!-- <li class="nav-item"><a class="nav-link" href="/CreateNewProduct">CreateNewProduct</a></li> -->
                     <li class="nav-item "><a class="nav-link text-success" href="/ProdCardDisplayList">ProdCardDisplayList</a></li>
                     <li class="nav-item"><a class="nav-link" href="/ProductView">ProductView</a></li>
@@ -61,6 +65,7 @@
                             <li><a class="dropdown-item" href="/logout-user">Logout</a></li>
                         </ul>
                     </li>
+                    <li><a href="MyCart"><i class="bi bi-cart3 fs-1 text-success cursor-pointer "></i></a></li>
 
                     <!-- <li class="nav-item"><a class="nav-link" href="/display-file">display-file</a></li> -->
                 </ul>

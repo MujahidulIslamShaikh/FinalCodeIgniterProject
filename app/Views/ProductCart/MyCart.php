@@ -34,13 +34,55 @@
                     </div>
                 </td>
                 <td >₹ ${parseFloat(item.price).toFixed(2)}</td>
-                <td>${item.quantity}</td>
+                <td>
+                    <div class="input-group" style="max-width: 120px;">
+                        <button class="btn btn-outline-secondary btn-sm" onclick="adjustQuantity(${item.CartId}, -1, this)">➖</button>
+                        <input type="text" class="form-control text-center form-control-sm" value="${item.quantity}" readonly>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="adjustQuantity(${item.CartId}, 1, this)">➕</button>
+                    </div>
+                </td>
                 <td>₹ ${(item.price * item.quantity).toFixed(2)}</td>
             </tr>
         `).join('');
     };
 
-    loadCart();
+
+    const adjustQuantity = async (cartId, delta, btnElement) => {
+        const row = btnElement.closest('tr');
+        const input = row.querySelector('input');
+        let currentQty = parseInt(input.value);
+
+        const newQty = currentQty + delta;
+        if (newQty < 1) return;
+
+        try {
+            const res = await fetch(`/api/updateCartQuantity`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    CartId: cartId,
+                    quantity: newQty
+                })
+            });
+
+            if (res.ok) {
+                input.value = newQty;
+
+                const priceText = row.querySelector('td:nth-child(3)').innerText.replace(/[^\d.]/g, '');
+                const price = parseFloat(priceText);
+                const totalCell = row.querySelector('td:nth-child(5)');
+                totalCell.innerText = `₹ ${(price * newQty).toFixed(2)}`;
+            } else {
+                alert('Failed to update quantity');
+            }
+        } catch (err) {
+            console.error('Quantity update failed:', err);
+        }
+    };
+
+
     const removeCart = async (id, el) => {
         if (!confirm("Remove this item?")) return;
 
@@ -63,6 +105,7 @@
         }
     };
 
+    loadCart();
 </script>
 
 <?= $this->endSection(); ?>

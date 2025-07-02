@@ -54,6 +54,26 @@ class CartController extends ResourceController
 
         return $this->respond($cartItems);
     }
+    // ================ updateCartQuantity ==========================
+    public function updateCartQuantity()
+    {
+        $data = $this->request->getJSON(true);
+        $cartId = $data['CartId'] ?? null;
+        $quantity = $data['quantity'] ?? null;
+
+        if (!$cartId || !$quantity || $quantity < 1) {
+            return $this->fail('Invalid input', 400);
+        }
+
+        $model = new \App\Models\CartModel(); // update with your actual model name
+        $updated = $model->update($cartId, ['quantity' => $quantity]);
+
+        if ($updated) {
+            return $this->respond(['status' => 'success']);
+        } else {
+            return $this->failServerError('Update failed');
+        }
+    }
 
     // public function cartCreate()  // POST /api/CartView
     // {

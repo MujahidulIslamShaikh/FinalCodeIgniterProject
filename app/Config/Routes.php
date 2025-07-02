@@ -172,4 +172,5 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes)
     $routes->post('cartCreate', 'CartController::cartCreate'); // create
     $routes->get('getCartItems', 'CartController::getCartItems'); // List
     $routes->delete('removeCart/(:num)', 'CartController::removeCart/$1'); // List
+    $routes->post('updateCartQuantity', 'CartController::updateCartQuantity'); // List
 });

@@ -122,18 +122,24 @@
             }
         }
     </style>
+
 </head>
 
 <body>
     <div class="sidebar" id="sidebar">
         <h4><i class="bi bi-person-circle me-1"></i> <span>Admin</span></h4>
+        
         <a href="/"><i class="bi bi-house-door-fill"></i> <span>Page</span></a>
         <a href="/admin/dashboard"><i class="bi bi-speedometer2"></i> <span>Dashboard</span></a>
         <a href="/admin/upload-file"><i class="bi bi-upload"></i> <span>Upload Product</span></a>
         <a href="/admin/prod-action"><i class="bi bi-pencil-square"></i> <span>Product Actions</span></a>
         <a href="/admin/mult-image-upload"><i class="bi bi-images"></i> <span>Multi Image Upload</span></a>
         <a href="/admin/product_list"><i class="bi bi-plus-square-fill"></i> <span>Add Product</span></a>
-        <a href="/admin/logout"><i class="bi bi-box-arrow-right text-danger"></i> <span>Logout</span></a>
+        <!-- <a href="/admin/logout"><i class="bi bi-box-arrow-right text-danger"></i> <span>Logout</span></a> -->
+        <a href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">
+            <i class="bi bi-box-arrow-right text-danger"></i> <span>Logout</span>
+        </a>
+
     </div>
 
     <div class="content">
@@ -155,6 +161,32 @@
             sidebar.classList.toggle('collapsed');
         }
     </script>
+    <?php
+    echo view('/components/autologout');
+    ?>
+
+    <!-- Logout Confirmation Modal -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <i class="bi bi-exclamation-triangle-fill text-danger fs-2"></i>
+                    <p class="mt-3">Are you sure you want to log out?</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <a href="/admin/logout" class="btn btn-danger">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 </body>
 
 </html>

@@ -18,6 +18,7 @@
             cursor: pointer;
         }
     </style>
+    
 </head>
 <?php
         // echo "<pre>";
@@ -67,8 +68,8 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="authDropdown">
                             <li><a class="dropdown-item" href="/signup-user">Signup</a></li>
-                            <li><a class="dropdown-item" href="/login-user">Login</a></li>
-                            <li><a class="dropdown-item" href="/logout-user">Logout</a></li>
+                            <li><a class="dropdown-item" href="/login">Login</a></li>
+                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
                         </ul>
                     </li>
                     <li><a href="MyCart"><i class="bi bi-cart3 fs-1 text-success cursor-pointer "></i></a></li>

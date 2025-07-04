@@ -24,6 +24,7 @@ class Form extends BaseController
 
         return view('index', ['session' => $session]);
     }
+    
     public function listApi()
     {
         return view('user_list_api');

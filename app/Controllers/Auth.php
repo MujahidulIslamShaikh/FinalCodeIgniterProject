@@ -61,6 +61,7 @@ class Auth extends BaseController
 
     public function login()
     {
+        // return "<pre>". print_r(session()->get()) ."</pre>";
         // return view('auth/login');
         return view('loginView');
     }
@@ -86,8 +87,8 @@ class Auth extends BaseController
                 'userName'   => $user['username'],
             ]);
             // return redirect()->to('/dashboard');
-            // return redirect()->to('/');
-            return "<pre>" . print_r($session->get()) . "</pre>";
+            return redirect()->to('/');
+            // return "<pre>" . print_r($session->get()) . "</pre>";
         } else {
             return redirect()->back()->with('error', 'Invalid login credentials');
         }

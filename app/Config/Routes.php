@@ -8,8 +8,9 @@ use CodeIgniter\Router\RouteCollection;
 // $routes->get('/', 'Home::index');
 // $routes->get('hello/(:any)', 'Home::greet/$1');
 
+// $routes->setAutoRoute(false); // ✅ Required!
 
-$routes->get('/', 'Form::index');
+// $routes->get('/', 'Form::index');
 $routes->get('/form', 'Form::formreturn');
 
 $routes->post('/submit-form', 'Form::submit');
@@ -31,7 +32,7 @@ $routes->post('/loginAction', 'Auth::loginAction');
 $routes->get('/logout', 'Auth::logout');
 
 $routes->group('', ['filter' => 'sessionauth'], function ($routes) {
-    $routes->get('/', 'DashboardController::index');
+    $routes->get('/', 'Form::index');
 });
 
 $routes->get('profile', 'UserController::profile', ['filter' => 'sessionauth']);
@@ -165,7 +166,8 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes)
 
 $routes->get('ProductView', 'ProductControllerApi::ProductView', ['namespace' => 'App\Controllers\Api']);
 $routes->get('CreateNewProduct', 'Api\ProductApiController::CreateNewProduct');
-$routes->group('/', ['namespace' => 'App\Controllers\Api'], function ($routes) {
+
+$routes->group('/', ['namespace' => 'App\Controllers\Api', 'filter' => 'sessionauth'], function ($routes) {
     $routes->get('ProdCardDisplayList', 'ProductApiController::ProdCardDisplayList');     // List
     $routes->get('DisplayProdCardDetails/(:num)', 'ProductApiController::DisplayProdCardDetails/$1');     // List
     $routes->get('CartView/(:num)', 'ProductApiController::CartView/$1');     // List
@@ -180,3 +182,6 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes)
     $routes->delete('removeCart/(:num)', 'CartController::removeCart/$1'); // List
     $routes->post('updateCartQuantity', 'CartController::updateCartQuantity'); // List
 });
+
+
+// , 'filter' => 'sessionauth'

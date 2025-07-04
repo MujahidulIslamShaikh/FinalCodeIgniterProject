@@ -34,7 +34,13 @@ class Filters extends BaseFilters
         'forcehttps'    => ForceHTTPS::class,
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
+        'sessionauth' => \App\Filters\SessionAuth::class,
     ];
+    
+    // public $aliases = [
+    //     'sessionauth' => \App\Filters\SessionAuth::class,
+    // ];
+
 
     /**
      * List of special required filters.
@@ -60,6 +66,8 @@ class Filters extends BaseFilters
             'toolbar',     // Debug Toolbar
         ],
     ];
+
+
 
     /**
      * List of filter aliases that are always

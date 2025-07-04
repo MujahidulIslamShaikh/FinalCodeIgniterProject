@@ -12,10 +12,17 @@ class Form extends BaseController
 
     public function index()
     {
-        if (!session()->get('user')) {
-            return redirect()->to('/login-user');
-        }
-        return view('index');
+        // if (!session()->get('user')) {
+        //     return redirect()->to('/login');
+        // }
+        $session = session();
+        // return "abc".$session;   
+        // echo '<pre>';
+        // print_r($session->get());
+        // echo '</pre>';
+        // return;
+
+        return view('index', ['session' => $session]);
     }
     public function listApi()
     {
@@ -24,7 +31,7 @@ class Form extends BaseController
     public function formreturn()
     {
         if (!session()->get('user')) {
-            return redirect()->to('/login-user');
+            return redirect()->to('/login');
         }
         return view('/form');
     }

@@ -4,10 +4,12 @@
 namespace App\Controllers;
 
 use App\Models\SignupModel;
-
+use PHPUnit\Util\Json;
+use ReturnTypeWillChange;
 
 class Auth extends BaseController
 {
+    // ========== Signup Section =================================
     public function signup_user()
     {
         return view('/signupView');
@@ -54,41 +56,56 @@ class Auth extends BaseController
 
         return redirect()->to('/login-user')->with('success', 'Registration successful. Please log in.');
     }
-    public function login_user()
-    {
-        return view('/loginView');
-    }
-    public function dologin_user()
-    {
+    // ========== Login Section =================================
 
+
+    public function login()
+    {
+        // return view('auth/login');
+        return view('loginView');
+    }
+
+    public function loginAction()
+    {
+        $session = session();
+        $model = new SignupModel();
 
         $email = $this->request->getPost('email');
-        $pass = $this->request->getPost('pass');
+        $password = $this->request->getPost('pass');
+        // return "login action " . $password;
 
-        $model = new SignupModel();
-        $user = $model->where('email', $email)->first();
-        session()->set([
-            'email' => $user['email'],
-            'role' => $user['role'],  // if added
-        ]);
 
-        if ($user && password_verify($pass, $user['pass'])) {
-            session()->set('user', $user['email']);
-            return redirect()->to('/');
+        $user = $model->where('email', $email)->first();  // yaha per email se verify hokar user ka pura data aara 
+        // return "<pre>" . print_r($user, true) . "</pre>"; 
+
+        if ($user && password_verify($password, $user['pass'])) {
+            $session->set([
+                'isLoggedIn' => true,
+                'userId'     => $user['id'],
+                'userEmail'  => $user['email'],
+                'userName'   => $user['username'],
+            ]);
+            // return redirect()->to('/dashboard');
+            // return redirect()->to('/');
+            return "<pre>" . print_r($session->get()) . "</pre>";
+        } else {
+            return redirect()->back()->with('error', 'Invalid login credentials');
         }
-
-        return redirect()->back()->with('error', 'Invalid login');
     }
+
     public function logout()
     {
         session()->destroy();
-        return redirect()->to('/login-user');
+        return redirect()->to('/login');
     }
+
+
+    // ========== Forgot Section =================================
+
     public function forgot()
     {
         return view('/forgot');
     }
-
     public function handleForgot()
     {
         $email = $this->request->getPost('email');
@@ -146,3 +163,36 @@ class Auth extends BaseController
         }
     }
 }
+
+
+
+//  public function login_user()
+//     {
+//         return view('/loginView');
+//     }
+
+//     public function dologin_user()
+//     {
+//         $email = $this->request->getPost('email');
+//         $pass = $this->request->getPost('pass');
+
+//         $model = new SignupModel();
+//         $user = $model->where('email', $email)->first();
+//         session()->set([
+//             'email' => $user['email'],
+//             'role' => $user['role'],  // if added
+//         ]);
+
+//         if ($user && password_verify($pass, $user['pass'])) {
+//             session()->set('user', $user['email']);
+//             return redirect()->to('/');
+//         }
+
+//         return redirect()->back()->with('error', 'Invalid login');
+//     }
+
+//     public function logout()
+//     {
+//         session()->destroy();
+//         return redirect()->to('/login-user');
+//     }

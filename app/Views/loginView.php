@@ -17,7 +17,7 @@
         <div class="col-md-6">
             <h2 class="text-center mb-4">Login Here</h2>
 
-            <form action="/login-user" method="post">
+            <form action="/loginAction" method="post">
                 <div class="mb-3">
                     <label for="email" class="form-label">Your Email</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>

@@ -19,6 +19,12 @@
         }
     </style>
 </head>
+<?php
+        // echo "<pre>";
+        // print_r($session->get());
+        // echo "</pre>";
+
+?>
 
 <body>
 

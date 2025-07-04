@@ -26,13 +26,19 @@ $routes->post('/update-user/(:num)', 'Form::update_user/$1');
 $routes->get('/signup-user', 'Auth::signup_user');
 $routes->post('/signup-user', 'Auth::dosignup_user');
 
-$routes->get('/login-user', 'Auth::login_user');
+$routes->get('/login', 'Auth::login');
+$routes->post('/loginAction', 'Auth::loginAction');
+$routes->get('/logout', 'Auth::logout');
+
+$routes->group('', ['filter' => 'sessionauth'], function ($routes) {
+    $routes->get('/', 'DashboardController::index');
+});
+
+$routes->get('profile', 'UserController::profile', ['filter' => 'sessionauth']);
+
 $routes->get('/Noor', 'Auth::loginuserlist');
 
 
-
-$routes->post('/login-user', 'Auth::dologin_user');
-$routes->get('/logout-user', 'Auth::logout');
 
 $routes->get('forgot', 'Auth::forgot');
 $routes->post('forgot', 'Auth::handleForgot');
@@ -108,7 +114,7 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes)
 // });
 
 // =============== IMAGE FILE UPLOAD API HERE ============================
-$routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes) {
+$routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes) {
     $routes->post('imageupload/upload', 'ImageUploadController::upload');
 });
 
@@ -156,14 +162,14 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes)
 });
 
 
-       
+
 $routes->get('ProductView', 'ProductControllerApi::ProductView', ['namespace' => 'App\Controllers\Api']);
 $routes->get('CreateNewProduct', 'Api\ProductApiController::CreateNewProduct');
 $routes->group('/', ['namespace' => 'App\Controllers\Api'], function ($routes) {
     $routes->get('ProdCardDisplayList', 'ProductApiController::ProdCardDisplayList');     // List
     $routes->get('DisplayProdCardDetails/(:num)', 'ProductApiController::DisplayProdCardDetails/$1');     // List
     $routes->get('CartView/(:num)', 'ProductApiController::CartView/$1');     // List
-});   
+});
 
 $routes->get('ProdCartDetails', 'CartController::ProdCartDetails', ['namespace' => 'App\Controllers\Api']);
 $routes->get('MyCart', 'CartController::MyCart', ['namespace' => 'App\Controllers\Api']);

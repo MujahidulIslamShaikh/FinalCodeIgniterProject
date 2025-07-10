@@ -118,7 +118,7 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes)
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes) {
     $routes->post('imageupload/upload', 'ImageUploadController::upload');
 });
-
+     
 
 $routes->get('/CreateProductView', 'GeneralController::CreateProductView');
 $routes->get('/insertDummyCategories', 'GeneralController::insertDummyCategories');
@@ -144,7 +144,7 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes)
 });
 
 $routes->get('ShowListCategory', 'Api\ProdCategoryApiController::ShowListCategory');
-$routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes) {
+$routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes) {    
     $routes->get('category', 'ProdCategoryApiController::index');         // List
     $routes->get('category/(:num)', 'ProdCategoryApiController::show/$1'); // Single
     $routes->post('category', 'ProdCategoryApiController::create');        // Create

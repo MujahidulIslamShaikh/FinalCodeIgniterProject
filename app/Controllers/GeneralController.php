@@ -105,6 +105,8 @@ class GeneralController extends BaseController
         $model->insertBatch($data);
         return "5 dummy brands inserted.";
     }
+    // ========================================================
+
     public function product_list_pdf()
     {
         $model = new ProductApiModel();
@@ -215,7 +217,6 @@ class GeneralController extends BaseController
 
     public function BrandView()
     {
-
         return view('brand/BrandView');
     }
 

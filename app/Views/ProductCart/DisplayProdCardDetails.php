@@ -27,8 +27,8 @@
                     <div class="row g-0">
                         <div class="col-md-5">
                         <img src="/${prod.ProdImage || '/assets/no-image.png'}" 
-     class="img-fluid rounded-start" 
-     alt="${prod.ProdName}">
+                            class="img-fluid rounded-start" 
+                            alt="${prod.ProdName}">
                         </div>
 
                         <div class="col-md-7">
@@ -55,7 +55,6 @@
 			console.error("Failed to load product info:", error);
 		}
 	}
-
 	loadProductInfo();
 </script>
 
